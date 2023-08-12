@@ -22,6 +22,9 @@ namespace ServiceReference1
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/VerificaOperador", ReplyAction="http://tempuri.org/IService1/VerificaOperadorResponse")]
         System.Threading.Tasks.Task<int> VerificaOperadorAsync(int ID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/VerificaLogin", ReplyAction="http://tempuri.org/IService1/VerificaLoginResponse")]
+        System.Threading.Tasks.Task<int> VerificaLoginAsync(int ID, int senha);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetNome", ReplyAction="http://tempuri.org/IService1/GetNomeResponse")]
         System.Threading.Tasks.Task<string> GetNomeAsync(int id);
     }
@@ -84,6 +87,11 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<int> VerificaOperadorAsync(int ID)
         {
             return base.Channel.VerificaOperadorAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<int> VerificaLoginAsync(int ID, int senha)
+        {
+            return base.Channel.VerificaLoginAsync(ID, senha);
         }
         
         public System.Threading.Tasks.Task<string> GetNomeAsync(int id)

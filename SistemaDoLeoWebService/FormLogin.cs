@@ -48,13 +48,13 @@ namespace SistemaDoLeoWebService
                 }
                 else if (resultado.Equals(1))
                 {
-                    MessageBox.Show("Operador " + ID + " Inativo");
+                    MessageBox.Show("Operador " + ID + " Inativo", nomeForm());
                     TxtID.Text = "";
                     TxtID.Focus();
                 }
                 else if (resultado.Equals(2))
                 {
-                    MessageBox.Show("Operador não Cadastrado");
+                    MessageBox.Show("Operador não Cadastrado", nomeForm());
                     TxtID.Text = "";
                     TxtID.Focus();
                 }
@@ -68,7 +68,7 @@ namespace SistemaDoLeoWebService
 
         private void TxtID_TextChanged(object sender, EventArgs e)
         {
-            limpaCampos();
+            limpaCamposMenosID();
         }
 
         private void TxtSenha_TextChanged(object sender, EventArgs e)
@@ -81,10 +81,18 @@ namespace SistemaDoLeoWebService
             if (e.KeyChar == 13) // ENTER
             {
                 BtnAcessar.Focus();
+                e.Handled = true;
             }
         }
 
         private void limpaCampos()
+        {
+            TxtID.Text = string.Empty;
+            TxtSenha.Text = string.Empty;
+            LblNomeOperador.Text = string.Empty;
+        }
+
+        private void limpaCamposMenosID()
         {
             TxtSenha.Text = string.Empty;
             LblNomeOperador.Text = string.Empty;
@@ -100,12 +108,12 @@ namespace SistemaDoLeoWebService
             // VERIFICA SE OS CAMPOS ESTÃO PREENCHIDOS
             if (TxtID.Text == "")
             {
-                MessageBox.Show("Informe um operador!");
+                MessageBox.Show("Informe um operador!", nomeForm());
                 TxtID.Focus();
             }
             else if (TxtSenha.Text == "")
             {
-                MessageBox.Show("Informe a senha!");
+                MessageBox.Show("Informe a senha!", nomeForm());
                 TxtSenha.Focus();
             }
             else
@@ -115,32 +123,43 @@ namespace SistemaDoLeoWebService
                 Senha = int.Parse(TxtSenha.Text);
 
                 // CHAMA A FUNÇÃO DO WEB SERVICE
-                int resultado = WebReference.VerificaOperadorAsync(ID).Result;
+                int resultado = WebReference.VerificaLoginAsync(ID, Senha).Result;
 
                 // VERIFICA OS RESULTADOS
                 if (resultado.Equals(0))
                 {
-                    LblNomeOperador.Text = WebReference.getNomeOperadorAsync(ID).Result;
+                    MessageBox.Show("Deu tudo certo!", nomeForm());
                 }
                 else if (resultado.Equals(1))
                 {
-                    MessageBox.Show("Operador " + ID + " Inativo");
-                    TxtID.Text = "";
+                    MessageBox.Show("Senha incorreta!", nomeForm());
+                    limpaCampos();
                     TxtID.Focus();
                 }
                 else if (resultado.Equals(2))
                 {
-                    MessageBox.Show("Operador não Cadastrado");
-                    TxtID.Text = "";
+                    MessageBox.Show("Operador " + ID + " inativo!", nomeForm());
+                    limpaCampos();
+                    TxtID.Focus();
+                }
+                else if (resultado.Equals(3))
+                {
+                    MessageBox.Show("Operador " + ID + " não Cadastrado", nomeForm());
+                    limpaCampos();
                     TxtID.Focus();
                 }
                 else if (resultado.Equals(-1))
                 {
-                    MessageBox.Show("Ocorreu um erro ao tentar verificar o Operador");
-                    TxtID.Text = "";
+                    MessageBox.Show("Ocorreu um erro ao tentar verificar o Operador", nomeForm());
+                    limpaCampos();
                     TxtID.Focus();
                 }
             }
+        }
+
+        private string nomeForm()
+        {
+            return "Login";
         }
     }
 
