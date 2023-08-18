@@ -1,10 +1,14 @@
 using Microsoft.VisualBasic;
 using System.Data;
+using System.Reflection;
 
 namespace SistemaDoLeoWebService
 {
     public partial class FormLogin : Form
     {
+        private Thread thread;
+
+
         public FormLogin()
         {
 
@@ -128,7 +132,11 @@ namespace SistemaDoLeoWebService
                 // VERIFICA OS RESULTADOS
                 if (resultado.Equals(0))
                 {
-                    MessageBox.Show("Deu tudo certo!", nomeForm());
+                    // CHAMA O FORM MAIN
+                    this.Close();
+                    thread = new Thread(abriNovaJanela); // CRIA UMA NOVA THREAD PASSANDO O METODO QUE CHAMA A NOVA TELA
+                    thread.SetApartmentState(ApartmentState.STA); // DEFINE O ESTADO DA THREAD ANTES DELA SER INICIALIZADA
+                    thread.Start(); // STARTA A THREAD
                 }
                 else if (resultado.Equals(1))
                 {
@@ -157,9 +165,22 @@ namespace SistemaDoLeoWebService
             }
         }
 
+        private void abriNovaJanela()
+        {
+            Application.Run(new FormMain());
+        }
+
         private string nomeForm()
         {
             return "Login";
+        }
+
+        private void FormLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Application.Exit();
+            }
         }
     }
 

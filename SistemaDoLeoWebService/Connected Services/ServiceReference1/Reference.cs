@@ -9,7 +9,75 @@
 
 namespace ServiceReference1
 {
+    using System.Runtime.Serialization;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ConfiguracoesGerais", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class ConfiguracoesGerais : object
+    {
+        
+        private bool getSetAlterarValorItemField;
+        
+        private double getSetMaxDescontoItensPedidoField;
+        
+        private double getSetMaxDescontoPedidoField;
+        
+        private bool getSetVendaItemNegativoField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool getSetAlterarValorItem
+        {
+            get
+            {
+                return this.getSetAlterarValorItemField;
+            }
+            set
+            {
+                this.getSetAlterarValorItemField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetMaxDescontoItensPedido
+        {
+            get
+            {
+                return this.getSetMaxDescontoItensPedidoField;
+            }
+            set
+            {
+                this.getSetMaxDescontoItensPedidoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetMaxDescontoPedido
+        {
+            get
+            {
+                return this.getSetMaxDescontoPedidoField;
+            }
+            set
+            {
+                this.getSetMaxDescontoPedidoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool getSetVendaItemNegativo
+        {
+            get
+            {
+                return this.getSetVendaItemNegativoField;
+            }
+            set
+            {
+                this.getSetVendaItemNegativoField = value;
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
@@ -27,6 +95,12 @@ namespace ServiceReference1
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetNome", ReplyAction="http://tempuri.org/IService1/GetNomeResponse")]
         System.Threading.Tasks.Task<string> GetNomeAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetDadosConfiguracoesGerais", ReplyAction="http://tempuri.org/IService1/GetDadosConfiguracoesGeraisResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.ConfiguracoesGerais> GetDadosConfiguracoesGeraisAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SalvarConfiguracoesGerais", ReplyAction="http://tempuri.org/IService1/SalvarConfiguracoesGeraisResponse")]
+        System.Threading.Tasks.Task<int> SalvarConfiguracoesGeraisAsync(ServiceReference1.ConfiguracoesGerais config);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
@@ -97,6 +171,16 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<string> GetNomeAsync(int id)
         {
             return base.Channel.GetNomeAsync(id);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.ConfiguracoesGerais> GetDadosConfiguracoesGeraisAsync()
+        {
+            return base.Channel.GetDadosConfiguracoesGeraisAsync();
+        }
+        
+        public System.Threading.Tasks.Task<int> SalvarConfiguracoesGeraisAsync(ServiceReference1.ConfiguracoesGerais config)
+        {
+            return base.Channel.SalvarConfiguracoesGeraisAsync(config);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

@@ -136,11 +136,13 @@
             Controls.Add(label2);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            KeyPreview = true;
             MaximizeBox = false;
             Name = "FormLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Sistema do Leo - Login";
             Load += Form1_Load;
+            KeyDown += FormLogin_KeyDown;
             ResumeLayout(false);
             PerformLayout();
         }
