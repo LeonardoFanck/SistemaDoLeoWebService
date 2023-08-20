@@ -31,6 +31,8 @@
             menuStrip1 = new MenuStrip();
             MenuMainTelasDeAcesso = new ToolStripMenuItem();
             MenuMainPedidos = new ToolStripMenuItem();
+            MenuMainCadastroClienteFornecedor = new ToolStripMenuItem();
+            MenuMainCadastroProdutos = new ToolStripMenuItem();
             MenuMainRelatorios = new ToolStripMenuItem();
             relatorioGeralDePedidosToolStripMenuItem = new ToolStripMenuItem();
             MenuMainConfiguraçõesDoSistema = new ToolStripMenuItem();
@@ -51,7 +53,7 @@
             // 
             // MenuMainTelasDeAcesso
             // 
-            MenuMainTelasDeAcesso.DropDownItems.AddRange(new ToolStripItem[] { MenuMainPedidos });
+            MenuMainTelasDeAcesso.DropDownItems.AddRange(new ToolStripItem[] { MenuMainPedidos, MenuMainCadastroClienteFornecedor, MenuMainCadastroProdutos });
             MenuMainTelasDeAcesso.Name = "MenuMainTelasDeAcesso";
             MenuMainTelasDeAcesso.Size = new Size(100, 20);
             MenuMainTelasDeAcesso.Text = "Telas de Acesso";
@@ -59,9 +61,22 @@
             // MenuMainPedidos
             // 
             MenuMainPedidos.Name = "MenuMainPedidos";
-            MenuMainPedidos.Size = new Size(180, 22);
+            MenuMainPedidos.Size = new Size(226, 22);
             MenuMainPedidos.Text = "Pedidos";
             MenuMainPedidos.Click += MenuMainPedidos_Click;
+            // 
+            // MenuMainCadastroClienteFornecedor
+            // 
+            MenuMainCadastroClienteFornecedor.Name = "MenuMainCadastroClienteFornecedor";
+            MenuMainCadastroClienteFornecedor.Size = new Size(226, 22);
+            MenuMainCadastroClienteFornecedor.Text = "Cadastro Cliente/Fornecedor";
+            // 
+            // MenuMainCadastroProdutos
+            // 
+            MenuMainCadastroProdutos.Name = "MenuMainCadastroProdutos";
+            MenuMainCadastroProdutos.Size = new Size(226, 22);
+            MenuMainCadastroProdutos.Text = "Cadastro Produtos";
+            MenuMainCadastroProdutos.Click += MenuMainCadastroProdutos_Click;
             // 
             // MenuMainRelatorios
             // 
@@ -111,6 +126,7 @@
             ClientSize = new Size(1160, 626);
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
             Name = "FormMain";
             Text = "Principal";
@@ -133,5 +149,7 @@
         private ToolStripMenuItem configuraçõesGeraisToolStripMenuItem;
         private ToolStripMenuItem MenuMainSobre;
         private ToolStripMenuItem MenuMainInfoSistemaDoLeo;
+        private ToolStripMenuItem MenuMainCadastroClienteFornecedor;
+        private ToolStripMenuItem MenuMainCadastroProdutos;
     }
 }

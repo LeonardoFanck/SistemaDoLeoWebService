@@ -43,7 +43,7 @@
             // 
             // BtnSalvar
             // 
-            BtnSalvar.Location = new Point(229, 407);
+            BtnSalvar.Location = new Point(173, 395);
             BtnSalvar.Name = "BtnSalvar";
             BtnSalvar.Size = new Size(102, 35);
             BtnSalvar.TabIndex = 7;
@@ -53,7 +53,7 @@
             // 
             // TxtMaxDescPedido
             // 
-            TxtMaxDescPedido.Location = new Point(172, 50);
+            TxtMaxDescPedido.Location = new Point(176, 24);
             TxtMaxDescPedido.MaxLength = 6;
             TxtMaxDescPedido.Name = "TxtMaxDescPedido";
             TxtMaxDescPedido.Size = new Size(69, 23);
@@ -63,7 +63,7 @@
             // 
             // TxtMaxDescItemPedido
             // 
-            TxtMaxDescItemPedido.Location = new Point(172, 98);
+            TxtMaxDescItemPedido.Location = new Point(176, 72);
             TxtMaxDescItemPedido.MaxLength = 6;
             TxtMaxDescItemPedido.Name = "TxtMaxDescItemPedido";
             TxtMaxDescItemPedido.Size = new Size(69, 23);
@@ -73,7 +73,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 53);
+            label1.Location = new Point(16, 27);
             label1.Name = "label1";
             label1.Size = new Size(126, 15);
             label1.TabIndex = 2;
@@ -82,7 +82,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 101);
+            label2.Location = new Point(16, 75);
             label2.Name = "label2";
             label2.Size = new Size(154, 15);
             label2.TabIndex = 3;
@@ -91,7 +91,7 @@
             // ChkBoxPedido
             // 
             ChkBoxPedido.AutoSize = true;
-            ChkBoxPedido.Location = new Point(247, 52);
+            ChkBoxPedido.Location = new Point(251, 26);
             ChkBoxPedido.Name = "ChkBoxPedido";
             ChkBoxPedido.Size = new Size(192, 19);
             ChkBoxPedido.TabIndex = 4;
@@ -102,7 +102,7 @@
             // ChkBoxItemPedido
             // 
             ChkBoxItemPedido.AutoSize = true;
-            ChkBoxItemPedido.Location = new Point(247, 102);
+            ChkBoxItemPedido.Location = new Point(251, 76);
             ChkBoxItemPedido.Name = "ChkBoxItemPedido";
             ChkBoxItemPedido.Size = new Size(192, 19);
             ChkBoxItemPedido.TabIndex = 6;
@@ -112,7 +112,7 @@
             // 
             // BtnSair
             // 
-            BtnSair.Location = new Point(461, 407);
+            BtnSair.Location = new Point(405, 395);
             BtnSair.Name = "BtnSair";
             BtnSair.Size = new Size(102, 35);
             BtnSair.TabIndex = 8;
@@ -123,7 +123,7 @@
             // ChkBoxVendaEstoqueNegativo
             // 
             ChkBoxVendaEstoqueNegativo.AutoSize = true;
-            ChkBoxVendaEstoqueNegativo.Location = new Point(15, 165);
+            ChkBoxVendaEstoqueNegativo.Location = new Point(19, 139);
             ChkBoxVendaEstoqueNegativo.Name = "ChkBoxVendaEstoqueNegativo";
             ChkBoxVendaEstoqueNegativo.Size = new Size(226, 19);
             ChkBoxVendaEstoqueNegativo.TabIndex = 9;
@@ -133,7 +133,7 @@
             // ChkBoxAlterarValorItens
             // 
             ChkBoxAlterarValorItens.AutoSize = true;
-            ChkBoxAlterarValorItens.Location = new Point(15, 201);
+            ChkBoxAlterarValorItens.Location = new Point(19, 175);
             ChkBoxAlterarValorItens.Name = "ChkBoxAlterarValorItens";
             ChkBoxAlterarValorItens.Size = new Size(195, 19);
             ChkBoxAlterarValorItens.TabIndex = 10;
@@ -144,7 +144,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(862, 488);
+            ClientSize = new Size(703, 488);
+            ControlBox = false;
             Controls.Add(ChkBoxAlterarValorItens);
             Controls.Add(ChkBoxVendaEstoqueNegativo);
             Controls.Add(BtnSair);

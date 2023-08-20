@@ -82,6 +82,11 @@ namespace SistemaDoLeoWebService
 
         private void TxtSenha_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8) // SOMENTE NÚMERO E BACKSPACE
+            {
+                e.Handled = true;
+            }
+
             if (e.KeyChar == 13) // ENTER
             {
                 BtnAcessar.Focus();

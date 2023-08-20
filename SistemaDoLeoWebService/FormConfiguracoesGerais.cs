@@ -13,9 +13,12 @@ namespace SistemaDoLeoWebService
 {
     public partial class FormConfiguracoesGerais : Form
     {
+        private FormMain formMain = new FormMain();
+
         public FormConfiguracoesGerais()
         {
             InitializeComponent();
+            this.TopMost = true;
         }
 
         private void FormConfiguracoesGerais_Load(object sender, EventArgs e)

@@ -44,7 +44,16 @@ namespace SistemaDoLeoWebService
         private void configuraçõesGeraisToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormConfiguracoesGerais formConfiguracoesGerais = new FormConfiguracoesGerais();
+            //formConfiguracoesGerais.MdiParent = this;
+
             formConfiguracoesGerais.Show();
+        }
+
+        private void MenuMainCadastroProdutos_Click(object sender, EventArgs e)
+        {
+            FormCadastroProdutos formCadastroProdutos = new FormCadastroProdutos();
+            formCadastroProdutos.MdiParent = this;
+            formCadastroProdutos.Show();
         }
     }
 }
