@@ -79,6 +79,200 @@ namespace ServiceReference1
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Produto", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class Produto : object
+    {
+        
+        private int getSetCategoriaField;
+        
+        private double getSetCustoField;
+        
+        private int getSetIDField;
+        
+        private string getSetNomeField;
+        
+        private bool getSetStatusField;
+        
+        private double getSetValorField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetCategoria
+        {
+            get
+            {
+                return this.getSetCategoriaField;
+            }
+            set
+            {
+                this.getSetCategoriaField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetCusto
+        {
+            get
+            {
+                return this.getSetCustoField;
+            }
+            set
+            {
+                this.getSetCustoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetID
+        {
+            get
+            {
+                return this.getSetIDField;
+            }
+            set
+            {
+                this.getSetIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetNome
+        {
+            get
+            {
+                return this.getSetNomeField;
+            }
+            set
+            {
+                this.getSetNomeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool getSetStatus
+        {
+            get
+            {
+                return this.getSetStatusField;
+            }
+            set
+            {
+                this.getSetStatusField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetValor
+        {
+            get
+            {
+                return this.getSetValorField;
+            }
+            set
+            {
+                this.getSetValorField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Categoria", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class Categoria : object
+    {
+        
+        private int IDField;
+        
+        private string NomeField;
+        
+        private bool StatusField;
+        
+        private int getSetIDField;
+        
+        private string getSetNomeField;
+        
+        private bool getSetStatusField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ID
+        {
+            get
+            {
+                return this.IDField;
+            }
+            set
+            {
+                this.IDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nome
+        {
+            get
+            {
+                return this.NomeField;
+            }
+            set
+            {
+                this.NomeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Status
+        {
+            get
+            {
+                return this.StatusField;
+            }
+            set
+            {
+                this.StatusField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetID
+        {
+            get
+            {
+                return this.getSetIDField;
+            }
+            set
+            {
+                this.getSetIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetNome
+        {
+            get
+            {
+                return this.getSetNomeField;
+            }
+            set
+            {
+                this.getSetNomeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool getSetStatus
+        {
+            get
+            {
+                return this.getSetStatusField;
+            }
+            set
+            {
+                this.getSetStatusField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1
@@ -101,6 +295,24 @@ namespace ServiceReference1
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SalvarConfiguracoesGerais", ReplyAction="http://tempuri.org/IService1/SalvarConfiguracoesGeraisResponse")]
         System.Threading.Tasks.Task<int> SalvarConfiguracoesGeraisAsync(ServiceReference1.ConfiguracoesGerais config);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetProduto", ReplyAction="http://tempuri.org/IService1/GetProdutoResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.Produto> GetProdutoAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetProdutoInicial", ReplyAction="http://tempuri.org/IService1/GetProdutoInicialResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.Produto> GetProdutoInicialAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AvancarRegistroProduto", ReplyAction="http://tempuri.org/IService1/AvancarRegistroProdutoResponse")]
+        System.Threading.Tasks.Task<int> AvancarRegistroProdutoAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/VoltarRegistroProduto", ReplyAction="http://tempuri.org/IService1/VoltarRegistroProdutoResponse")]
+        System.Threading.Tasks.Task<int> VoltarRegistroProdutoAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetEstoqueProduto", ReplyAction="http://tempuri.org/IService1/GetEstoqueProdutoResponse")]
+        System.Threading.Tasks.Task<int> GetEstoqueProdutoAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListNomeCategoria", ReplyAction="http://tempuri.org/IService1/GetListNomeCategoriaResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.Categoria[]> GetListNomeCategoriaAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
@@ -181,6 +393,36 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<int> SalvarConfiguracoesGeraisAsync(ServiceReference1.ConfiguracoesGerais config)
         {
             return base.Channel.SalvarConfiguracoesGeraisAsync(config);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.Produto> GetProdutoAsync(int id)
+        {
+            return base.Channel.GetProdutoAsync(id);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.Produto> GetProdutoInicialAsync()
+        {
+            return base.Channel.GetProdutoInicialAsync();
+        }
+        
+        public System.Threading.Tasks.Task<int> AvancarRegistroProdutoAsync(int ID)
+        {
+            return base.Channel.AvancarRegistroProdutoAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<int> VoltarRegistroProdutoAsync(int ID)
+        {
+            return base.Channel.VoltarRegistroProdutoAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetEstoqueProdutoAsync(int ID)
+        {
+            return base.Channel.GetEstoqueProdutoAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.Categoria[]> GetListNomeCategoriaAsync()
+        {
+            return base.Channel.GetListNomeCategoriaAsync();
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

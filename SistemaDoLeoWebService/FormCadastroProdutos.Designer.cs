@@ -161,7 +161,7 @@
             CBoxCategoria.FormattingEnabled = true;
             CBoxCategoria.Location = new Point(95, 151);
             CBoxCategoria.Name = "CBoxCategoria";
-            CBoxCategoria.Size = new Size(121, 23);
+            CBoxCategoria.Size = new Size(257, 23);
             CBoxCategoria.TabIndex = 13;
             // 
             // BtnID
@@ -191,6 +191,7 @@
             BtnCancelar.TabIndex = 16;
             BtnCancelar.Text = "Cancelar";
             BtnCancelar.UseVisualStyleBackColor = true;
+            BtnCancelar.Click += BtnCancelar_Click;
             // 
             // BtnNovo
             // 
@@ -200,6 +201,7 @@
             BtnNovo.TabIndex = 17;
             BtnNovo.Text = "Novo";
             BtnNovo.UseVisualStyleBackColor = true;
+            BtnNovo.Click += BtnNovo_Click;
             // 
             // BtnAlterar
             // 
@@ -209,6 +211,7 @@
             BtnAlterar.TabIndex = 18;
             BtnAlterar.Text = "Alterar";
             BtnAlterar.UseVisualStyleBackColor = true;
+            BtnAlterar.Click += BtnAlterar_Click;
             // 
             // BtnVoltar
             // 
@@ -218,6 +221,7 @@
             BtnVoltar.TabIndex = 19;
             BtnVoltar.Text = "<";
             BtnVoltar.UseVisualStyleBackColor = true;
+            BtnVoltar.Click += BtnVoltar_Click;
             // 
             // BtnAvancar
             // 
@@ -227,6 +231,7 @@
             BtnAvancar.TabIndex = 20;
             BtnAvancar.Text = ">";
             BtnAvancar.UseVisualStyleBackColor = true;
+            BtnAvancar.Click += BtnAvancar_Click;
             // 
             // FormCadastroProdutos
             // 

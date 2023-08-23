@@ -46,14 +46,32 @@ namespace SistemaDoLeoWebService
             FormConfiguracoesGerais formConfiguracoesGerais = new FormConfiguracoesGerais();
             //formConfiguracoesGerais.MdiParent = this;
 
-            formConfiguracoesGerais.Show();
+            // VALIDA SE O FORM JÁ ESTÁ ABERTO
+            if (Application.OpenForms.OfType<FormConfiguracoesGerais>().Count() > 0)
+            {
+                // FORM JÁ ABERTO
+            }
+            else
+            {
+                formConfiguracoesGerais.Show();
+            }
         }
 
         private void MenuMainCadastroProdutos_Click(object sender, EventArgs e)
         {
             FormCadastroProdutos formCadastroProdutos = new FormCadastroProdutos();
             formCadastroProdutos.MdiParent = this;
-            formCadastroProdutos.Show();
+            
+            // VALIDA SE O FORM JÁ ESTÁ ABERTO
+            if (Application.OpenForms.OfType<FormCadastroProdutos>().Count() > 0)
+            {
+                // FORM JÁ ABERTO
+                Application.OpenForms["FormCadastroProdutos"].BringToFront();
+            }
+            else
+            {
+                formCadastroProdutos.Show();
+            }
         }
     }
 }
