@@ -311,6 +311,12 @@ namespace ServiceReference1
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetEstoqueProduto", ReplyAction="http://tempuri.org/IService1/GetEstoqueProdutoResponse")]
         System.Threading.Tasks.Task<int> GetEstoqueProdutoAsync(int ID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SalvarProduto", ReplyAction="http://tempuri.org/IService1/SalvarProdutoResponse")]
+        System.Threading.Tasks.Task<int> SalvarProdutoAsync(ServiceReference1.Produto produto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetProximoRegistroProduto", ReplyAction="http://tempuri.org/IService1/GetProximoRegistroProdutoResponse")]
+        System.Threading.Tasks.Task<int> GetProximoRegistroProdutoAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListNomeCategoria", ReplyAction="http://tempuri.org/IService1/GetListNomeCategoriaResponse")]
         System.Threading.Tasks.Task<ServiceReference1.Categoria[]> GetListNomeCategoriaAsync();
     }
@@ -418,6 +424,16 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<int> GetEstoqueProdutoAsync(int ID)
         {
             return base.Channel.GetEstoqueProdutoAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<int> SalvarProdutoAsync(ServiceReference1.Produto produto)
+        {
+            return base.Channel.SalvarProdutoAsync(produto);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetProximoRegistroProdutoAsync()
+        {
+            return base.Channel.GetProximoRegistroProdutoAsync();
         }
         
         public System.Threading.Tasks.Task<ServiceReference1.Categoria[]> GetListNomeCategoriaAsync()

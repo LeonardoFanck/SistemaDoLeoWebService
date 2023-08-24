@@ -1,5 +1,7 @@
 using Microsoft.VisualBasic;
+using SistemaDoLeoWebService.Exceptions;
 using System.Data;
+using System.Data.SqlTypes;
 using System.Reflection;
 
 namespace SistemaDoLeoWebService
@@ -37,32 +39,40 @@ namespace SistemaDoLeoWebService
         {
             // VAI CHAMAR A FUNÇÃO QUE CONECTA COM O WEB SERVICE
             // E CHAMAR O VALIDA OPERADOR
-
+            
             int ID;
             var WebReference = new ServiceReference1.Service1Client();
-
-            if (TxtID.Text != "")
+            try
             {
-                ID = int.Parse(TxtID.Text);
-                int resultado = WebReference.VerificaOperadorAsync(ID).Result;
-
-                if (resultado.Equals(0))
+                if (TxtID.Text != "")
                 {
-                    LblNomeOperador.Text = WebReference.getNomeOperadorAsync(ID).Result;
-                }
-                else if (resultado.Equals(1))
-                {
-                    MessageBox.Show("Operador " + ID + " Inativo", nomeForm());
-                    TxtID.Text = "";
-                    TxtID.Focus();
-                }
-                else if (resultado.Equals(2))
-                {
-                    MessageBox.Show("Operador não Cadastrado", nomeForm());
-                    TxtID.Text = "";
-                    TxtID.Focus();
+                    ID = int.Parse(TxtID.Text);
+                    int resultado = WebReference.VerificaOperadorAsync(ID).Result;
+                    
+                    if (resultado.Equals(0))
+                    {
+                        LblNomeOperador.Text = WebReference.getNomeOperadorAsync(ID).Result;
+                    }
+                    else if (resultado.Equals(1))
+                    {
+                        MessageBox.Show("Operador " + ID + " Inativo", nomeForm());
+                        TxtID.Text = "";
+                        TxtID.Focus();
+                    }
+                    else if (resultado.Equals(2))
+                    {
+                        MessageBox.Show("Operador não Cadastrado", nomeForm());
+                        TxtID.Text = "";
+                        TxtID.Focus();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+            
         }
 
         private void BtnFinalizar_Click(object sender, EventArgs e)

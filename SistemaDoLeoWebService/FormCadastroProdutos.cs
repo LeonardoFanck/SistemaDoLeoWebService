@@ -77,7 +77,7 @@ namespace SistemaDoLeoWebService
             // DEFINIR O NOME DO FORM
             this.Text = nomeForm;
 
-            // MOSTRANDO AS INFORMAÇÕES DO PRODUTO INICIAL NA TELA
+            // MOSTRANDO AS INFORMAÇÕES DO PRODUTO INICIAL NA TELA (ULTIMO PRODUTO)
             getSetStatus = 2;
             validarAcoes();  // 0 -> Novo | 1 -> Edição | 2 -> Visualização
             preencheCategoria();
@@ -158,7 +158,7 @@ namespace SistemaDoLeoWebService
             {
                 // PEGAR O ID DO PRODUTO
                 // SELECT MAX + 1
-                TxtID.Text = string.Empty;
+                proximoRegistro();
                 TxtNome.Text = string.Empty;
                 CBoxCategoria.Text = string.Empty;
                 TxtValor.Text = string.Empty;
@@ -279,6 +279,13 @@ namespace SistemaDoLeoWebService
             validarAcoes();
         }
 
+        public void proximoRegistro()
+        {
+            var WebService = new ServiceReference1.Service1Client();
+
+            TxtID.Text = WebService.GetProximoRegistroProdutoAsync().Result.ToString();
+        }
+
         public void validarCancelamento()
         {
             DialogResult validar;
@@ -322,6 +329,98 @@ namespace SistemaDoLeoWebService
             {
                 CBoxCategoria.Items.Add(categoria.getSetID + " - " + categoria.getSetNome);
             }
+        }
+
+        public int pegarCategoria()
+        {
+            foreach (var categoria in categorias)
+            {
+                if (CBoxCategoria.Text == categoria.getSetID + " - " + categoria.getSetNome)
+                {
+                    return categoria.getSetID;
+                }
+            }
+
+            return -1;
+        }
+
+        private void BtnSalvar_Click(object sender, EventArgs e)
+        {
+            var WebService = new ServiceReference1.Service1Client();
+            int ID;
+
+            if (getSetStatus == 0)
+            {
+                ID = -1;
+            }
+            else
+            {
+                ID = Convert.ToInt32(TxtID.Text);
+            }
+
+            if (validarCampos() == true)
+            {
+                Produto produto = new Produto();
+                produto.getSetID = ID;
+                produto.getSetNome = TxtNome.Text;
+                produto.getSetCategoria = pegarCategoria();
+                produto.getSetValor = Convert.ToDouble(TxtValor.Text);
+                produto.getSetCusto = Convert.ToDouble(TxtCusto.Text);
+                produto.getSetStatus = ChkBoxInativo.Checked;
+
+                validarRetorno(WebService.SalvarProdutoAsync(produto).Result);
+            }
+        }
+
+        public void validarRetorno(int retorno)
+        {
+            if (retorno == 0)
+            {
+                MessageBox.Show("Produto alterado com Sucesso");
+                getSetStatus = 2; // STATUS 2 -> VISUALIZAÇÃO
+                validarAcoes();
+            }
+            else if (retorno == 1)
+            {
+                MessageBox.Show("Produto cadastrado com Sucesso");
+                getSetStatus = 2; // STATUS 2 -> VISUALIZAÇÃO
+                validarAcoes();
+                PrimeiroProduto();
+            }
+            else if (retorno == 2)
+            {
+                MessageBox.Show("Ocorreu algum erro ao tentar finalizar a Operação");
+            }
+        }
+
+        public bool validarCampos()
+        {
+            if (TxtNome.Text == "")
+            {
+                MessageBox.Show("Necessário informar um Nome para o Produto");
+                TxtNome.Focus();
+                return false;
+            }
+            else if (CBoxCategoria.Text == "")
+            {
+                MessageBox.Show("Necessário informar uma Categoria para o Produto");
+                CBoxCategoria.Focus();
+                return false;
+            }
+            else if (TxtValor.Text == "")
+            {
+                MessageBox.Show("Necessário informar um Valor para o Produto");
+                TxtValor.Focus();
+                return false;
+            }
+            else if (TxtCusto.Text == "")
+            {
+                MessageBox.Show("Necessário informar um Custo para o Produto");
+                TxtCusto.Focus();
+                return false;
+            }
+
+            return true;
         }
 
         public int getSetStatus
