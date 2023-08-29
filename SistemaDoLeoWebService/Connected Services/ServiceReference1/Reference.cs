@@ -182,56 +182,11 @@ namespace ServiceReference1
     public partial class Categoria : object
     {
         
-        private int IDField;
-        
-        private string NomeField;
-        
-        private bool StatusField;
-        
         private int getSetIDField;
         
         private string getSetNomeField;
         
         private bool getSetStatusField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ID
-        {
-            get
-            {
-                return this.IDField;
-            }
-            set
-            {
-                this.IDField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Nome
-        {
-            get
-            {
-                return this.NomeField;
-            }
-            set
-            {
-                this.NomeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Status
-        {
-            get
-            {
-                return this.StatusField;
-            }
-            set
-            {
-                this.StatusField = value;
-            }
-        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int getSetID
@@ -269,6 +224,58 @@ namespace ServiceReference1
             set
             {
                 this.getSetStatusField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Estados", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class Estados : object
+    {
+        
+        private int getSetIDField;
+        
+        private string getSetNomeField;
+        
+        private string getSetUFField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetID
+        {
+            get
+            {
+                return this.getSetIDField;
+            }
+            set
+            {
+                this.getSetIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetNome
+        {
+            get
+            {
+                return this.getSetNomeField;
+            }
+            set
+            {
+                this.getSetNomeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetUF
+        {
+            get
+            {
+                return this.getSetUFField;
+            }
+            set
+            {
+                this.getSetUFField = value;
             }
         }
     }
@@ -319,6 +326,9 @@ namespace ServiceReference1
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListNomeCategoria", ReplyAction="http://tempuri.org/IService1/GetListNomeCategoriaResponse")]
         System.Threading.Tasks.Task<ServiceReference1.Categoria[]> GetListNomeCategoriaAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/getListEstados", ReplyAction="http://tempuri.org/IService1/getListEstadosResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.Estados[]> getListEstadosAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
@@ -439,6 +449,11 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<ServiceReference1.Categoria[]> GetListNomeCategoriaAsync()
         {
             return base.Channel.GetListNomeCategoriaAsync();
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.Estados[]> getListEstadosAsync()
+        {
+            return base.Channel.getListEstadosAsync();
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

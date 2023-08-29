@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -27,7 +28,25 @@ namespace SistemaDoLeoWebService
 
         private void BtnID_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Funcionou");
+            try
+            {
+                var WebService = new Service1Client();
+
+                List<Estados> estados = new List<Estados>(WebService.getListEstadosAsync().Result);
+                
+                /*
+                for (int i = 0; i < 3; i++)
+                {
+                    MessageBox.Show($"Estados: {estados[i].getSetNome}");
+                }
+                */
+            }
+            catch(Exception Ex)
+            {
+                MessageBox.Show(Ex.Message);
+            }
+            //MessageBox.Show("Funcionou");
+            
         }
 
         private void TxtID_KeyDown(object sender, KeyEventArgs e)

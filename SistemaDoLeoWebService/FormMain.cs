@@ -61,7 +61,7 @@ namespace SistemaDoLeoWebService
         {
             FormCadastroProdutos formCadastroProdutos = new FormCadastroProdutos();
             formCadastroProdutos.MdiParent = this;
-            
+
             // VALIDA SE O FORM JÁ ESTÁ ABERTO
             if (Application.OpenForms.OfType<FormCadastroProdutos>().Count() > 0)
             {
@@ -71,6 +71,23 @@ namespace SistemaDoLeoWebService
             else
             {
                 formCadastroProdutos.Show();
+            }
+        }
+
+        private void MenuMainCadastroClienteFornecedor_Click(object sender, EventArgs e)
+        {
+            FormCadastroClientes form = new FormCadastroClientes();
+            form.MdiParent = this;
+
+            // VALIDA SE O FORM JÁ ESTÁ ABERTO
+            if (Application.OpenForms.OfType<FormCadastroClientes>().Count() > 0)
+            {
+                // FORM JÁ ABERTO
+                Application.OpenForms["FormCadastroClientes"].BringToFront();
+            }
+            else
+            {
+                form.Show();
             }
         }
     }

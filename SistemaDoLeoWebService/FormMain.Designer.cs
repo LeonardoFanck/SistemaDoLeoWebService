@@ -70,6 +70,7 @@
             MenuMainCadastroClienteFornecedor.Name = "MenuMainCadastroClienteFornecedor";
             MenuMainCadastroClienteFornecedor.Size = new Size(226, 22);
             MenuMainCadastroClienteFornecedor.Text = "Cadastro Cliente/Fornecedor";
+            MenuMainCadastroClienteFornecedor.Click += MenuMainCadastroClienteFornecedor_Click;
             // 
             // MenuMainCadastroProdutos
             // 

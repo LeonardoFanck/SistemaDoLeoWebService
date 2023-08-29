@@ -1,5 +1,4 @@
 using Microsoft.VisualBasic;
-using SistemaDoLeoWebService.Exceptions;
 using System.Data;
 using System.Data.SqlTypes;
 using System.Reflection;
