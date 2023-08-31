@@ -32,7 +32,7 @@ namespace SistemaDoLeoWebService
             {
                 var WebService = new Service1Client();
 
-                List<Estados> estados = new List<Estados>(WebService.getListEstadosAsync().Result);
+                List<Estados> estados = new List<Estados>(WebService.GetListEstadosAsync().Result);
                 
                 /*
                 for (int i = 0; i < 3; i++)

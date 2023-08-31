@@ -50,7 +50,7 @@ namespace SistemaDoLeoWebService
                     
                     if (resultado.Equals(0))
                     {
-                        LblNomeOperador.Text = WebReference.getNomeOperadorAsync(ID).Result;
+                        LblNomeOperador.Text = WebReference.GetNomeOperadorAsync(ID).Result;
                     }
                     else if (resultado.Equals(1))
                     {

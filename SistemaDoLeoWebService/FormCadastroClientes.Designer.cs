@@ -73,6 +73,7 @@
             BtnAvancar.TabIndex = 40;
             BtnAvancar.Text = ">";
             BtnAvancar.UseVisualStyleBackColor = true;
+            BtnAvancar.Click += BtnAvancar_Click;
             // 
             // BtnVoltar
             // 
@@ -82,6 +83,7 @@
             BtnVoltar.TabIndex = 39;
             BtnVoltar.Text = "<";
             BtnVoltar.UseVisualStyleBackColor = true;
+            BtnVoltar.Click += BtnVoltar_Click;
             // 
             // BtnAlterar
             // 
@@ -91,6 +93,7 @@
             BtnAlterar.TabIndex = 38;
             BtnAlterar.Text = "Alterar";
             BtnAlterar.UseVisualStyleBackColor = true;
+            BtnAlterar.Click += BtnAlterar_Click;
             // 
             // BtnNovo
             // 
@@ -100,6 +103,7 @@
             BtnNovo.TabIndex = 37;
             BtnNovo.Text = "Novo";
             BtnNovo.UseVisualStyleBackColor = true;
+            BtnNovo.Click += BtnNovo_Click;
             // 
             // BtnCancelar
             // 
@@ -109,6 +113,7 @@
             BtnCancelar.TabIndex = 36;
             BtnCancelar.Text = "Cancelar";
             BtnCancelar.UseVisualStyleBackColor = true;
+            BtnCancelar.Click += BtnCancelar_Click;
             // 
             // BtnSalvar
             // 
@@ -118,6 +123,7 @@
             BtnSalvar.TabIndex = 35;
             BtnSalvar.Text = "Salvar";
             BtnSalvar.UseVisualStyleBackColor = true;
+            BtnSalvar.Click += BtnSalvar_Click;
             // 
             // BtnID
             // 
@@ -228,13 +234,14 @@
             ComboDocumento.Name = "ComboDocumento";
             ComboDocumento.Size = new Size(68, 23);
             ComboDocumento.TabIndex = 42;
+            ComboDocumento.SelectedIndexChanged += ComboDocumento_SelectedIndexChanged;
             // 
             // TxtMDtNasc
             // 
             TxtMDtNasc.Location = new Point(101, 224);
             TxtMDtNasc.Mask = "00/00/0000";
             TxtMDtNasc.Name = "TxtMDtNasc";
-            TxtMDtNasc.Size = new Size(61, 23);
+            TxtMDtNasc.Size = new Size(71, 23);
             TxtMDtNasc.TabIndex = 44;
             // 
             // label4
@@ -392,6 +399,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "FormCadastroClientes";
             Text = "FormCadastroClientes";
             Load += FormCadastroClientes_Load;
