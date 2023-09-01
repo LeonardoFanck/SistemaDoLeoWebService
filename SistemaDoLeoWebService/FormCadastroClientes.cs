@@ -67,6 +67,7 @@ namespace SistemaDoLeoWebService
                 TxtMDtNasc.Text = cliente.getSetDtNascimento;
                 CBoxUF.Text = cliente.getSetEstado;
                 TxtCidade.Text = cliente.getSetCidade;
+                TxtBairro.Text = cliente.getSetBairro;
                 TxtEndereco.Text = cliente.getSetEndereco;
                 TxtNumero.Text = cliente.getSetNumero;
                 ChkBoxInativo.Checked = cliente.getSetStatus;
@@ -114,6 +115,7 @@ namespace SistemaDoLeoWebService
                 TxtMDtNasc.Enabled = true;
                 CBoxUF.Enabled = true;
                 TxtCidade.Enabled = true;
+                TxtBairro.Enabled = true;
                 TxtEndereco.Enabled = true;
                 TxtNumero.Enabled = true;
                 ChkBoxInativo.Enabled = true;
@@ -145,6 +147,7 @@ namespace SistemaDoLeoWebService
                 TxtMDtNasc.Enabled = true;
                 CBoxUF.Enabled = true;
                 TxtCidade.Enabled = true;
+                TxtBairro.Enabled = true;
                 TxtEndereco.Enabled = true;
                 TxtNumero.Enabled = true;
                 ChkBoxInativo.Enabled = true;
@@ -175,6 +178,7 @@ namespace SistemaDoLeoWebService
                 TxtMDtNasc.Enabled = false;
                 CBoxUF.Enabled = false;
                 TxtCidade.Enabled = false;
+                TxtBairro.Enabled = false;
                 TxtEndereco.Enabled = false;
                 TxtNumero.Enabled = false;
                 ChkBoxInativo.Enabled = false;
@@ -200,6 +204,7 @@ namespace SistemaDoLeoWebService
                 TxtMDtNasc.Text = string.Empty;
                 CBoxUF.Text = string.Empty;
                 TxtCidade.Text = string.Empty;
+                TxtBairro.Text = string.Empty;
                 TxtEndereco.Text = string.Empty;
                 TxtNumero.Text = string.Empty;
                 ChkBoxInativo.Checked = false;
@@ -233,6 +238,7 @@ namespace SistemaDoLeoWebService
                     TxtMDtNasc.Text = cliente.getSetDtNascimento;
                     CBoxUF.Text = cliente.getSetEstado;
                     TxtCidade.Text = cliente.getSetCidade;
+                    TxtBairro.Text = cliente.getSetBairro;
                     TxtEndereco.Text = cliente.getSetEndereco;
                     TxtNumero.Text = cliente.getSetNumero;
                     ChkBoxInativo.Checked = cliente.getSetStatus;
@@ -390,39 +396,54 @@ namespace SistemaDoLeoWebService
 
         private void BtnSalvar_Click(object sender, EventArgs e)
         {
-            var WebService = new ServiceReference1.Service1Client();
-            int ID;
-
-            ID = Convert.ToInt32(TxtID.Text);
-
-            if (validarCampos() == true)
+            try
             {
+                var WebService = new ServiceReference1.Service1Client();
+                int ID;
 
-                Cliente cliente = new Cliente();
-                cliente.getSetID = ID;
-                cliente.getSetNome = TxtNome.Text;
-                cliente.getSetCPF = TxtMDocumento.Text;
-                cliente.getSetEmail = TxtEmail.Text;
-                cliente.getSetDtNascimento = TxtMDtNasc.Text;
-                cliente.getSetEstado = CBoxUF.Text;
-                cliente.getSetCidade = TxtCidade.Text;
-                cliente.getSetEndereco = TxtEndereco.Text;
-                cliente.getSetNumero = TxtNumero.Text;
-                cliente.getSetStatus = ChkBoxInativo.Checked;
-                if (RBtnCasa.Checked == true)
+                if (getSetStatus == 0)
                 {
-                    cliente.getSetMoradia = 1;
+                    ID = -1;
                 }
-                else // OU RBtnApart == TRUE
+                else
                 {
-                    cliente.getSetMoradia = 2;
+                    ID = Convert.ToInt32(TxtID.Text);
                 }
-                
-                TipoClientes tipoCliente = new TipoClientes();
-                tipoCliente.getSetTipoCliente = ChkBoxCliente.Checked;
-                tipoCliente.getSetTipoFornecedor = ChkBoxFornecedor.Checked;
 
-                //validarRetorno(WebService.SalvarProdutoAsync(produto).Result); CRIAR O SALVAR CLIENTE e TIPO CLIENTE
+                if (validarCampos() == true)
+                {
+
+                    Cliente cliente = new Cliente();
+                    cliente.getSetID = ID;
+                    cliente.getSetNome = TxtNome.Text;
+                    cliente.getSetCPF = TxtMDocumento.Text;
+                    cliente.getSetEmail = TxtEmail.Text;
+                    cliente.getSetDtNascimento = TxtMDtNasc.Text;
+                    cliente.getSetEstado = CBoxUF.Text;
+                    cliente.getSetCidade = TxtCidade.Text;
+                    cliente.getSetBairro = TxtBairro.Text;
+                    cliente.getSetEndereco = TxtEndereco.Text;
+                    cliente.getSetNumero = TxtNumero.Text;
+                    cliente.getSetStatus = ChkBoxInativo.Checked;
+                    if (RBtnCasa.Checked == true)
+                    {
+                        cliente.getSetMoradia = 1;
+                    }
+                    else // OU RBtnApart == TRUE
+                    {
+                        cliente.getSetMoradia = 2;
+                    }
+
+                    TipoClientes tipoCliente = new TipoClientes();
+                    tipoCliente.getSetTipoCliente = ChkBoxCliente.Checked;
+                    tipoCliente.getSetTipoFornecedor = ChkBoxFornecedor.Checked;
+
+                    validarRetorno(WebService.SalvarClienteAsync(cliente, tipoCliente).Result);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -455,7 +476,7 @@ namespace SistemaDoLeoWebService
                 TxtNome.Focus();
                 return false;
             }
-            else if (TxtMDocumento.Text.Length != 14 || TxtMDocumento.Text.Length != 19)
+            else if (TxtMDocumento.Text.Length != 14 && TxtMDocumento.Text.Length != 18)
             {
                 MessageBox.Show("Necessário informar um Documento", nomeForm);
                 TxtMDocumento.Focus();
@@ -483,6 +504,12 @@ namespace SistemaDoLeoWebService
             {
                 MessageBox.Show("Necessário informar uma Cidade", nomeForm);
                 TxtCidade.Focus();
+                return false;
+            }
+            else if (TxtBairro.Text == "")
+            {
+                MessageBox.Show("Necessário informar um Bairro", nomeForm);
+                TxtBairro.Focus();
                 return false;
             }
             else if (TxtEndereco.Text == "")

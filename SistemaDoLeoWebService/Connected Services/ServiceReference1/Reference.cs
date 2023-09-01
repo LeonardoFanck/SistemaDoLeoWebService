@@ -530,6 +530,9 @@ namespace ServiceReference1
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/VoltarRegistroCliente", ReplyAction="http://tempuri.org/IService1/VoltarRegistroClienteResponse")]
         System.Threading.Tasks.Task<int> VoltarRegistroClienteAsync(int ID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SalvarCliente", ReplyAction="http://tempuri.org/IService1/SalvarClienteResponse")]
+        System.Threading.Tasks.Task<int> SalvarClienteAsync(ServiceReference1.Cliente cliente, ServiceReference1.TipoClientes tipoCliente);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetProximoRegistroCliente", ReplyAction="http://tempuri.org/IService1/GetProximoRegistroClienteResponse")]
         System.Threading.Tasks.Task<int> GetProximoRegistroClienteAsync();
         
@@ -653,6 +656,11 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<int> VoltarRegistroClienteAsync(int ID)
         {
             return base.Channel.VoltarRegistroClienteAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<int> SalvarClienteAsync(ServiceReference1.Cliente cliente, ServiceReference1.TipoClientes tipoCliente)
+        {
+            return base.Channel.SalvarClienteAsync(cliente, tipoCliente);
         }
         
         public System.Threading.Tasks.Task<int> GetProximoRegistroClienteAsync()

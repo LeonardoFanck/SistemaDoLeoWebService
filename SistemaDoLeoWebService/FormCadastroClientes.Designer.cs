@@ -61,6 +61,8 @@
             groupBox2 = new GroupBox();
             ChkBoxFornecedor = new CheckBox();
             ChkBoxCliente = new CheckBox();
+            TxtBairro = new TextBox();
+            label6 = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -271,7 +273,7 @@
             // 
             // TxtEndereco
             // 
-            TxtEndereco.Location = new Point(77, 340);
+            TxtEndereco.Location = new Point(77, 370);
             TxtEndereco.Name = "TxtEndereco";
             TxtEndereco.Size = new Size(289, 23);
             TxtEndereco.TabIndex = 50;
@@ -279,7 +281,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(20, 343);
+            label9.Location = new Point(20, 373);
             label9.Name = "label9";
             label9.Size = new Size(56, 15);
             label9.TabIndex = 49;
@@ -287,7 +289,7 @@
             // 
             // TxtNumero
             // 
-            TxtNumero.Location = new Point(77, 369);
+            TxtNumero.Location = new Point(77, 399);
             TxtNumero.Name = "TxtNumero";
             TxtNumero.Size = new Size(289, 23);
             TxtNumero.TabIndex = 52;
@@ -295,7 +297,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(20, 372);
+            label10.Location = new Point(20, 402);
             label10.Name = "label10";
             label10.Size = new Size(51, 15);
             label10.TabIndex = 51;
@@ -365,11 +367,29 @@
             ChkBoxCliente.Text = "Cliente";
             ChkBoxCliente.UseVisualStyleBackColor = true;
             // 
+            // TxtBairro
+            // 
+            TxtBairro.Location = new Point(77, 341);
+            TxtBairro.Name = "TxtBairro";
+            TxtBairro.Size = new Size(289, 23);
+            TxtBairro.TabIndex = 60;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(20, 344);
+            label6.Name = "label6";
+            label6.Size = new Size(38, 15);
+            label6.TabIndex = 59;
+            label6.Text = "Bairro";
+            // 
             // FormCadastroClientes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(971, 533);
+            Controls.Add(TxtBairro);
+            Controls.Add(label6);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(TxtNumero);
@@ -446,5 +466,7 @@
         private GroupBox groupBox2;
         private CheckBox ChkBoxFornecedor;
         private CheckBox ChkBoxCliente;
+        private TextBox TxtBairro;
+        private Label label6;
     }
 }
