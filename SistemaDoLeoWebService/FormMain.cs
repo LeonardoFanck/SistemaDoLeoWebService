@@ -90,5 +90,22 @@ namespace SistemaDoLeoWebService
                 form.Show();
             }
         }
+
+        private void MenuMainCadastroFormaPGTO_Click(object sender, EventArgs e)
+        {
+            FormCadastroFormaPGTO form = new FormCadastroFormaPGTO();
+            form.MdiParent = this;
+
+            // VALIDA SE O FORM JÁ ESTÁ ABERTO
+            if (Application.OpenForms.OfType<FormCadastroFormaPGTO>().Count() > 0)
+            {
+                // FORM JÁ ABERTO
+                Application.OpenForms["FormCadastroFormaPGTO"].BringToFront();
+            }
+            else
+            {
+                form.Show();
+            }
+        }
     }
 }

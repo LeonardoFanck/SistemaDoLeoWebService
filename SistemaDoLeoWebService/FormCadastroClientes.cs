@@ -401,6 +401,8 @@ namespace SistemaDoLeoWebService
                 var WebService = new ServiceReference1.Service1Client();
                 int ID;
 
+                // SE ID -1 É UM NOVO CADASTRO
+                // SENÃO ALTERAÇÃO
                 if (getSetStatus == 0)
                 {
                     ID = -1;

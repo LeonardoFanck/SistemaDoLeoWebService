@@ -504,6 +504,58 @@ namespace ServiceReference1
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="FormaPGTO", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class FormaPGTO : object
+    {
+        
+        private int getSetIDField;
+        
+        private string getSetNomeField;
+        
+        private bool getSetStatusField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetID
+        {
+            get
+            {
+                return this.getSetIDField;
+            }
+            set
+            {
+                this.getSetIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetNome
+        {
+            get
+            {
+                return this.getSetNomeField;
+            }
+            set
+            {
+                this.getSetNomeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool getSetStatus
+        {
+            get
+            {
+                return this.getSetStatusField;
+            }
+            set
+            {
+                this.getSetStatusField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1
@@ -571,6 +623,27 @@ namespace ServiceReference1
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListEstados", ReplyAction="http://tempuri.org/IService1/GetListEstadosResponse")]
         System.Threading.Tasks.Task<ServiceReference1.Estados[]> GetListEstadosAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetFormaPGTO", ReplyAction="http://tempuri.org/IService1/GetFormaPGTOResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.FormaPGTO> GetFormaPGTOAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetRegistroInicialFormaPGTO", ReplyAction="http://tempuri.org/IService1/GetRegistroInicialFormaPGTOResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.FormaPGTO> GetRegistroInicialFormaPGTOAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetProximoRegistroFormaPGTO", ReplyAction="http://tempuri.org/IService1/GetProximoRegistroFormaPGTOResponse")]
+        System.Threading.Tasks.Task<int> GetProximoRegistroFormaPGTOAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AvancarRegistroFormaPGTO", ReplyAction="http://tempuri.org/IService1/AvancarRegistroFormaPGTOResponse")]
+        System.Threading.Tasks.Task<int> AvancarRegistroFormaPGTOAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/VoltarRegistroFormaPGTO", ReplyAction="http://tempuri.org/IService1/VoltarRegistroFormaPGTOResponse")]
+        System.Threading.Tasks.Task<int> VoltarRegistroFormaPGTOAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ValidarNomeFormaPGTO", ReplyAction="http://tempuri.org/IService1/ValidarNomeFormaPGTOResponse")]
+        System.Threading.Tasks.Task<int> ValidarNomeFormaPGTOAsync(ServiceReference1.FormaPGTO formaPGTO);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SalvarFormaPGTO", ReplyAction="http://tempuri.org/IService1/SalvarFormaPGTOResponse")]
+        System.Threading.Tasks.Task<int> SalvarFormaPGTOAsync(ServiceReference1.FormaPGTO formaPGTO);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
@@ -726,6 +799,41 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<ServiceReference1.Estados[]> GetListEstadosAsync()
         {
             return base.Channel.GetListEstadosAsync();
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.FormaPGTO> GetFormaPGTOAsync(int ID)
+        {
+            return base.Channel.GetFormaPGTOAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.FormaPGTO> GetRegistroInicialFormaPGTOAsync()
+        {
+            return base.Channel.GetRegistroInicialFormaPGTOAsync();
+        }
+        
+        public System.Threading.Tasks.Task<int> GetProximoRegistroFormaPGTOAsync()
+        {
+            return base.Channel.GetProximoRegistroFormaPGTOAsync();
+        }
+        
+        public System.Threading.Tasks.Task<int> AvancarRegistroFormaPGTOAsync(int ID)
+        {
+            return base.Channel.AvancarRegistroFormaPGTOAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<int> VoltarRegistroFormaPGTOAsync(int ID)
+        {
+            return base.Channel.VoltarRegistroFormaPGTOAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<int> ValidarNomeFormaPGTOAsync(ServiceReference1.FormaPGTO formaPGTO)
+        {
+            return base.Channel.ValidarNomeFormaPGTOAsync(formaPGTO);
+        }
+        
+        public System.Threading.Tasks.Task<int> SalvarFormaPGTOAsync(ServiceReference1.FormaPGTO formaPGTO)
+        {
+            return base.Channel.SalvarFormaPGTOAsync(formaPGTO);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

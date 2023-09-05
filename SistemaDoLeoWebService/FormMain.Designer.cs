@@ -33,6 +33,7 @@
             MenuMainPedidos = new ToolStripMenuItem();
             MenuMainCadastroClienteFornecedor = new ToolStripMenuItem();
             MenuMainCadastroProdutos = new ToolStripMenuItem();
+            MenuMainCadastroFormaPGTO = new ToolStripMenuItem();
             MenuMainRelatorios = new ToolStripMenuItem();
             relatorioGeralDePedidosToolStripMenuItem = new ToolStripMenuItem();
             MenuMainConfiguraçõesDoSistema = new ToolStripMenuItem();
@@ -53,7 +54,7 @@
             // 
             // MenuMainTelasDeAcesso
             // 
-            MenuMainTelasDeAcesso.DropDownItems.AddRange(new ToolStripItem[] { MenuMainPedidos, MenuMainCadastroClienteFornecedor, MenuMainCadastroProdutos });
+            MenuMainTelasDeAcesso.DropDownItems.AddRange(new ToolStripItem[] { MenuMainPedidos, MenuMainCadastroClienteFornecedor, MenuMainCadastroProdutos, MenuMainCadastroFormaPGTO });
             MenuMainTelasDeAcesso.Name = "MenuMainTelasDeAcesso";
             MenuMainTelasDeAcesso.Size = new Size(100, 20);
             MenuMainTelasDeAcesso.Text = "Telas de Acesso";
@@ -78,6 +79,13 @@
             MenuMainCadastroProdutos.Size = new Size(226, 22);
             MenuMainCadastroProdutos.Text = "Cadastro Produtos";
             MenuMainCadastroProdutos.Click += MenuMainCadastroProdutos_Click;
+            // 
+            // MenuMainCadastroFormaPGTO
+            // 
+            MenuMainCadastroFormaPGTO.Name = "MenuMainCadastroFormaPGTO";
+            MenuMainCadastroFormaPGTO.Size = new Size(226, 22);
+            MenuMainCadastroFormaPGTO.Text = "Cadastro FormaPGTO";
+            MenuMainCadastroFormaPGTO.Click += MenuMainCadastroFormaPGTO_Click;
             // 
             // MenuMainRelatorios
             // 
@@ -152,5 +160,6 @@
         private ToolStripMenuItem MenuMainInfoSistemaDoLeo;
         private ToolStripMenuItem MenuMainCadastroClienteFornecedor;
         private ToolStripMenuItem MenuMainCadastroProdutos;
+        private ToolStripMenuItem MenuMainCadastroFormaPGTO;
     }
 }
