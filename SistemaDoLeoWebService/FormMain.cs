@@ -107,5 +107,22 @@ namespace SistemaDoLeoWebService
                 form.Show();
             }
         }
+
+        private void MenuMainCadastroCategoria_Click(object sender, EventArgs e)
+        {
+            FormCadastroCategoria form = new FormCadastroCategoria();
+            form.MdiParent = this;
+
+            // VALIDA SE O FORM JÁ ESTÁ ABERTO
+            if (Application.OpenForms.OfType<FormCadastroCategoria>().Count() > 0)
+            {
+                // FORM JÁ ABERTO
+                Application.OpenForms["FormCadastroCategoria"].BringToFront();
+            }
+            else
+            {
+                form.Show();
+            }
+        }
     }
 }

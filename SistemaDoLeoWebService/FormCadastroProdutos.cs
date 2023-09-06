@@ -341,7 +341,7 @@ namespace SistemaDoLeoWebService
         {
             var WebService = new ServiceReference1.Service1Client();
 
-            categorias = new List<Categoria>(WebService.GetListNomeCategoriaAsync().Result);
+            categorias = new List<Categoria>(WebService.GetAllCategoriasAsync().Result);
 
             CBoxCategoria.Items.Add("");
             foreach (var categoria in categorias)

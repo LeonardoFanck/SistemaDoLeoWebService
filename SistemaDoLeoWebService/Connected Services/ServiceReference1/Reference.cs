@@ -402,58 +402,6 @@ namespace ServiceReference1
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Categoria", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
-    public partial class Categoria : object
-    {
-        
-        private int getSetIDField;
-        
-        private string getSetNomeField;
-        
-        private bool getSetStatusField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int getSetID
-        {
-            get
-            {
-                return this.getSetIDField;
-            }
-            set
-            {
-                this.getSetIDField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string getSetNome
-        {
-            get
-            {
-                return this.getSetNomeField;
-            }
-            set
-            {
-                this.getSetNomeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool getSetStatus
-        {
-            get
-            {
-                return this.getSetStatusField;
-            }
-            set
-            {
-                this.getSetStatusField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Estados", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
     public partial class Estados : object
     {
@@ -508,6 +456,58 @@ namespace ServiceReference1
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="FormaPGTO", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
     public partial class FormaPGTO : object
+    {
+        
+        private int getSetIDField;
+        
+        private string getSetNomeField;
+        
+        private bool getSetStatusField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetID
+        {
+            get
+            {
+                return this.getSetIDField;
+            }
+            set
+            {
+                this.getSetIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetNome
+        {
+            get
+            {
+                return this.getSetNomeField;
+            }
+            set
+            {
+                this.getSetNomeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool getSetStatus
+        {
+            get
+            {
+                return this.getSetStatusField;
+            }
+            set
+            {
+                this.getSetStatusField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Categoria", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class Categoria : object
     {
         
         private int getSetIDField;
@@ -618,9 +618,6 @@ namespace ServiceReference1
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetProximoRegistroProduto", ReplyAction="http://tempuri.org/IService1/GetProximoRegistroProdutoResponse")]
         System.Threading.Tasks.Task<int> GetProximoRegistroProdutoAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListNomeCategoria", ReplyAction="http://tempuri.org/IService1/GetListNomeCategoriaResponse")]
-        System.Threading.Tasks.Task<ServiceReference1.Categoria[]> GetListNomeCategoriaAsync();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListEstados", ReplyAction="http://tempuri.org/IService1/GetListEstadosResponse")]
         System.Threading.Tasks.Task<ServiceReference1.Estados[]> GetListEstadosAsync();
         
@@ -644,6 +641,30 @@ namespace ServiceReference1
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SalvarFormaPGTO", ReplyAction="http://tempuri.org/IService1/SalvarFormaPGTOResponse")]
         System.Threading.Tasks.Task<int> SalvarFormaPGTOAsync(ServiceReference1.FormaPGTO formaPGTO);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetCategoria", ReplyAction="http://tempuri.org/IService1/GetCategoriaResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.Categoria> GetCategoriaAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetRegistroInicialCategoria", ReplyAction="http://tempuri.org/IService1/GetRegistroInicialCategoriaResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.Categoria> GetRegistroInicialCategoriaAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetProximoRegistroCategoria", ReplyAction="http://tempuri.org/IService1/GetProximoRegistroCategoriaResponse")]
+        System.Threading.Tasks.Task<int> GetProximoRegistroCategoriaAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AvancarRegistroCategoria", ReplyAction="http://tempuri.org/IService1/AvancarRegistroCategoriaResponse")]
+        System.Threading.Tasks.Task<int> AvancarRegistroCategoriaAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/VoltarRegistroCategoria", ReplyAction="http://tempuri.org/IService1/VoltarRegistroCategoriaResponse")]
+        System.Threading.Tasks.Task<int> VoltarRegistroCategoriaAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ValidarNomeCategoria", ReplyAction="http://tempuri.org/IService1/ValidarNomeCategoriaResponse")]
+        System.Threading.Tasks.Task<int> ValidarNomeCategoriaAsync(ServiceReference1.Categoria categoria);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SalvarCategoria", ReplyAction="http://tempuri.org/IService1/SalvarCategoriaResponse")]
+        System.Threading.Tasks.Task<int> SalvarCategoriaAsync(ServiceReference1.Categoria categoria);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllCategorias", ReplyAction="http://tempuri.org/IService1/GetAllCategoriasResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.Categoria[]> GetAllCategoriasAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
@@ -791,11 +812,6 @@ namespace ServiceReference1
             return base.Channel.GetProximoRegistroProdutoAsync();
         }
         
-        public System.Threading.Tasks.Task<ServiceReference1.Categoria[]> GetListNomeCategoriaAsync()
-        {
-            return base.Channel.GetListNomeCategoriaAsync();
-        }
-        
         public System.Threading.Tasks.Task<ServiceReference1.Estados[]> GetListEstadosAsync()
         {
             return base.Channel.GetListEstadosAsync();
@@ -834,6 +850,46 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<int> SalvarFormaPGTOAsync(ServiceReference1.FormaPGTO formaPGTO)
         {
             return base.Channel.SalvarFormaPGTOAsync(formaPGTO);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.Categoria> GetCategoriaAsync(int ID)
+        {
+            return base.Channel.GetCategoriaAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.Categoria> GetRegistroInicialCategoriaAsync()
+        {
+            return base.Channel.GetRegistroInicialCategoriaAsync();
+        }
+        
+        public System.Threading.Tasks.Task<int> GetProximoRegistroCategoriaAsync()
+        {
+            return base.Channel.GetProximoRegistroCategoriaAsync();
+        }
+        
+        public System.Threading.Tasks.Task<int> AvancarRegistroCategoriaAsync(int ID)
+        {
+            return base.Channel.AvancarRegistroCategoriaAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<int> VoltarRegistroCategoriaAsync(int ID)
+        {
+            return base.Channel.VoltarRegistroCategoriaAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<int> ValidarNomeCategoriaAsync(ServiceReference1.Categoria categoria)
+        {
+            return base.Channel.ValidarNomeCategoriaAsync(categoria);
+        }
+        
+        public System.Threading.Tasks.Task<int> SalvarCategoriaAsync(ServiceReference1.Categoria categoria)
+        {
+            return base.Channel.SalvarCategoriaAsync(categoria);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.Categoria[]> GetAllCategoriasAsync()
+        {
+            return base.Channel.GetAllCategoriasAsync();
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

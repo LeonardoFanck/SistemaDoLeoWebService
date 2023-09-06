@@ -34,12 +34,14 @@
             MenuMainCadastroClienteFornecedor = new ToolStripMenuItem();
             MenuMainCadastroProdutos = new ToolStripMenuItem();
             MenuMainCadastroFormaPGTO = new ToolStripMenuItem();
+            MenuMainCadastroCategoria = new ToolStripMenuItem();
             MenuMainRelatorios = new ToolStripMenuItem();
             relatorioGeralDePedidosToolStripMenuItem = new ToolStripMenuItem();
             MenuMainConfiguraçõesDoSistema = new ToolStripMenuItem();
             configuraçõesGeraisToolStripMenuItem = new ToolStripMenuItem();
             MenuMainSobre = new ToolStripMenuItem();
             MenuMainInfoSistemaDoLeo = new ToolStripMenuItem();
+            MenuMainCadastroOperador = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -54,7 +56,7 @@
             // 
             // MenuMainTelasDeAcesso
             // 
-            MenuMainTelasDeAcesso.DropDownItems.AddRange(new ToolStripItem[] { MenuMainPedidos, MenuMainCadastroClienteFornecedor, MenuMainCadastroProdutos, MenuMainCadastroFormaPGTO });
+            MenuMainTelasDeAcesso.DropDownItems.AddRange(new ToolStripItem[] { MenuMainPedidos, MenuMainCadastroClienteFornecedor, MenuMainCadastroProdutos, MenuMainCadastroFormaPGTO, MenuMainCadastroCategoria, MenuMainCadastroOperador });
             MenuMainTelasDeAcesso.Name = "MenuMainTelasDeAcesso";
             MenuMainTelasDeAcesso.Size = new Size(100, 20);
             MenuMainTelasDeAcesso.Text = "Telas de Acesso";
@@ -86,6 +88,13 @@
             MenuMainCadastroFormaPGTO.Size = new Size(226, 22);
             MenuMainCadastroFormaPGTO.Text = "Cadastro FormaPGTO";
             MenuMainCadastroFormaPGTO.Click += MenuMainCadastroFormaPGTO_Click;
+            // 
+            // MenuMainCadastroCategoria
+            // 
+            MenuMainCadastroCategoria.Name = "MenuMainCadastroCategoria";
+            MenuMainCadastroCategoria.Size = new Size(226, 22);
+            MenuMainCadastroCategoria.Text = "Cadastro Categoria";
+            MenuMainCadastroCategoria.Click += MenuMainCadastroCategoria_Click;
             // 
             // MenuMainRelatorios
             // 
@@ -128,6 +137,12 @@
             MenuMainInfoSistemaDoLeo.Text = "Info. Sistema do Leo";
             MenuMainInfoSistemaDoLeo.Click += infoSistemaDoLeoToolStripMenuItem_Click;
             // 
+            // MenuMainCadastroOperador
+            // 
+            MenuMainCadastroOperador.Name = "MenuMainCadastroOperador";
+            MenuMainCadastroOperador.Size = new Size(226, 22);
+            MenuMainCadastroOperador.Text = "Cadastro Operador";
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -161,5 +176,7 @@
         private ToolStripMenuItem MenuMainCadastroClienteFornecedor;
         private ToolStripMenuItem MenuMainCadastroProdutos;
         private ToolStripMenuItem MenuMainCadastroFormaPGTO;
+        private ToolStripMenuItem MenuMainCadastroCategoria;
+        private ToolStripMenuItem MenuMainCadastroOperador;
     }
 }
