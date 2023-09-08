@@ -13,7 +13,7 @@ namespace SistemaDoLeoWebService
 {
     public partial class FormConfiguracoesGerais : Form
     {
-        private FormMain formMain = new FormMain();
+        private FormMain formMain;
 
         public FormConfiguracoesGerais()
         {

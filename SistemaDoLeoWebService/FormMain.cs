@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceReference1;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,17 +14,82 @@ namespace SistemaDoLeoWebService
     public partial class FormMain : Form
     {
         private int ID;
+        private Operador operador;
 
-        public FormMain()
+        public Operador getSetOperador{
+            get { return operador; } 
+            set { operador = value; }
+        }
+
+        public FormMain(Operador operador)
         {
-            //this.ID = ID;
+            this.operador = operador;
 
             InitializeComponent();
         }
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            validarTelas();
+        }
 
+        public void validarTelas()
+        {
+            int quantiaTelas = 0;
+
+            if (operador.getSetCadastroOperador)
+            {
+                MenuMainCadastroOperador.Visible = true;
+                quantiaTelas--;
+            }
+
+            if (operador.getSetCadastroCategoria)
+            {
+                MenuMainCadastroCategoria.Visible = true;
+                quantiaTelas--;
+            }
+
+            if (operador.getSetCadastroCliente)
+            {
+                MenuMainCadastroClienteFornecedor.Visible = true;
+                quantiaTelas--;
+            }
+
+            if (operador.getSetCadastroProduto)
+            {
+                MenuMainCadastroProdutos.Visible = true;
+                quantiaTelas--;
+            }
+
+            if (operador.getSetCadastroFormaPGTO)
+            {
+                MenuMainCadastroFormaPGTO.Visible = true;
+                quantiaTelas--;
+            }
+
+            if (operador.getSetTabelaUsuario)
+            {
+                // TABELA DE USUÁRIOS (VER SE SERÁ FEITO)
+                quantiaTelas--;
+            }
+
+            if (operador.getSetPedidos)
+            {
+                MenuMainPedidos.Visible = true;
+                quantiaTelas--;
+            }
+
+            if (operador.getSetEntrada)
+            {
+                // TELA DE ENTRADA
+                quantiaTelas--;
+            }
+
+            // SE NÃO TIVER NENHUMA TELA LIBERADA, LIBERA A TELA DE PEDIDOS
+            if (quantiaTelas < 0)
+            {
+                // LIBERAR TELA DE PEDIDOS
+            }
         }
 
         private void infoSistemaDoLeoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -118,6 +184,23 @@ namespace SistemaDoLeoWebService
             {
                 // FORM JÁ ABERTO
                 Application.OpenForms["FormCadastroCategoria"].BringToFront();
+            }
+            else
+            {
+                form.Show();
+            }
+        }
+
+        private void MenuMainCadastroOperador_Click(object sender, EventArgs e)
+        {
+            FormCadastroOperador form = new FormCadastroOperador(this.operador, this);
+            form.MdiParent = this;
+
+            // VALIDA SE O FORM JÁ ESTÁ ABERTO
+            if (Application.OpenForms.OfType<FormCadastroOperador>().Count() > 0)
+            {
+                // FORM JÁ ABERTO
+                Application.OpenForms["FormCadastroOperador"].BringToFront();
             }
             else
             {

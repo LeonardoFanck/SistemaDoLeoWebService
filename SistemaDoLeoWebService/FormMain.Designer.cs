@@ -35,13 +35,13 @@
             MenuMainCadastroProdutos = new ToolStripMenuItem();
             MenuMainCadastroFormaPGTO = new ToolStripMenuItem();
             MenuMainCadastroCategoria = new ToolStripMenuItem();
+            MenuMainCadastroOperador = new ToolStripMenuItem();
             MenuMainRelatorios = new ToolStripMenuItem();
             relatorioGeralDePedidosToolStripMenuItem = new ToolStripMenuItem();
             MenuMainConfiguraçõesDoSistema = new ToolStripMenuItem();
             configuraçõesGeraisToolStripMenuItem = new ToolStripMenuItem();
             MenuMainSobre = new ToolStripMenuItem();
             MenuMainInfoSistemaDoLeo = new ToolStripMenuItem();
-            MenuMainCadastroOperador = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -66,6 +66,7 @@
             MenuMainPedidos.Name = "MenuMainPedidos";
             MenuMainPedidos.Size = new Size(226, 22);
             MenuMainPedidos.Text = "Pedidos";
+            MenuMainPedidos.Visible = false;
             MenuMainPedidos.Click += MenuMainPedidos_Click;
             // 
             // MenuMainCadastroClienteFornecedor
@@ -73,6 +74,7 @@
             MenuMainCadastroClienteFornecedor.Name = "MenuMainCadastroClienteFornecedor";
             MenuMainCadastroClienteFornecedor.Size = new Size(226, 22);
             MenuMainCadastroClienteFornecedor.Text = "Cadastro Cliente/Fornecedor";
+            MenuMainCadastroClienteFornecedor.Visible = false;
             MenuMainCadastroClienteFornecedor.Click += MenuMainCadastroClienteFornecedor_Click;
             // 
             // MenuMainCadastroProdutos
@@ -80,6 +82,7 @@
             MenuMainCadastroProdutos.Name = "MenuMainCadastroProdutos";
             MenuMainCadastroProdutos.Size = new Size(226, 22);
             MenuMainCadastroProdutos.Text = "Cadastro Produtos";
+            MenuMainCadastroProdutos.Visible = false;
             MenuMainCadastroProdutos.Click += MenuMainCadastroProdutos_Click;
             // 
             // MenuMainCadastroFormaPGTO
@@ -87,6 +90,7 @@
             MenuMainCadastroFormaPGTO.Name = "MenuMainCadastroFormaPGTO";
             MenuMainCadastroFormaPGTO.Size = new Size(226, 22);
             MenuMainCadastroFormaPGTO.Text = "Cadastro FormaPGTO";
+            MenuMainCadastroFormaPGTO.Visible = false;
             MenuMainCadastroFormaPGTO.Click += MenuMainCadastroFormaPGTO_Click;
             // 
             // MenuMainCadastroCategoria
@@ -94,7 +98,16 @@
             MenuMainCadastroCategoria.Name = "MenuMainCadastroCategoria";
             MenuMainCadastroCategoria.Size = new Size(226, 22);
             MenuMainCadastroCategoria.Text = "Cadastro Categoria";
+            MenuMainCadastroCategoria.Visible = false;
             MenuMainCadastroCategoria.Click += MenuMainCadastroCategoria_Click;
+            // 
+            // MenuMainCadastroOperador
+            // 
+            MenuMainCadastroOperador.Name = "MenuMainCadastroOperador";
+            MenuMainCadastroOperador.Size = new Size(226, 22);
+            MenuMainCadastroOperador.Text = "Cadastro Operador";
+            MenuMainCadastroOperador.Visible = false;
+            MenuMainCadastroOperador.Click += MenuMainCadastroOperador_Click;
             // 
             // MenuMainRelatorios
             // 
@@ -136,12 +149,6 @@
             MenuMainInfoSistemaDoLeo.Size = new Size(181, 22);
             MenuMainInfoSistemaDoLeo.Text = "Info. Sistema do Leo";
             MenuMainInfoSistemaDoLeo.Click += infoSistemaDoLeoToolStripMenuItem_Click;
-            // 
-            // MenuMainCadastroOperador
-            // 
-            MenuMainCadastroOperador.Name = "MenuMainCadastroOperador";
-            MenuMainCadastroOperador.Size = new Size(226, 22);
-            MenuMainCadastroOperador.Text = "Cadastro Operador";
             // 
             // FormMain
             // 

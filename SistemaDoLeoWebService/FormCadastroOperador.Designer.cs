@@ -39,13 +39,20 @@
             BtnSalvar = new Button();
             tabControl1 = new TabControl();
             TabDados = new TabPage();
-            TabTelas = new TabPage();
+            ChkAdmin = new CheckBox();
+            ChkInativo = new CheckBox();
             ChkVerificarSenha = new CheckBox();
             TxtSenha = new TextBox();
             label3 = new Label();
-            ChkAdmin = new CheckBox();
-            ChkBoxInativo = new CheckBox();
-            checkBox1 = new CheckBox();
+            TabTelas = new TabPage();
+            ChkTabelaUsuarios = new CheckBox();
+            ChkEntrada = new CheckBox();
+            ChkFormaPGTO = new CheckBox();
+            ChkPedido = new CheckBox();
+            ChkProduto = new CheckBox();
+            ChkCliente = new CheckBox();
+            ChkCategoria = new CheckBox();
+            ChkOperador = new CheckBox();
             TxtNome = new TextBox();
             label2 = new Label();
             tabControl1.SuspendLayout();
@@ -86,6 +93,7 @@
             BtnAvancar.TabIndex = 58;
             BtnAvancar.Text = ">";
             BtnAvancar.UseVisualStyleBackColor = true;
+            BtnAvancar.Click += BtnAvancar_Click;
             // 
             // BtnVoltar
             // 
@@ -95,6 +103,7 @@
             BtnVoltar.TabIndex = 57;
             BtnVoltar.Text = "<";
             BtnVoltar.UseVisualStyleBackColor = true;
+            BtnVoltar.Click += BtnVoltar_Click;
             // 
             // BtnAlterar
             // 
@@ -104,6 +113,7 @@
             BtnAlterar.TabIndex = 56;
             BtnAlterar.Text = "Alterar";
             BtnAlterar.UseVisualStyleBackColor = true;
+            BtnAlterar.Click += BtnAlterar_Click;
             // 
             // BtnNovo
             // 
@@ -113,6 +123,7 @@
             BtnNovo.TabIndex = 55;
             BtnNovo.Text = "Novo";
             BtnNovo.UseVisualStyleBackColor = true;
+            BtnNovo.Click += BtnNovo_Click;
             // 
             // BtnCancelar
             // 
@@ -122,6 +133,7 @@
             BtnCancelar.TabIndex = 54;
             BtnCancelar.Text = "Cancelar";
             BtnCancelar.UseVisualStyleBackColor = true;
+            BtnCancelar.Click += BtnCancelar_Click;
             // 
             // BtnSalvar
             // 
@@ -131,6 +143,7 @@
             BtnSalvar.TabIndex = 53;
             BtnSalvar.Text = "Salvar";
             BtnSalvar.UseVisualStyleBackColor = true;
+            BtnSalvar.Click += BtnSalvar_Click;
             // 
             // tabControl1
             // 
@@ -145,7 +158,7 @@
             // TabDados
             // 
             TabDados.Controls.Add(ChkAdmin);
-            TabDados.Controls.Add(ChkBoxInativo);
+            TabDados.Controls.Add(ChkInativo);
             TabDados.Controls.Add(ChkVerificarSenha);
             TabDados.Controls.Add(TxtSenha);
             TabDados.Controls.Add(label3);
@@ -157,16 +170,26 @@
             TabDados.Text = "Dados";
             TabDados.UseVisualStyleBackColor = true;
             // 
-            // TabTelas
+            // ChkAdmin
             // 
-            TabTelas.Controls.Add(checkBox1);
-            TabTelas.Location = new Point(4, 24);
-            TabTelas.Name = "TabTelas";
-            TabTelas.Padding = new Padding(3);
-            TabTelas.Size = new Size(762, 300);
-            TabTelas.TabIndex = 1;
-            TabTelas.Text = "Telas";
-            TabTelas.UseVisualStyleBackColor = true;
+            ChkAdmin.AutoSize = true;
+            ChkAdmin.Enabled = false;
+            ChkAdmin.Location = new Point(31, 101);
+            ChkAdmin.Name = "ChkAdmin";
+            ChkAdmin.Size = new Size(102, 19);
+            ChkAdmin.TabIndex = 75;
+            ChkAdmin.Text = "Administrador";
+            ChkAdmin.UseVisualStyleBackColor = true;
+            // 
+            // ChkInativo
+            // 
+            ChkInativo.AutoSize = true;
+            ChkInativo.Location = new Point(31, 64);
+            ChkInativo.Name = "ChkInativo";
+            ChkInativo.Size = new Size(62, 19);
+            ChkInativo.TabIndex = 74;
+            ChkInativo.Text = "Inativo";
+            ChkInativo.UseVisualStyleBackColor = true;
             // 
             // ChkVerificarSenha
             // 
@@ -177,14 +200,16 @@
             ChkVerificarSenha.TabIndex = 73;
             ChkVerificarSenha.Text = "👁️";
             ChkVerificarSenha.UseVisualStyleBackColor = true;
+            ChkVerificarSenha.Visible = false;
+            ChkVerificarSenha.CheckedChanged += ChkVerificarSenha_CheckedChanged;
             // 
             // TxtSenha
             // 
             TxtSenha.Location = new Point(59, 15);
             TxtSenha.Name = "TxtSenha";
-            TxtSenha.PasswordChar = '*';
             TxtSenha.Size = new Size(369, 23);
             TxtSenha.TabIndex = 72;
+            TxtSenha.UseSystemPasswordChar = true;
             // 
             // label3
             // 
@@ -195,35 +220,103 @@
             label3.TabIndex = 71;
             label3.Text = "Senha";
             // 
-            // ChkAdmin
+            // TabTelas
             // 
-            ChkAdmin.AutoSize = true;
-            ChkAdmin.Location = new Point(31, 101);
-            ChkAdmin.Name = "ChkAdmin";
-            ChkAdmin.Size = new Size(102, 19);
-            ChkAdmin.TabIndex = 75;
-            ChkAdmin.Text = "Administrador";
-            ChkAdmin.UseVisualStyleBackColor = true;
+            TabTelas.Controls.Add(ChkTabelaUsuarios);
+            TabTelas.Controls.Add(ChkEntrada);
+            TabTelas.Controls.Add(ChkFormaPGTO);
+            TabTelas.Controls.Add(ChkPedido);
+            TabTelas.Controls.Add(ChkProduto);
+            TabTelas.Controls.Add(ChkCliente);
+            TabTelas.Controls.Add(ChkCategoria);
+            TabTelas.Controls.Add(ChkOperador);
+            TabTelas.Location = new Point(4, 24);
+            TabTelas.Name = "TabTelas";
+            TabTelas.Padding = new Padding(3);
+            TabTelas.Size = new Size(762, 300);
+            TabTelas.TabIndex = 1;
+            TabTelas.Text = "Telas";
+            TabTelas.UseVisualStyleBackColor = true;
             // 
-            // ChkBoxInativo
+            // ChkTabelaUsuarios
             // 
-            ChkBoxInativo.AutoSize = true;
-            ChkBoxInativo.Location = new Point(31, 64);
-            ChkBoxInativo.Name = "ChkBoxInativo";
-            ChkBoxInativo.Size = new Size(62, 19);
-            ChkBoxInativo.TabIndex = 74;
-            ChkBoxInativo.Text = "Inativo";
-            ChkBoxInativo.UseVisualStyleBackColor = true;
+            ChkTabelaUsuarios.AutoSize = true;
+            ChkTabelaUsuarios.Location = new Point(10, 144);
+            ChkTabelaUsuarios.Name = "ChkTabelaUsuarios";
+            ChkTabelaUsuarios.Size = new Size(123, 19);
+            ChkTabelaUsuarios.TabIndex = 8;
+            ChkTabelaUsuarios.Text = "Tabela de Usuários";
+            ChkTabelaUsuarios.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // ChkEntrada
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(10, 20);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(83, 19);
-            checkBox1.TabIndex = 0;
-            checkBox1.Text = "checkBox1";
-            checkBox1.UseVisualStyleBackColor = true;
+            ChkEntrada.AutoSize = true;
+            ChkEntrada.Location = new Point(10, 194);
+            ChkEntrada.Name = "ChkEntrada";
+            ChkEntrada.Size = new Size(66, 19);
+            ChkEntrada.TabIndex = 6;
+            ChkEntrada.Text = "Entrada";
+            ChkEntrada.UseVisualStyleBackColor = true;
+            // 
+            // ChkFormaPGTO
+            // 
+            ChkFormaPGTO.AutoSize = true;
+            ChkFormaPGTO.Location = new Point(10, 119);
+            ChkFormaPGTO.Name = "ChkFormaPGTO";
+            ChkFormaPGTO.Size = new Size(142, 19);
+            ChkFormaPGTO.TabIndex = 5;
+            ChkFormaPGTO.Text = "Cadastro Forma PGTO";
+            ChkFormaPGTO.UseVisualStyleBackColor = true;
+            // 
+            // ChkPedido
+            // 
+            ChkPedido.AutoSize = true;
+            ChkPedido.Location = new Point(10, 169);
+            ChkPedido.Name = "ChkPedido";
+            ChkPedido.Size = new Size(68, 19);
+            ChkPedido.TabIndex = 4;
+            ChkPedido.Text = "Pedidos";
+            ChkPedido.UseVisualStyleBackColor = true;
+            // 
+            // ChkProduto
+            // 
+            ChkProduto.AutoSize = true;
+            ChkProduto.Location = new Point(10, 94);
+            ChkProduto.Name = "ChkProduto";
+            ChkProduto.Size = new Size(119, 19);
+            ChkProduto.TabIndex = 3;
+            ChkProduto.Text = "Cadastro Produto";
+            ChkProduto.UseVisualStyleBackColor = true;
+            // 
+            // ChkCliente
+            // 
+            ChkCliente.AutoSize = true;
+            ChkCliente.Location = new Point(10, 69);
+            ChkCliente.Name = "ChkCliente";
+            ChkCliente.Size = new Size(113, 19);
+            ChkCliente.TabIndex = 2;
+            ChkCliente.Text = "Cadastro Cliente";
+            ChkCliente.UseVisualStyleBackColor = true;
+            // 
+            // ChkCategoria
+            // 
+            ChkCategoria.AutoSize = true;
+            ChkCategoria.Location = new Point(10, 45);
+            ChkCategoria.Name = "ChkCategoria";
+            ChkCategoria.Size = new Size(127, 19);
+            ChkCategoria.TabIndex = 1;
+            ChkCategoria.Text = "Cadastro Categoria";
+            ChkCategoria.UseVisualStyleBackColor = true;
+            // 
+            // ChkOperador
+            // 
+            ChkOperador.AutoSize = true;
+            ChkOperador.Location = new Point(10, 20);
+            ChkOperador.Name = "ChkOperador";
+            ChkOperador.Size = new Size(126, 19);
+            ChkOperador.TabIndex = 0;
+            ChkOperador.Text = "Cadastro Operador";
+            ChkOperador.UseVisualStyleBackColor = true;
             // 
             // TxtNome
             // 
@@ -260,6 +353,8 @@
             Controls.Add(BtnSalvar);
             Name = "FormCadastroOperador";
             Text = "FormCadastroOperador";
+            FormClosing += FormCadastroOperador_FormClosing;
+            Load += FormCadastroOperador_Load;
             tabControl1.ResumeLayout(false);
             TabDados.ResumeLayout(false);
             TabDados.PerformLayout();
@@ -282,13 +377,21 @@
         private TabControl tabControl1;
         private TabPage TabDados;
         private CheckBox ChkAdmin;
-        private CheckBox ChkBoxInativo;
+        private CheckBox ChkInativo;
         private CheckBox ChkVerificarSenha;
         private TextBox TxtSenha;
         private Label label3;
         private TabPage TabTelas;
-        private CheckBox checkBox1;
+        private CheckBox ChkOperador;
         private TextBox TxtNome;
         private Label label2;
+        private CheckBox ChkProduto;
+        private CheckBox ChkCliente;
+        private CheckBox ChkCategoria;
+        private CheckBox ChkFormaPGTO;
+        private CheckBox ChkEntrada;
+        private CheckBox ChkTabelaUsuarios;
+        private CheckBox checkBox5;
+        private CheckBox ChkPedido;
     }
 }

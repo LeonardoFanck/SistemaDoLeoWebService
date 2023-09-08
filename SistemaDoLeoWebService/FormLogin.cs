@@ -1,4 +1,5 @@
 using Microsoft.VisualBasic;
+using ServiceReference1;
 using System.Data;
 using System.Data.SqlTypes;
 using System.Reflection;
@@ -8,7 +9,7 @@ namespace SistemaDoLeoWebService
     public partial class FormLogin : Form
     {
         private Thread thread;
-
+        private Operador operador;
 
         public FormLogin()
         {
@@ -50,7 +51,8 @@ namespace SistemaDoLeoWebService
                     
                     if (resultado.Equals(0))
                     {
-                        LblNomeOperador.Text = WebReference.GetNomeOperadorAsync(ID).Result;
+                        operador = WebReference.GetOperadorAsync(ID).Result;
+                        LblNomeOperador.Text = operador.getSetNome;
                     }
                     else if (resultado.Equals(1))
                     {
@@ -181,7 +183,7 @@ namespace SistemaDoLeoWebService
 
         private void abriNovaJanela()
         {
-            Application.Run(new FormMain());
+            Application.Run(new FormMain(operador));
         }
 
         private string nomeForm()
