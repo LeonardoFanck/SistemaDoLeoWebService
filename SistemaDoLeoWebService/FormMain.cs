@@ -103,8 +103,19 @@ namespace SistemaDoLeoWebService
 
         private void MenuMainPedidos_Click(object sender, EventArgs e)
         {
-            // ABRIR TELA DE PEDIDOS
+            FormPedido form = new FormPedido(operador);
+            form.MdiParent = this;
 
+            // VALIDA SE O FORM JÁ ESTÁ ABERTO
+            if (Application.OpenForms.OfType<FormPedido>().Count() > 0)
+            {
+                // FORM JÁ ABERTO
+                Application.OpenForms["FormCadastroProdutos"].BringToFront();
+            }
+            else
+            {
+                form.Show();
+            }
         }
 
         private void configuraçõesGeraisToolStripMenuItem_Click(object sender, EventArgs e)

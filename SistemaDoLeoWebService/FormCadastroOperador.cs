@@ -27,8 +27,6 @@ namespace SistemaDoLeoWebService
             InitializeComponent();
         }
 
-        
-
         public int getSetStatus
         {
             // 0 -> Novo Cadastro | 1 -> Edição | 2 -> Visualização
@@ -444,6 +442,7 @@ namespace SistemaDoLeoWebService
             // ATUALIZA AS INFORMAÇÕES DO OPERADOR QUE ESTÁ SENDO UTILIZADO NO MOMENTO
             this.operadorLogado = WebService.GetOperadorAsync(operador.getSetID).Result;
             this.formMain.getSetOperador = this.operadorLogado;
+            this.formMain.validarTelas();
         }
     }
 }

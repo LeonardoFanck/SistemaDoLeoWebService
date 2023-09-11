@@ -758,6 +758,118 @@ namespace ServiceReference1
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Pedido", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class Pedido : object
+    {
+        
+        private int getSetClienteField;
+        
+        private string getSetDataField;
+        
+        private double getSetDescontoField;
+        
+        private int getSetFormaPGTOField;
+        
+        private int getSetIDField;
+        
+        private double getSetValorField;
+        
+        private double getSetValorTotalField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetCliente
+        {
+            get
+            {
+                return this.getSetClienteField;
+            }
+            set
+            {
+                this.getSetClienteField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetData
+        {
+            get
+            {
+                return this.getSetDataField;
+            }
+            set
+            {
+                this.getSetDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetDesconto
+        {
+            get
+            {
+                return this.getSetDescontoField;
+            }
+            set
+            {
+                this.getSetDescontoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetFormaPGTO
+        {
+            get
+            {
+                return this.getSetFormaPGTOField;
+            }
+            set
+            {
+                this.getSetFormaPGTOField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetID
+        {
+            get
+            {
+                return this.getSetIDField;
+            }
+            set
+            {
+                this.getSetIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetValor
+        {
+            get
+            {
+                return this.getSetValorField;
+            }
+            set
+            {
+                this.getSetValorField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetValorTotal
+        {
+            get
+            {
+                return this.getSetValorTotalField;
+            }
+            set
+            {
+                this.getSetValorTotalField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1
@@ -882,6 +994,21 @@ namespace ServiceReference1
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllCategorias", ReplyAction="http://tempuri.org/IService1/GetAllCategoriasResponse")]
         System.Threading.Tasks.Task<ServiceReference1.Categoria[]> GetAllCategoriasAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetPedido", ReplyAction="http://tempuri.org/IService1/GetPedidoResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.Pedido> GetPedidoAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetRegistroInicialPedido", ReplyAction="http://tempuri.org/IService1/GetRegistroInicialPedidoResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.Pedido> GetRegistroInicialPedidoAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetProximoRegistroPedido", ReplyAction="http://tempuri.org/IService1/GetProximoRegistroPedidoResponse")]
+        System.Threading.Tasks.Task<int> GetProximoRegistroPedidoAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AvancarRegistroPedido", ReplyAction="http://tempuri.org/IService1/AvancarRegistroPedidoResponse")]
+        System.Threading.Tasks.Task<int> AvancarRegistroPedidoAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/VoltarRegistroPedido", ReplyAction="http://tempuri.org/IService1/VoltarRegistroPedidoResponse")]
+        System.Threading.Tasks.Task<int> VoltarRegistroPedidoAsync(int ID);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
@@ -1132,6 +1259,31 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<ServiceReference1.Categoria[]> GetAllCategoriasAsync()
         {
             return base.Channel.GetAllCategoriasAsync();
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.Pedido> GetPedidoAsync(int ID)
+        {
+            return base.Channel.GetPedidoAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.Pedido> GetRegistroInicialPedidoAsync()
+        {
+            return base.Channel.GetRegistroInicialPedidoAsync();
+        }
+        
+        public System.Threading.Tasks.Task<int> GetProximoRegistroPedidoAsync()
+        {
+            return base.Channel.GetProximoRegistroPedidoAsync();
+        }
+        
+        public System.Threading.Tasks.Task<int> AvancarRegistroPedidoAsync(int ID)
+        {
+            return base.Channel.AvancarRegistroPedidoAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<int> VoltarRegistroPedidoAsync(int ID)
+        {
+            return base.Channel.VoltarRegistroPedidoAsync(ID);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
