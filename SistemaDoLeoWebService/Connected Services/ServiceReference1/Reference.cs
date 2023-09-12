@@ -870,6 +870,133 @@ namespace ServiceReference1
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PedidoItens", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class PedidoItens : object
+    {
+        
+        private double getSetItemDescontoField;
+        
+        private int getSetItemIDField;
+        
+        private string getSetItemNomeProdutoField;
+        
+        private double getSetItemValorField;
+        
+        private double getSetItemValorTotalField;
+        
+        private int getSetPedidoIDField;
+        
+        private int getSetProdutoField;
+        
+        private int getSetQuantidadeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetItemDesconto
+        {
+            get
+            {
+                return this.getSetItemDescontoField;
+            }
+            set
+            {
+                this.getSetItemDescontoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetItemID
+        {
+            get
+            {
+                return this.getSetItemIDField;
+            }
+            set
+            {
+                this.getSetItemIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetItemNomeProduto
+        {
+            get
+            {
+                return this.getSetItemNomeProdutoField;
+            }
+            set
+            {
+                this.getSetItemNomeProdutoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetItemValor
+        {
+            get
+            {
+                return this.getSetItemValorField;
+            }
+            set
+            {
+                this.getSetItemValorField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetItemValorTotal
+        {
+            get
+            {
+                return this.getSetItemValorTotalField;
+            }
+            set
+            {
+                this.getSetItemValorTotalField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetPedidoID
+        {
+            get
+            {
+                return this.getSetPedidoIDField;
+            }
+            set
+            {
+                this.getSetPedidoIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetProduto
+        {
+            get
+            {
+                return this.getSetProdutoField;
+            }
+            set
+            {
+                this.getSetProdutoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetQuantidade
+        {
+            get
+            {
+                return this.getSetQuantidadeField;
+            }
+            set
+            {
+                this.getSetQuantidadeField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1
@@ -997,6 +1124,9 @@ namespace ServiceReference1
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetPedido", ReplyAction="http://tempuri.org/IService1/GetPedidoResponse")]
         System.Threading.Tasks.Task<ServiceReference1.Pedido> GetPedidoAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetPedidoItens", ReplyAction="http://tempuri.org/IService1/GetPedidoItensResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.PedidoItens[]> GetPedidoItensAsync(int ID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetRegistroInicialPedido", ReplyAction="http://tempuri.org/IService1/GetRegistroInicialPedidoResponse")]
         System.Threading.Tasks.Task<ServiceReference1.Pedido> GetRegistroInicialPedidoAsync();
@@ -1264,6 +1394,11 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<ServiceReference1.Pedido> GetPedidoAsync(int ID)
         {
             return base.Channel.GetPedidoAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.PedidoItens[]> GetPedidoItensAsync(int ID)
+        {
+            return base.Channel.GetPedidoItensAsync(ID);
         }
         
         public System.Threading.Tasks.Task<ServiceReference1.Pedido> GetRegistroInicialPedidoAsync()

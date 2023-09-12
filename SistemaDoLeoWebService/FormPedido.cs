@@ -68,7 +68,7 @@ namespace SistemaDoLeoWebService
                 TxtValorFinal.Enabled = true;
                 TxtProduto.Enabled = true;
                 TxtValorItem.Enabled = true;
-                TxtQuantidade.Enabled = true;
+                TxtQuantidadeItem.Enabled = true;
                 TxtDescontoItem.Enabled = true;
                 TxtValorFinalItem.Enabled = true;
 
@@ -110,7 +110,7 @@ namespace SistemaDoLeoWebService
                 TxtValorFinal.Enabled = true;
                 TxtProduto.Enabled = true;
                 TxtValorItem.Enabled = true;
-                TxtQuantidade.Enabled = true;
+                TxtQuantidadeItem.Enabled = true;
                 TxtDescontoItem.Enabled = true;
                 TxtValorFinalItem.Enabled = true;
 
@@ -148,7 +148,7 @@ namespace SistemaDoLeoWebService
                 TxtValorFinal.Enabled = false;
                 TxtProduto.Enabled = false;
                 TxtValorItem.Enabled = false;
-                TxtQuantidade.Enabled = false;
+                TxtQuantidadeItem.Enabled = false;
                 TxtDescontoItem.Enabled = false;
                 TxtValorFinalItem.Enabled = false;
             }
@@ -169,6 +169,9 @@ namespace SistemaDoLeoWebService
                 TxtDesconto.Text = pedido.getSetDesconto.ToString();
                 TxtValorFinal.Text = pedido.getSetValorTotal.ToString();
                 MTxtData.Text = pedido.getSetData.ToString();
+
+                // PREENCHE O GRID COM OS ITENS DO PEDIDO
+                PreencherGridPedidos(pedido.getSetID);
             }
             catch (Exception ex)
             {
@@ -190,6 +193,9 @@ namespace SistemaDoLeoWebService
                 TxtValor.Text = pedido.getSetValor.ToString();
                 TxtDesconto.Text = pedido.getSetDesconto.ToString();
                 TxtValorFinal.Text = pedido.getSetValorTotal.ToString();
+
+                // PREENCHE O GRID COM OS ITENS DO PEDIDO
+                PreencherGridPedidos(pedido.getSetID);
             }
             catch (Exception ex)
             {
@@ -322,7 +328,7 @@ namespace SistemaDoLeoWebService
                     // NÃO IMPLEMENTEI AINDA -> VOU VER
                     //validarNome(operador);
 
-                    validarRetorno(WebService.SalvarOperadorAsync(pedido).Result);
+                    //validarRetorno(WebService.SalvarOperadorAsync(pedido).Result);
                 }
             }
             catch (Exception ex)
@@ -398,9 +404,23 @@ namespace SistemaDoLeoWebService
         {
             TxtProduto.Text = string.Empty;
             TxtValorItem.Text = string.Empty;
-            TxtQuantidade.Text = string.Empty;
+            TxtQuantidadeItem.Text = string.Empty;
             TxtDescontoItem.Text = string.Empty;
             TxtValorFinalItem.Text = string.Empty;
+        }
+
+        private void PreencherGridPedidos(int ID)
+        {
+            var WebService = new ServiceReference1.Service1Client();
+
+            var lista = WebService.GetPedidoItensAsync(ID).Result;
+
+            GridViewItens.Rows.Clear();
+
+            foreach (var item in lista)
+            {
+                GridViewItens.Rows.Add(item.getSetItemID, item.getSetPedidoID, item.getSetProduto, item.getSetItemNomeProduto, item.getSetItemValor, item.getSetQuantidade, item.getSetItemDesconto, item.getSetItemValorTotal);
+            }
         }
     }
 }
