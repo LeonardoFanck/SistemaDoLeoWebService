@@ -16,6 +16,7 @@ namespace SistemaDoLeoWebService
         private string FormNome = "Pedidos";
         private Operador operadorLogado;
         private Pedido pedido;
+        private Produto produto;
         private int Status;
 
         public FormPedido(Operador operador)
@@ -38,7 +39,7 @@ namespace SistemaDoLeoWebService
             ultimoRegistro();
         }
 
-        public void validarAcoes()
+        private void validarAcoes()
         {
             if (getSetStatus == 0)
             {
@@ -154,7 +155,7 @@ namespace SistemaDoLeoWebService
             }
         }
 
-        public void ultimoRegistro()
+        private void ultimoRegistro()
         {
             try
             {
@@ -179,7 +180,7 @@ namespace SistemaDoLeoWebService
             }
         }
 
-        public void preencheDados(int ID)
+        private void preencheDados(int ID)
         {
             try
             {
@@ -200,6 +201,31 @@ namespace SistemaDoLeoWebService
             catch (Exception ex)
             {
                 MessageBox.Show("" + ex.Message, FormNome);
+            }
+        }
+
+        private void preencheProduto(int ID)
+        {
+            try
+            {
+                var WebService = new ServiceReference1.Service1Client();
+
+                produto = WebService.GetProdutoAsync(ID).Result;
+
+                TxtNomeProduto.Text = produto.getSetNome;
+                TxtValorItem.Text = produto.getSetValor.ToString();
+                TxtQuantidadeItem.Text = "1";
+                TxtDesconto.Text = "0";
+
+                CalcularProduto();
+
+                // FOCO PARA O PROXIMO CAMPO
+                TxtValorItem.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+                limpaCamposItem();
             }
         }
 
@@ -407,6 +433,7 @@ namespace SistemaDoLeoWebService
             TxtQuantidadeItem.Text = string.Empty;
             TxtDescontoItem.Text = string.Empty;
             TxtValorFinalItem.Text = string.Empty;
+            TxtNomeProduto.Text = string.Empty;
         }
 
         private void PreencherGridPedidos(int ID)
@@ -421,6 +448,30 @@ namespace SistemaDoLeoWebService
             {
                 GridViewItens.Rows.Add(item.getSetItemID, item.getSetPedidoID, item.getSetProduto, item.getSetItemNomeProduto, item.getSetItemValor, item.getSetQuantidade, item.getSetItemDesconto, item.getSetItemValorTotal);
             }
+        }
+
+        private void TxtProduto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                if (TxtProduto.Text != string.Empty)
+                {
+                    preencheProduto(Convert.ToInt32(TxtProduto.Text));
+                    e.Handled = true;
+                }
+                else
+                {
+                    MessageBox.Show("Informe um produto!", FormNome);
+                    limpaCamposItem();
+                }
+            }
+
+
+        }
+
+        private void TxtProduto_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

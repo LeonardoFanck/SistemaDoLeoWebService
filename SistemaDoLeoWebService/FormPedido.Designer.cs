@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             BtnAvancar = new Button();
             BtnVoltar = new Button();
             BtnAlterar = new Button();
@@ -53,19 +53,6 @@
             TxtValorFinal = new TextBox();
             label6 = new Label();
             MTxtData = new MaskedTextBox();
-            BtnProduto = new Button();
-            TxtProduto = new TextBox();
-            label7 = new Label();
-            TxtValorFinalItem = new TextBox();
-            label8 = new Label();
-            TxtDescontoItem = new TextBox();
-            label9 = new Label();
-            TxtValorItem = new TextBox();
-            label10 = new Label();
-            TxtQuantidadeItem = new TextBox();
-            label11 = new Label();
-            BtnRemoverItem = new Button();
-            BtnAdicionarItem = new Button();
             BtnLiberarPedido = new Button();
             GridViewItens = new DataGridView();
             IDItemPedido = new DataGridViewTextBoxColumn();
@@ -76,10 +63,31 @@
             Quantidade = new DataGridViewTextBoxColumn();
             Desconto = new DataGridViewTextBoxColumn();
             ValorTotal = new DataGridViewTextBoxColumn();
-            TxtNomeProduto = new TextBox();
             TxtClienteNome = new TextBox();
             TxtFormaPGTONome = new TextBox();
+            groupBox1 = new GroupBox();
+            groupBox2 = new GroupBox();
+            label15 = new Label();
+            label14 = new Label();
+            label13 = new Label();
+            label12 = new Label();
+            TxtNomeProduto = new TextBox();
+            BtnAdicionarItem = new Button();
+            BtnRemoverItem = new Button();
+            TxtQuantidadeItem = new TextBox();
+            label11 = new Label();
+            TxtValorFinalItem = new TextBox();
+            label8 = new Label();
+            TxtDescontoItem = new TextBox();
+            label9 = new Label();
+            TxtValorItem = new TextBox();
+            label10 = new Label();
+            BtnProduto = new Button();
+            TxtProduto = new TextBox();
+            label7 = new Label();
             ((System.ComponentModel.ISupportInitialize)GridViewItens).BeginInit();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // BtnAvancar
@@ -274,113 +282,6 @@
             MTxtData.TabIndex = 80;
             MTxtData.ValidatingType = typeof(DateTime);
             // 
-            // BtnProduto
-            // 
-            BtnProduto.Location = new Point(866, 221);
-            BtnProduto.Name = "BtnProduto";
-            BtnProduto.Size = new Size(41, 23);
-            BtnProduto.TabIndex = 83;
-            BtnProduto.Text = "->";
-            BtnProduto.UseVisualStyleBackColor = true;
-            // 
-            // TxtProduto
-            // 
-            TxtProduto.Location = new Point(753, 221);
-            TxtProduto.Name = "TxtProduto";
-            TxtProduto.Size = new Size(100, 23);
-            TxtProduto.TabIndex = 82;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(690, 225);
-            label7.Name = "label7";
-            label7.Size = new Size(50, 15);
-            label7.TabIndex = 81;
-            label7.Text = "Produto";
-            // 
-            // TxtValorFinalItem
-            // 
-            TxtValorFinalItem.Location = new Point(807, 355);
-            TxtValorFinalItem.Name = "TxtValorFinalItem";
-            TxtValorFinalItem.Size = new Size(100, 23);
-            TxtValorFinalItem.TabIndex = 89;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(736, 323);
-            label8.Name = "label8";
-            label8.Size = new Size(57, 15);
-            label8.TabIndex = 88;
-            label8.Text = "Desconto";
-            // 
-            // TxtDescontoItem
-            // 
-            TxtDescontoItem.Location = new Point(807, 320);
-            TxtDescontoItem.Name = "TxtDescontoItem";
-            TxtDescontoItem.Size = new Size(100, 23);
-            TxtDescontoItem.TabIndex = 87;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(753, 358);
-            label9.Name = "label9";
-            label9.Size = new Size(32, 15);
-            label9.TabIndex = 86;
-            label9.Text = "Total";
-            // 
-            // TxtValorItem
-            // 
-            TxtValorItem.Location = new Point(807, 261);
-            TxtValorItem.Name = "TxtValorItem";
-            TxtValorItem.Size = new Size(100, 23);
-            TxtValorItem.TabIndex = 85;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Location = new Point(753, 264);
-            label10.Name = "label10";
-            label10.Size = new Size(33, 15);
-            label10.TabIndex = 84;
-            label10.Text = "Valor";
-            // 
-            // TxtQuantidadeItem
-            // 
-            TxtQuantidadeItem.Location = new Point(807, 291);
-            TxtQuantidadeItem.Name = "TxtQuantidadeItem";
-            TxtQuantidadeItem.Size = new Size(100, 23);
-            TxtQuantidadeItem.TabIndex = 91;
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Location = new Point(732, 294);
-            label11.Name = "label11";
-            label11.Size = new Size(69, 15);
-            label11.TabIndex = 90;
-            label11.Text = "Quantidade";
-            // 
-            // BtnRemoverItem
-            // 
-            BtnRemoverItem.Location = new Point(744, 384);
-            BtnRemoverItem.Name = "BtnRemoverItem";
-            BtnRemoverItem.Size = new Size(97, 35);
-            BtnRemoverItem.TabIndex = 92;
-            BtnRemoverItem.Text = "Excluir";
-            BtnRemoverItem.UseVisualStyleBackColor = true;
-            // 
-            // BtnAdicionarItem
-            // 
-            BtnAdicionarItem.Location = new Point(857, 384);
-            BtnAdicionarItem.Name = "BtnAdicionarItem";
-            BtnAdicionarItem.Size = new Size(97, 35);
-            BtnAdicionarItem.TabIndex = 93;
-            BtnAdicionarItem.Text = "Adicionar";
-            BtnAdicionarItem.UseVisualStyleBackColor = true;
-            // 
             // BtnLiberarPedido
             // 
             BtnLiberarPedido.Location = new Point(991, 20);
@@ -395,30 +296,30 @@
             // 
             GridViewItens.AllowUserToAddRows = false;
             GridViewItens.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(224, 224, 224);
-            GridViewItens.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
+            GridViewItens.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             GridViewItens.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             GridViewItens.Columns.AddRange(new DataGridViewColumn[] { IDItemPedido, PedidoID, IDProduto, NomeProduto, Valor, Quantidade, Desconto, ValorTotal });
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.ScrollBar;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.MenuHighlight;
-            dataGridViewCellStyle5.SelectionForeColor = Color.White;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            GridViewItens.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.ScrollBar;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.MenuHighlight;
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            GridViewItens.DefaultCellStyle = dataGridViewCellStyle2;
             GridViewItens.GridColor = SystemColors.Window;
             GridViewItens.Location = new Point(23, 199);
             GridViewItens.Name = "GridViewItens";
             GridViewItens.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = Color.White;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            GridViewItens.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            GridViewItens.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             GridViewItens.RowTemplate.Height = 25;
             GridViewItens.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             GridViewItens.Size = new Size(660, 308);
@@ -482,13 +383,6 @@
             ValorTotal.Name = "ValorTotal";
             ValorTotal.ReadOnly = true;
             // 
-            // TxtNomeProduto
-            // 
-            TxtNomeProduto.Location = new Point(919, 221);
-            TxtNomeProduto.Name = "TxtNomeProduto";
-            TxtNomeProduto.Size = new Size(240, 23);
-            TxtNomeProduto.TabIndex = 96;
-            // 
             // TxtClienteNome
             // 
             TxtClienteNome.Location = new Point(229, 55);
@@ -503,29 +397,206 @@
             TxtFormaPGTONome.Size = new Size(354, 23);
             TxtFormaPGTONome.TabIndex = 98;
             // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(groupBox2);
+            groupBox1.Controls.Add(TxtNomeProduto);
+            groupBox1.Controls.Add(BtnAdicionarItem);
+            groupBox1.Controls.Add(BtnRemoverItem);
+            groupBox1.Controls.Add(TxtQuantidadeItem);
+            groupBox1.Controls.Add(label11);
+            groupBox1.Controls.Add(TxtValorFinalItem);
+            groupBox1.Controls.Add(label8);
+            groupBox1.Controls.Add(TxtDescontoItem);
+            groupBox1.Controls.Add(label9);
+            groupBox1.Controls.Add(TxtValorItem);
+            groupBox1.Controls.Add(label10);
+            groupBox1.Controls.Add(BtnProduto);
+            groupBox1.Controls.Add(TxtProduto);
+            groupBox1.Controls.Add(label7);
+            groupBox1.Location = new Point(706, 199);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(505, 308);
+            groupBox1.TabIndex = 99;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Produtos";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(label15);
+            groupBox2.Controls.Add(label14);
+            groupBox2.Controls.Add(label13);
+            groupBox2.Controls.Add(label12);
+            groupBox2.Location = new Point(333, 69);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(140, 155);
+            groupBox2.TabIndex = 111;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Estoque";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(41, 97);
+            label15.Name = "label15";
+            label15.Size = new Size(81, 15);
+            label15.TabIndex = 3;
+            label15.Text = "Novo Estoque";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(44, 74);
+            label14.Name = "label14";
+            label14.Size = new Size(77, 15);
+            label14.TabIndex = 2;
+            label14.Text = "______________";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(44, 59);
+            label13.Name = "label13";
+            label13.Size = new Size(77, 15);
+            label13.TabIndex = 1;
+            label13.Text = "- Quantidade";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(44, 30);
+            label12.Name = "label12";
+            label12.Size = new Size(80, 15);
+            label12.TabIndex = 0;
+            label12.Text = "Estoque Atual";
+            // 
+            // TxtNomeProduto
+            // 
+            TxtNomeProduto.Enabled = false;
+            TxtNomeProduto.Location = new Point(251, 29);
+            TxtNomeProduto.Name = "TxtNomeProduto";
+            TxtNomeProduto.Size = new Size(240, 23);
+            TxtNomeProduto.TabIndex = 110;
+            // 
+            // BtnAdicionarItem
+            // 
+            BtnAdicionarItem.Location = new Point(189, 192);
+            BtnAdicionarItem.Name = "BtnAdicionarItem";
+            BtnAdicionarItem.Size = new Size(97, 35);
+            BtnAdicionarItem.TabIndex = 109;
+            BtnAdicionarItem.Text = "Adicionar";
+            BtnAdicionarItem.UseVisualStyleBackColor = true;
+            // 
+            // BtnRemoverItem
+            // 
+            BtnRemoverItem.Location = new Point(76, 192);
+            BtnRemoverItem.Name = "BtnRemoverItem";
+            BtnRemoverItem.Size = new Size(97, 35);
+            BtnRemoverItem.TabIndex = 108;
+            BtnRemoverItem.Text = "Excluir";
+            BtnRemoverItem.UseVisualStyleBackColor = true;
+            // 
+            // TxtQuantidadeItem
+            // 
+            TxtQuantidadeItem.Location = new Point(139, 99);
+            TxtQuantidadeItem.Name = "TxtQuantidadeItem";
+            TxtQuantidadeItem.Size = new Size(100, 23);
+            TxtQuantidadeItem.TabIndex = 107;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(64, 102);
+            label11.Name = "label11";
+            label11.Size = new Size(69, 15);
+            label11.TabIndex = 106;
+            label11.Text = "Quantidade";
+            // 
+            // TxtValorFinalItem
+            // 
+            TxtValorFinalItem.Location = new Point(139, 163);
+            TxtValorFinalItem.Name = "TxtValorFinalItem";
+            TxtValorFinalItem.Size = new Size(100, 23);
+            TxtValorFinalItem.TabIndex = 105;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(68, 131);
+            label8.Name = "label8";
+            label8.Size = new Size(57, 15);
+            label8.TabIndex = 104;
+            label8.Text = "Desconto";
+            // 
+            // TxtDescontoItem
+            // 
+            TxtDescontoItem.Location = new Point(139, 128);
+            TxtDescontoItem.Name = "TxtDescontoItem";
+            TxtDescontoItem.Size = new Size(100, 23);
+            TxtDescontoItem.TabIndex = 103;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(85, 166);
+            label9.Name = "label9";
+            label9.Size = new Size(32, 15);
+            label9.TabIndex = 102;
+            label9.Text = "Total";
+            // 
+            // TxtValorItem
+            // 
+            TxtValorItem.Location = new Point(139, 69);
+            TxtValorItem.Name = "TxtValorItem";
+            TxtValorItem.Size = new Size(100, 23);
+            TxtValorItem.TabIndex = 101;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(85, 72);
+            label10.Name = "label10";
+            label10.Size = new Size(33, 15);
+            label10.TabIndex = 100;
+            label10.Text = "Valor";
+            // 
+            // BtnProduto
+            // 
+            BtnProduto.Location = new Point(198, 29);
+            BtnProduto.Name = "BtnProduto";
+            BtnProduto.Size = new Size(41, 23);
+            BtnProduto.TabIndex = 99;
+            BtnProduto.Text = "->";
+            BtnProduto.UseVisualStyleBackColor = true;
+            // 
+            // TxtProduto
+            // 
+            TxtProduto.Location = new Point(85, 29);
+            TxtProduto.Name = "TxtProduto";
+            TxtProduto.Size = new Size(100, 23);
+            TxtProduto.TabIndex = 98;
+            TxtProduto.TextChanged += TxtProduto_TextChanged;
+            TxtProduto.KeyPress += TxtProduto_KeyPress;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(22, 33);
+            label7.Name = "label7";
+            label7.Size = new Size(50, 15);
+            label7.TabIndex = 97;
+            label7.Text = "Produto";
+            // 
             // FormPedido
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1232, 589);
+            Controls.Add(groupBox1);
             Controls.Add(TxtFormaPGTONome);
             Controls.Add(TxtClienteNome);
-            Controls.Add(TxtNomeProduto);
             Controls.Add(GridViewItens);
             Controls.Add(BtnLiberarPedido);
-            Controls.Add(BtnAdicionarItem);
-            Controls.Add(BtnRemoverItem);
-            Controls.Add(TxtQuantidadeItem);
-            Controls.Add(label11);
-            Controls.Add(TxtValorFinalItem);
-            Controls.Add(label8);
-            Controls.Add(TxtDescontoItem);
-            Controls.Add(label9);
-            Controls.Add(TxtValorItem);
-            Controls.Add(label10);
-            Controls.Add(BtnProduto);
-            Controls.Add(TxtProduto);
-            Controls.Add(label7);
             Controls.Add(MTxtData);
             Controls.Add(TxtValorFinal);
             Controls.Add(label6);
@@ -552,6 +623,10 @@
             Text = "FormPedido";
             Load += FormPedido_Load;
             ((System.ComponentModel.ISupportInitialize)GridViewItens).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -580,19 +655,6 @@
         private TextBox TxtValorFinal;
         private Label label6;
         private MaskedTextBox MTxtData;
-        private Button BtnProduto;
-        private TextBox TxtProduto;
-        private Label label7;
-        private TextBox TxtValorFinalItem;
-        private Label label8;
-        private TextBox TxtDescontoItem;
-        private Label label9;
-        private TextBox TxtValorItem;
-        private Label label10;
-        private TextBox TxtQuantidadeItem;
-        private Label label11;
-        private Button BtnRemoverItem;
-        private Button BtnAdicionarItem;
         private Button BtnLiberarPedido;
         private DataGridView GridViewItens;
         private DataGridViewTextBoxColumn IDItemPedido;
@@ -603,8 +665,27 @@
         private DataGridViewTextBoxColumn Quantidade;
         private DataGridViewTextBoxColumn Desconto;
         private DataGridViewTextBoxColumn ValorTotal;
-        private TextBox TxtNomeProduto;
         private TextBox TxtClienteNome;
         private TextBox TxtFormaPGTONome;
+        private GroupBox groupBox1;
+        private TextBox TxtNomeProduto;
+        private Button BtnAdicionarItem;
+        private Button BtnRemoverItem;
+        private TextBox TxtQuantidadeItem;
+        private Label label11;
+        private TextBox TxtValorFinalItem;
+        private Label label8;
+        private TextBox TxtDescontoItem;
+        private Label label9;
+        private TextBox TxtValorItem;
+        private Label label10;
+        private Button BtnProduto;
+        private TextBox TxtProduto;
+        private Label label7;
+        private GroupBox groupBox2;
+        private Label label13;
+        private Label label12;
+        private Label label15;
+        private Label label14;
     }
 }
