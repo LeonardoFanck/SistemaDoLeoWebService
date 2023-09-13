@@ -67,10 +67,10 @@
             TxtFormaPGTONome = new TextBox();
             groupBox1 = new GroupBox();
             groupBox2 = new GroupBox();
-            label15 = new Label();
-            label14 = new Label();
-            label13 = new Label();
-            label12 = new Label();
+            LblNovoEstoque = new Label();
+            LblLinhaSoma = new Label();
+            LblQuantidadeVenda = new Label();
+            LblEstoqueAtual = new Label();
             TxtNomeProduto = new TextBox();
             BtnAdicionarItem = new Button();
             BtnRemoverItem = new Button();
@@ -92,7 +92,7 @@
             // 
             // BtnAvancar
             // 
-            BtnAvancar.Location = new Point(421, 541);
+            BtnAvancar.Location = new Point(413, 15);
             BtnAvancar.Name = "BtnAvancar";
             BtnAvancar.Size = new Size(30, 25);
             BtnAvancar.TabIndex = 64;
@@ -102,7 +102,7 @@
             // 
             // BtnVoltar
             // 
-            BtnVoltar.Location = new Point(385, 541);
+            BtnVoltar.Location = new Point(377, 15);
             BtnVoltar.Name = "BtnVoltar";
             BtnVoltar.Size = new Size(30, 25);
             BtnVoltar.TabIndex = 63;
@@ -112,7 +112,7 @@
             // 
             // BtnAlterar
             // 
-            BtnAlterar.Location = new Point(603, 531);
+            BtnAlterar.Location = new Point(858, 402);
             BtnAlterar.Name = "BtnAlterar";
             BtnAlterar.Size = new Size(97, 35);
             BtnAlterar.TabIndex = 62;
@@ -122,7 +122,7 @@
             // 
             // BtnNovo
             // 
-            BtnNovo.Location = new Point(500, 531);
+            BtnNovo.Location = new Point(755, 402);
             BtnNovo.Name = "BtnNovo";
             BtnNovo.Size = new Size(97, 35);
             BtnNovo.TabIndex = 61;
@@ -132,7 +132,7 @@
             // 
             // BtnCancelar
             // 
-            BtnCancelar.Location = new Point(809, 531);
+            BtnCancelar.Location = new Point(1064, 402);
             BtnCancelar.Name = "BtnCancelar";
             BtnCancelar.Size = new Size(97, 35);
             BtnCancelar.TabIndex = 60;
@@ -142,7 +142,7 @@
             // 
             // BtnSalvar
             // 
-            BtnSalvar.Location = new Point(706, 531);
+            BtnSalvar.Location = new Point(961, 402);
             BtnSalvar.Name = "BtnSalvar";
             BtnSalvar.Size = new Size(97, 35);
             BtnSalvar.TabIndex = 59;
@@ -152,7 +152,7 @@
             // 
             // BtnID
             // 
-            BtnID.Location = new Point(182, 16);
+            BtnID.Location = new Point(182, 17);
             BtnID.Name = "BtnID";
             BtnID.Size = new Size(41, 23);
             BtnID.TabIndex = 67;
@@ -169,7 +169,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(49, 20);
+            label1.Location = new Point(23, 16);
             label1.Name = "label1";
             label1.Size = new Size(18, 15);
             label1.TabIndex = 65;
@@ -177,7 +177,7 @@
             // 
             // BtnCliente
             // 
-            BtnCliente.Location = new Point(182, 54);
+            BtnCliente.Location = new Point(182, 53);
             BtnCliente.Name = "BtnCliente";
             BtnCliente.Size = new Size(41, 23);
             BtnCliente.TabIndex = 70;
@@ -194,7 +194,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(23, 58);
+            label2.Location = new Point(23, 53);
             label2.Name = "label2";
             label2.Size = new Size(44, 15);
             label2.TabIndex = 68;
@@ -202,7 +202,7 @@
             // 
             // BtnFormaPGTO
             // 
-            BtnFormaPGTO.Location = new Point(182, 83);
+            BtnFormaPGTO.Location = new Point(182, 82);
             BtnFormaPGTO.Name = "BtnFormaPGTO";
             BtnFormaPGTO.Size = new Size(41, 23);
             BtnFormaPGTO.TabIndex = 73;
@@ -219,7 +219,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(23, 87);
+            label3.Location = new Point(23, 86);
             label3.Name = "label3";
             label3.Size = new Size(73, 15);
             label3.TabIndex = 71;
@@ -227,7 +227,7 @@
             // 
             // TxtValor
             // 
-            TxtValor.Location = new Point(872, 22);
+            TxtValor.Location = new Point(1054, 22);
             TxtValor.Name = "TxtValor";
             TxtValor.Size = new Size(100, 23);
             TxtValor.TabIndex = 75;
@@ -235,7 +235,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(818, 25);
+            label4.Location = new Point(1000, 25);
             label4.Name = "label4";
             label4.Size = new Size(33, 15);
             label4.TabIndex = 74;
@@ -243,7 +243,7 @@
             // 
             // TxtDesconto
             // 
-            TxtDesconto.Location = new Point(872, 55);
+            TxtDesconto.Location = new Point(1054, 55);
             TxtDesconto.Name = "TxtDesconto";
             TxtDesconto.Size = new Size(100, 23);
             TxtDesconto.TabIndex = 77;
@@ -251,7 +251,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(818, 93);
+            label5.Location = new Point(1000, 93);
             label5.Name = "label5";
             label5.Size = new Size(32, 15);
             label5.TabIndex = 76;
@@ -259,7 +259,7 @@
             // 
             // TxtValorFinal
             // 
-            TxtValorFinal.Location = new Point(872, 90);
+            TxtValorFinal.Location = new Point(1054, 90);
             TxtValorFinal.Name = "TxtValorFinal";
             TxtValorFinal.Size = new Size(100, 23);
             TxtValorFinal.TabIndex = 79;
@@ -267,7 +267,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(809, 62);
+            label6.Location = new Point(991, 62);
             label6.Name = "label6";
             label6.Size = new Size(57, 15);
             label6.TabIndex = 78;
@@ -275,7 +275,7 @@
             // 
             // MTxtData
             // 
-            MTxtData.Location = new Point(102, 112);
+            MTxtData.Location = new Point(258, 16);
             MTxtData.Mask = "00/00/0000";
             MTxtData.Name = "MTxtData";
             MTxtData.Size = new Size(74, 23);
@@ -284,7 +284,7 @@
             // 
             // BtnLiberarPedido
             // 
-            BtnLiberarPedido.Location = new Point(991, 20);
+            BtnLiberarPedido.Location = new Point(1173, 20);
             BtnLiberarPedido.Name = "BtnLiberarPedido";
             BtnLiberarPedido.Size = new Size(28, 23);
             BtnLiberarPedido.TabIndex = 94;
@@ -309,7 +309,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             GridViewItens.DefaultCellStyle = dataGridViewCellStyle2;
             GridViewItens.GridColor = SystemColors.Window;
-            GridViewItens.Location = new Point(23, 199);
+            GridViewItens.Location = new Point(14, 129);
             GridViewItens.Name = "GridViewItens";
             GridViewItens.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -347,6 +347,7 @@
             IDProduto.HeaderText = "Produto";
             IDProduto.Name = "IDProduto";
             IDProduto.ReadOnly = true;
+            IDProduto.Width = 70;
             // 
             // NomeProduto
             // 
@@ -354,6 +355,7 @@
             NomeProduto.HeaderText = "Nome";
             NomeProduto.Name = "NomeProduto";
             NomeProduto.ReadOnly = true;
+            NomeProduto.Width = 200;
             // 
             // Valor
             // 
@@ -361,6 +363,7 @@
             Valor.HeaderText = "Valor";
             Valor.Name = "Valor";
             Valor.ReadOnly = true;
+            Valor.Width = 90;
             // 
             // Quantidade
             // 
@@ -368,6 +371,7 @@
             Quantidade.HeaderText = "Quantidade";
             Quantidade.Name = "Quantidade";
             Quantidade.ReadOnly = true;
+            Quantidade.Width = 80;
             // 
             // Desconto
             // 
@@ -375,6 +379,7 @@
             Desconto.HeaderText = "Desconto(%)";
             Desconto.Name = "Desconto";
             Desconto.ReadOnly = true;
+            Desconto.Width = 80;
             // 
             // ValorTotal
             // 
@@ -382,17 +387,18 @@
             ValorTotal.HeaderText = "Valor Total";
             ValorTotal.Name = "ValorTotal";
             ValorTotal.ReadOnly = true;
+            ValorTotal.Width = 97;
             // 
             // TxtClienteNome
             // 
-            TxtClienteNome.Location = new Point(229, 55);
+            TxtClienteNome.Location = new Point(229, 54);
             TxtClienteNome.Name = "TxtClienteNome";
             TxtClienteNome.Size = new Size(354, 23);
             TxtClienteNome.TabIndex = 97;
             // 
             // TxtFormaPGTONome
             // 
-            TxtFormaPGTONome.Location = new Point(229, 85);
+            TxtFormaPGTONome.Location = new Point(229, 83);
             TxtFormaPGTONome.Name = "TxtFormaPGTONome";
             TxtFormaPGTONome.Size = new Size(354, 23);
             TxtFormaPGTONome.TabIndex = 98;
@@ -414,99 +420,106 @@
             groupBox1.Controls.Add(BtnProduto);
             groupBox1.Controls.Add(TxtProduto);
             groupBox1.Controls.Add(label7);
-            groupBox1.Location = new Point(706, 199);
+            groupBox1.Location = new Point(721, 129);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(505, 308);
+            groupBox1.Size = new Size(471, 250);
             groupBox1.TabIndex = 99;
             groupBox1.TabStop = false;
             groupBox1.Text = "Produtos";
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(label15);
-            groupBox2.Controls.Add(label14);
-            groupBox2.Controls.Add(label13);
-            groupBox2.Controls.Add(label12);
-            groupBox2.Location = new Point(333, 69);
+            groupBox2.Controls.Add(LblNovoEstoque);
+            groupBox2.Controls.Add(LblLinhaSoma);
+            groupBox2.Controls.Add(LblQuantidadeVenda);
+            groupBox2.Controls.Add(LblEstoqueAtual);
+            groupBox2.Location = new Point(279, 62);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(140, 155);
             groupBox2.TabIndex = 111;
             groupBox2.TabStop = false;
             groupBox2.Text = "Estoque";
             // 
-            // label15
+            // LblNovoEstoque
             // 
-            label15.AutoSize = true;
-            label15.Location = new Point(41, 97);
-            label15.Name = "label15";
-            label15.Size = new Size(81, 15);
-            label15.TabIndex = 3;
-            label15.Text = "Novo Estoque";
+            LblNovoEstoque.Location = new Point(35, 97);
+            LblNovoEstoque.Name = "LblNovoEstoque";
+            LblNovoEstoque.Size = new Size(89, 15);
+            LblNovoEstoque.TabIndex = 3;
+            LblNovoEstoque.Text = "Novo Estoque";
+            LblNovoEstoque.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // label14
+            // LblLinhaSoma
             // 
-            label14.AutoSize = true;
-            label14.Location = new Point(44, 74);
-            label14.Name = "label14";
-            label14.Size = new Size(77, 15);
-            label14.TabIndex = 2;
-            label14.Text = "______________";
+            LblLinhaSoma.AutoSize = true;
+            LblLinhaSoma.Location = new Point(47, 74);
+            LblLinhaSoma.Name = "LblLinhaSoma";
+            LblLinhaSoma.Size = new Size(77, 15);
+            LblLinhaSoma.TabIndex = 2;
+            LblLinhaSoma.Text = "______________";
             // 
-            // label13
+            // LblQuantidadeVenda
             // 
-            label13.AutoSize = true;
-            label13.Location = new Point(44, 59);
-            label13.Name = "label13";
-            label13.Size = new Size(77, 15);
-            label13.TabIndex = 1;
-            label13.Text = "- Quantidade";
+            LblQuantidadeVenda.Location = new Point(23, 59);
+            LblQuantidadeVenda.Name = "LblQuantidadeVenda";
+            LblQuantidadeVenda.Size = new Size(101, 15);
+            LblQuantidadeVenda.TabIndex = 1;
+            LblQuantidadeVenda.Text = "- Quantidade";
+            LblQuantidadeVenda.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // label12
+            // LblEstoqueAtual
             // 
-            label12.AutoSize = true;
-            label12.Location = new Point(44, 30);
-            label12.Name = "label12";
-            label12.Size = new Size(80, 15);
-            label12.TabIndex = 0;
-            label12.Text = "Estoque Atual";
+            LblEstoqueAtual.Location = new Point(35, 38);
+            LblEstoqueAtual.Name = "LblEstoqueAtual";
+            LblEstoqueAtual.Size = new Size(89, 15);
+            LblEstoqueAtual.TabIndex = 0;
+            LblEstoqueAtual.Text = "Estoque Atual";
+            LblEstoqueAtual.TextAlign = ContentAlignment.MiddleRight;
+            LblEstoqueAtual.Click += LblEstoqueAtual_Click;
             // 
             // TxtNomeProduto
             // 
             TxtNomeProduto.Enabled = false;
-            TxtNomeProduto.Location = new Point(251, 29);
+            TxtNomeProduto.Location = new Point(193, 22);
             TxtNomeProduto.Name = "TxtNomeProduto";
-            TxtNomeProduto.Size = new Size(240, 23);
+            TxtNomeProduto.Size = new Size(269, 23);
             TxtNomeProduto.TabIndex = 110;
             // 
             // BtnAdicionarItem
             // 
-            BtnAdicionarItem.Location = new Point(189, 192);
+            BtnAdicionarItem.Location = new Point(140, 200);
             BtnAdicionarItem.Name = "BtnAdicionarItem";
             BtnAdicionarItem.Size = new Size(97, 35);
             BtnAdicionarItem.TabIndex = 109;
             BtnAdicionarItem.Text = "Adicionar";
             BtnAdicionarItem.UseVisualStyleBackColor = true;
+            BtnAdicionarItem.Click += BtnAdicionarItem_Click;
             // 
             // BtnRemoverItem
             // 
-            BtnRemoverItem.Location = new Point(76, 192);
+            BtnRemoverItem.Location = new Point(34, 200);
             BtnRemoverItem.Name = "BtnRemoverItem";
             BtnRemoverItem.Size = new Size(97, 35);
             BtnRemoverItem.TabIndex = 108;
             BtnRemoverItem.Text = "Excluir";
             BtnRemoverItem.UseVisualStyleBackColor = true;
+            BtnRemoverItem.Click += BtnRemoverItem_Click;
             // 
             // TxtQuantidadeItem
             // 
-            TxtQuantidadeItem.Location = new Point(139, 99);
+            TxtQuantidadeItem.Location = new Point(110, 92);
+            TxtQuantidadeItem.MaxLength = 9;
             TxtQuantidadeItem.Name = "TxtQuantidadeItem";
             TxtQuantidadeItem.Size = new Size(100, 23);
             TxtQuantidadeItem.TabIndex = 107;
+            TxtQuantidadeItem.TextChanged += TxtQuantidadeItem_TextChanged;
+            TxtQuantidadeItem.KeyPress += TxtQuantidadeItem_KeyPress;
+            TxtQuantidadeItem.Leave += TxtQuantidadeItem_Leave;
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(64, 102);
+            label11.Location = new Point(35, 95);
             label11.Name = "label11";
             label11.Size = new Size(69, 15);
             label11.TabIndex = 106;
@@ -514,55 +527,66 @@
             // 
             // TxtValorFinalItem
             // 
-            TxtValorFinalItem.Location = new Point(139, 163);
+            TxtValorFinalItem.Location = new Point(110, 156);
             TxtValorFinalItem.Name = "TxtValorFinalItem";
+            TxtValorFinalItem.ReadOnly = true;
             TxtValorFinalItem.Size = new Size(100, 23);
             TxtValorFinalItem.TabIndex = 105;
+            TxtValorFinalItem.TextChanged += TxtValorFinalItem_TextChanged;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(68, 131);
+            label8.Location = new Point(26, 124);
             label8.Name = "label8";
-            label8.Size = new Size(57, 15);
+            label8.Size = new Size(78, 15);
             label8.TabIndex = 104;
-            label8.Text = "Desconto";
+            label8.Text = "Desconto (%)";
             // 
             // TxtDescontoItem
             // 
-            TxtDescontoItem.Location = new Point(139, 128);
+            TxtDescontoItem.Location = new Point(110, 121);
+            TxtDescontoItem.MaxLength = 9;
             TxtDescontoItem.Name = "TxtDescontoItem";
             TxtDescontoItem.Size = new Size(100, 23);
             TxtDescontoItem.TabIndex = 103;
+            TxtDescontoItem.TextChanged += TxtDescontoItem_TextChanged;
+            TxtDescontoItem.KeyPress += TxtDescontoItem_KeyPress;
+            TxtDescontoItem.Leave += TxtDescontoItem_Leave;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(85, 166);
+            label9.Location = new Point(48, 159);
             label9.Name = "label9";
-            label9.Size = new Size(32, 15);
+            label9.Size = new Size(56, 15);
             label9.TabIndex = 102;
-            label9.Text = "Total";
+            label9.Text = "Total (R$)";
             // 
             // TxtValorItem
             // 
-            TxtValorItem.Location = new Point(139, 69);
+            TxtValorItem.Location = new Point(110, 62);
+            TxtValorItem.MaxLength = 10;
             TxtValorItem.Name = "TxtValorItem";
             TxtValorItem.Size = new Size(100, 23);
             TxtValorItem.TabIndex = 101;
+            TxtValorItem.Text = "                                                                                        ";
+            TxtValorItem.TextChanged += TxtValorItem_TextChanged;
+            TxtValorItem.KeyPress += TxtValorItem_KeyPress;
+            TxtValorItem.Leave += TxtValorItem_Leave;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(85, 72);
+            label10.Location = new Point(47, 65);
             label10.Name = "label10";
-            label10.Size = new Size(33, 15);
+            label10.Size = new Size(57, 15);
             label10.TabIndex = 100;
-            label10.Text = "Valor";
+            label10.Text = "Valor (R$)";
             // 
             // BtnProduto
             // 
-            BtnProduto.Location = new Point(198, 29);
+            BtnProduto.Location = new Point(146, 22);
             BtnProduto.Name = "BtnProduto";
             BtnProduto.Size = new Size(41, 23);
             BtnProduto.TabIndex = 99;
@@ -571,9 +595,10 @@
             // 
             // TxtProduto
             // 
-            TxtProduto.Location = new Point(85, 29);
+            TxtProduto.Location = new Point(56, 22);
+            TxtProduto.MaxLength = 9;
             TxtProduto.Name = "TxtProduto";
-            TxtProduto.Size = new Size(100, 23);
+            TxtProduto.Size = new Size(84, 23);
             TxtProduto.TabIndex = 98;
             TxtProduto.TextChanged += TxtProduto_TextChanged;
             TxtProduto.KeyPress += TxtProduto_KeyPress;
@@ -581,7 +606,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(22, 33);
+            label7.Location = new Point(6, 26);
             label7.Name = "label7";
             label7.Size = new Size(50, 15);
             label7.TabIndex = 97;
@@ -591,7 +616,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1232, 589);
+            ClientSize = new Size(1232, 455);
             Controls.Add(groupBox1);
             Controls.Add(TxtFormaPGTONome);
             Controls.Add(TxtClienteNome);
@@ -657,14 +682,6 @@
         private MaskedTextBox MTxtData;
         private Button BtnLiberarPedido;
         private DataGridView GridViewItens;
-        private DataGridViewTextBoxColumn IDItemPedido;
-        private DataGridViewTextBoxColumn PedidoID;
-        private DataGridViewTextBoxColumn IDProduto;
-        private DataGridViewTextBoxColumn NomeProduto;
-        private DataGridViewTextBoxColumn Valor;
-        private DataGridViewTextBoxColumn Quantidade;
-        private DataGridViewTextBoxColumn Desconto;
-        private DataGridViewTextBoxColumn ValorTotal;
         private TextBox TxtClienteNome;
         private TextBox TxtFormaPGTONome;
         private GroupBox groupBox1;
@@ -683,9 +700,17 @@
         private TextBox TxtProduto;
         private Label label7;
         private GroupBox groupBox2;
-        private Label label13;
-        private Label label12;
-        private Label label15;
-        private Label label14;
+        private Label LblQuantidadeVenda;
+        private Label LblEstoqueAtual;
+        private Label LblNovoEstoque;
+        private Label LblLinhaSoma;
+        private DataGridViewTextBoxColumn IDItemPedido;
+        private DataGridViewTextBoxColumn PedidoID;
+        private DataGridViewTextBoxColumn IDProduto;
+        private DataGridViewTextBoxColumn NomeProduto;
+        private DataGridViewTextBoxColumn Valor;
+        private DataGridViewTextBoxColumn Quantidade;
+        private DataGridViewTextBoxColumn Desconto;
+        private DataGridViewTextBoxColumn ValorTotal;
     }
 }
