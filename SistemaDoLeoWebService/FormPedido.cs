@@ -20,6 +20,9 @@ namespace SistemaDoLeoWebService
         private Produto produto;
         private ConfiguracoesGerais configuracoes;
         private int Status;
+        private int contadorItemOrigial;
+        private List<PedidoItens> pedidoItensOriginais;
+        private List<PedidoItens> itensPedidoAlterado;
 
         public FormPedido(Operador operador)
         {
@@ -93,10 +96,16 @@ namespace SistemaDoLeoWebService
                     TxtValorItem.ReadOnly = true;
                 }
 
+                // ALTERA O PRODUTO PARA DESATIVAR TODOS OS CAMPOS
+                TxtProduto.Text = "1";
+                TxtProduto.Text = string.Empty;
+
                 // LIMPAR CAMPOS
                 GridViewItens.Rows.Clear();
                 limpaCampos();
                 limpaCamposItem();
+
+                TxtID.Focus();
             }
             else if (getSetStatus == 1)
             {
@@ -135,6 +144,17 @@ namespace SistemaDoLeoWebService
                 {
                     BtnLiberarPedido.Visible = true;
                 }
+
+                // CRIA A LISTA DE ITENS ORGINAIS DO PEDIDO
+                pedidoItensOriginais = new List<PedidoItens>();
+
+                // DEFINE O CONTADOR COMO 0
+                contadorItemOrigial = 0;
+
+                // CRIA A LISTA DE ITENS EDITADOS
+                itensPedidoAlterado = new List<PedidoItens>();
+
+                MTxtData.Focus();
             }
             else if (getSetStatus == 2)
             {
@@ -167,6 +187,8 @@ namespace SistemaDoLeoWebService
                 TxtQuantidadeItem.Enabled = false;
                 TxtDescontoItem.Enabled = false;
                 TxtValorFinalItem.Enabled = false;
+
+                MTxtData.Focus();
             }
         }
 
@@ -235,9 +257,6 @@ namespace SistemaDoLeoWebService
 
                 calcularProduto();
                 calculaEstoqueProduto();
-
-                // FOCO PARA O PROXIMO CAMPO
-                TxtValorItem.Focus();
             }
             catch (Exception ex)
             {
@@ -327,6 +346,9 @@ namespace SistemaDoLeoWebService
                     limpaCamposItem();
                     limpaCamposEstoque();
 
+                    // EXCLUI OS ITENS DO PEDIDO
+                    excluirItens(Convert.ToInt32(TxtID.Text));
+
                     getSetStatus = 2; // STATUS 2 -> VISUALIZAÇÃO
                     validarAcoes();
                     preencheDados(pedido.getSetID);
@@ -341,6 +363,11 @@ namespace SistemaDoLeoWebService
                     // LIMPA OS CAMPOS
                     limpaCamposItem();
                     limpaCamposEstoque();
+
+                    // EXCLUI OS PEDIDOS QUE FORAM ADICIONADOS
+                    excluirItensPedidoAlterado();
+                    // LIMPA LISTA DE PRODUTOS 
+                    itensPedidoAlterado.Clear();
 
                     getSetStatus = 2; // STATUS 2 -> VISUALIZAÇÃO
                     validarAcoes();
@@ -519,7 +546,32 @@ namespace SistemaDoLeoWebService
             foreach (var item in lista)
             {
                 GridViewItens.Rows.Add(item.getSetItemID, item.getSetPedidoID, item.getSetProduto, item.getSetItemNomeProduto, item.getSetItemValor, item.getSetQuantidade, item.getSetItemDesconto, item.getSetItemValorTotal);
+
+                // SE FOR A PRIMEIRA BUSCA NO MODO DE EDIÇÃO, VAI ADICIONAR OS ITENS QUE JÁ ESTAVAM NO
+                // PEDIDO NA LISTA "pedidoItensOriginais"
+                // CONTADOR RESETA QUANDO MUDA O STATUS
+                if (getSetStatus == 1 && contadorItemOrigial < 1)
+                {
+                    pedidoItensOriginais.Add(item);
+                    contadorItemOrigial++;
+                }
+                else if (getSetStatus == 1)
+                {
+                    // VALIDA OS ITENS NOVOS (QUE FORAM ADICIONADOS NO MODO DE EDIÇÃO)
+                    // ADICIONA ELES NA LISTA "itensPedidoAlterado" PARA QUE POSSA EXCLUIR CASO CANCELE
+                    // A ALTERAÇÃO
+                    foreach (var itemOriginal in pedidoItensOriginais)
+                    {
+                        if (item.getSetItemID != itemOriginal.getSetItemID)
+                        {
+                            itensPedidoAlterado.Add(item);
+                        }
+                    }
+                }
             }
+
+            // ORDENA A LISTA PELA ORDEM QUE ENTROU OS PRODUTOS
+            GridViewItens.Sort(GridViewItens.Columns["IDItemPedido"], ListSortDirection.Ascending);
         }
 
         private void TxtProduto_KeyPress(object sender, KeyPressEventArgs e)
@@ -531,21 +583,32 @@ namespace SistemaDoLeoWebService
 
             if (e.KeyChar == 13) // ENTER
             {
-                if (TxtProduto.Text != string.Empty)
-                {
-                    preencheProduto(Convert.ToInt32(TxtProduto.Text));
-                    e.Handled = true;
-                }
-                else
-                {
-                    MessageBox.Show("Informe um produto!", FormNome);
-                    limpaCamposItem();
-                }
+                // FOCO PARA O PROXIMO CAMPO
+                TxtValorItem.Focus();
+                e.Handled = true;
             }
         }
 
         private void TxtProduto_TextChanged(object sender, EventArgs e)
         {
+            if (TxtProduto.Text != string.Empty)
+            {
+                TxtValorItem.Enabled = true;
+                TxtQuantidadeItem.Enabled = true;
+                TxtDescontoItem.Enabled = true;
+                TxtValorFinalItem.Enabled = true;
+                BtnAdicionarItem.Enabled = true;
+            }
+            else
+            {
+                TxtValorItem.Enabled = false;
+                TxtQuantidadeItem.Enabled = false;
+                TxtDescontoItem.Enabled = false;
+                TxtValorFinalItem.Enabled = false;
+                BtnAdicionarItem.Enabled = false;
+                limpaCamposItem();
+                limpaCamposEstoque();
+            }
 
         }
 
@@ -573,7 +636,7 @@ namespace SistemaDoLeoWebService
 
         private void TxtValorItem_Leave(object sender, EventArgs e)
         {
-            if (TxtProduto.Text != string.Empty)
+            if (TxtProduto.Text != string.Empty && TxtValorItem.Text != string.Empty)
             {
                 TxtValorItem.Text = Convert.ToDecimal(TxtValorItem.Text).ToString("N2");
 
@@ -581,7 +644,7 @@ namespace SistemaDoLeoWebService
             }
             else
             {
-                MessageBox.Show("Informe um produto!", FormNome);
+                //MessageBox.Show("Informe um produto!", FormNome);
                 TxtProduto.Focus();
                 limpaCamposItem();
             }
@@ -610,7 +673,7 @@ namespace SistemaDoLeoWebService
             }
             else
             {
-                MessageBox.Show("Informe um produto!", FormNome);
+                //MessageBox.Show("Informe um produto!", FormNome);
                 TxtProduto.Focus();
                 limpaCamposItem();
             }
@@ -626,7 +689,7 @@ namespace SistemaDoLeoWebService
             }
             else
             {
-                MessageBox.Show("Informe um produto!", FormNome);
+                //MessageBox.Show("Informe um produto!", FormNome);
                 TxtProduto.Focus();
                 limpaCamposItem();
             }
@@ -680,8 +743,42 @@ namespace SistemaDoLeoWebService
                 }
                 else
                 {
-                    //adicionarItem();
+                    PedidoItens item = new PedidoItens();
+                    item.getSetPedidoID = Convert.ToInt32(TxtID.Text);
+                    item.getSetProduto = Convert.ToInt32(TxtProduto.Text);
+                    item.getSetItemValor = Convert.ToDouble(TxtValorItem.Text);
+                    item.getSetQuantidade = Convert.ToInt32(TxtQuantidadeItem.Text);
+                    item.getSetItemDesconto = Convert.ToDouble(TxtDescontoItem.Text);
+                    item.getSetItemValorTotal = Convert.ToDouble(TxtValorFinalItem.Text);
+
+                    adicionarItem(item);
+
+                    MessageBox.Show("Item adicionado com Sucesso!", FormNome);
+
+                    // PREENCHE O GRID COM OS ITENS DO PEDIDO
+                    PreencherGridPedidos(item.getSetPedidoID);
+
+                    // LIMPA AS INFORMAÇÕES DO PRODUTO
+                    limpaCamposItem();
+                    limpaCamposEstoque();
+
+                    // FOCO NOVAMENTE PARA O TXT PRODUTO
+                    TxtProduto.Focus();
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+            }
+        }
+
+        private void adicionarItem(PedidoItens item)
+        {
+            try
+            {
+                var WebService = new ServiceReference1.Service1Client();
+
+                WebService.salvarItensPedidoAsync(item);
             }
             catch (Exception ex)
             {
@@ -765,11 +862,162 @@ namespace SistemaDoLeoWebService
         {
             if (GridViewItens.CurrentRow != null)
             {
-                MessageBox.Show(GridViewItens.CurrentRow.Cells["IDItemPedido"].Value.ToString());
+                //MessageBox.Show(GridViewItens.CurrentRow.Cells["IDItemPedido"].Value.ToString());
+                excluirItem(Convert.ToInt32(GridViewItens.CurrentRow.Cells["IDItemPedido"].Value));
+
+                // PREENCHE O GRID COM OS ITENS DO PEDIDO
+                PreencherGridPedidos(Convert.ToInt32(TxtID.Text));
+
+                // FOCO NOVAMENTE PARA O TXT PRODUTO
+                TxtProduto.Focus();
             }
             else
             {
                 MessageBox.Show("Selecione um item para Excluír!", FormNome);
+            }
+        }
+
+        private void excluirItem(int ID)
+        {
+            try
+            {
+                var WebService = new ServiceReference1.Service1Client();
+
+                WebService.excluirItemPedidoAsync(ID);
+
+                MessageBox.Show("Item excluido com Sucesso!", FormNome);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+            }
+        }
+
+        private void excluirItensPedidoAlterado()
+        {
+            // FUNÇÃO PARA EXCLUIR OS ITENS QUE FORAM ADICIONADO EM MODO DE EDIÇÃO E A EDIÇÃO FOI CANCELADA
+            try
+            {
+                var WebService = new ServiceReference1.Service1Client();
+
+                foreach (var item in itensPedidoAlterado)
+                {
+                    WebService.excluirItemPedidoAsync(item.getSetItemID);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+            }
+        }
+
+        private void excluirItens(int ID)
+        {
+            try
+            {
+                var WebService = new ServiceReference1.Service1Client();
+
+                WebService.excluirItensPedidoAsync(ID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+            }
+        }
+
+        private void LblNovoEstoque_TextChanged(object sender, EventArgs e)
+        {
+            if (LblNovoEstoque.Text != "" && Convert.ToInt32(LblNovoEstoque.Text) < 0)
+            {
+                LblNovoEstoque.ForeColor = Color.Red;
+            }
+            else
+            {
+                LblNovoEstoque.ForeColor = Color.Black;
+            }
+
+        }
+
+        private void TxtProduto_Leave(object sender, EventArgs e)
+        {
+            if (TxtProduto.Text != string.Empty)
+            {
+                preencheProduto(Convert.ToInt32(TxtProduto.Text));
+            }
+            else
+            {
+                //MessageBox.Show("Informe um produto!", FormNome);
+                limpaCamposItem();
+            }
+        }
+
+        private void TxtValorFinalItem_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                BtnAdicionarItem.Focus();
+
+                e.Handled = true;
+            }
+        }
+
+        private void TxtID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8) // SOMENTE NÚMERO E BACKSPACE
+            {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar == 13) // ENTER
+            {
+                MTxtData.Focus();
+
+                e.Handled = true;
+            }
+        }
+
+        private void MTxtData_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8) // SOMENTE NÚMERO E BACKSPACE
+            {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtCliente.Focus();
+
+                e.Handled = true;
+            }
+        }
+
+        private void TxtFormaPGTO_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8) // SOMENTE NÚMERO E BACKSPACE
+            {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtProduto.Focus();
+
+                e.Handled = true;
+            }
+        }
+
+        private void TxtCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8) // SOMENTE NÚMERO E BACKSPACE
+            {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtFormaPGTO.Focus();
+
+                e.Handled = true;
             }
         }
     }

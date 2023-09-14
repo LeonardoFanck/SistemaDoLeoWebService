@@ -152,7 +152,7 @@
             // 
             // BtnID
             // 
-            BtnID.Location = new Point(182, 17);
+            BtnID.Location = new Point(182, 16);
             BtnID.Name = "BtnID";
             BtnID.Size = new Size(41, 23);
             BtnID.TabIndex = 67;
@@ -165,11 +165,12 @@
             TxtID.Name = "TxtID";
             TxtID.Size = new Size(74, 23);
             TxtID.TabIndex = 66;
+            TxtID.KeyPress += TxtID_KeyPress;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(23, 16);
+            label1.Location = new Point(78, 19);
             label1.Name = "label1";
             label1.Size = new Size(18, 15);
             label1.TabIndex = 65;
@@ -177,7 +178,7 @@
             // 
             // BtnCliente
             // 
-            BtnCliente.Location = new Point(182, 53);
+            BtnCliente.Location = new Point(182, 49);
             BtnCliente.Name = "BtnCliente";
             BtnCliente.Size = new Size(41, 23);
             BtnCliente.TabIndex = 70;
@@ -186,15 +187,16 @@
             // 
             // TxtCliente
             // 
-            TxtCliente.Location = new Point(102, 54);
+            TxtCliente.Location = new Point(102, 49);
             TxtCliente.Name = "TxtCliente";
             TxtCliente.Size = new Size(74, 23);
             TxtCliente.TabIndex = 69;
+            TxtCliente.KeyPress += TxtCliente_KeyPress;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(23, 53);
+            label2.Location = new Point(52, 52);
             label2.Name = "label2";
             label2.Size = new Size(44, 15);
             label2.TabIndex = 68;
@@ -202,7 +204,7 @@
             // 
             // BtnFormaPGTO
             // 
-            BtnFormaPGTO.Location = new Point(182, 82);
+            BtnFormaPGTO.Location = new Point(182, 83);
             BtnFormaPGTO.Name = "BtnFormaPGTO";
             BtnFormaPGTO.Size = new Size(41, 23);
             BtnFormaPGTO.TabIndex = 73;
@@ -215,6 +217,7 @@
             TxtFormaPGTO.Name = "TxtFormaPGTO";
             TxtFormaPGTO.Size = new Size(74, 23);
             TxtFormaPGTO.TabIndex = 72;
+            TxtFormaPGTO.KeyPress += TxtFormaPGTO_KeyPress;
             // 
             // label3
             // 
@@ -275,12 +278,13 @@
             // 
             // MTxtData
             // 
-            MTxtData.Location = new Point(258, 16);
+            MTxtData.Location = new Point(265, 15);
             MTxtData.Mask = "00/00/0000";
             MTxtData.Name = "MTxtData";
             MTxtData.Size = new Size(74, 23);
             MTxtData.TabIndex = 80;
             MTxtData.ValidatingType = typeof(DateTime);
+            MTxtData.KeyPress += MTxtData_KeyPress;
             // 
             // BtnLiberarPedido
             // 
@@ -391,7 +395,7 @@
             // 
             // TxtClienteNome
             // 
-            TxtClienteNome.Location = new Point(229, 54);
+            TxtClienteNome.Location = new Point(229, 49);
             TxtClienteNome.Name = "TxtClienteNome";
             TxtClienteNome.Size = new Size(354, 23);
             TxtClienteNome.TabIndex = 97;
@@ -448,6 +452,7 @@
             LblNovoEstoque.TabIndex = 3;
             LblNovoEstoque.Text = "Novo Estoque";
             LblNovoEstoque.TextAlign = ContentAlignment.MiddleRight;
+            LblNovoEstoque.TextChanged += LblNovoEstoque_TextChanged;
             // 
             // LblLinhaSoma
             // 
@@ -533,6 +538,7 @@
             TxtValorFinalItem.Size = new Size(100, 23);
             TxtValorFinalItem.TabIndex = 105;
             TxtValorFinalItem.TextChanged += TxtValorFinalItem_TextChanged;
+            TxtValorFinalItem.KeyPress += TxtValorFinalItem_KeyPress;
             // 
             // label8
             // 
@@ -602,6 +608,7 @@
             TxtProduto.TabIndex = 98;
             TxtProduto.TextChanged += TxtProduto_TextChanged;
             TxtProduto.KeyPress += TxtProduto_KeyPress;
+            TxtProduto.Leave += TxtProduto_Leave;
             // 
             // label7
             // 

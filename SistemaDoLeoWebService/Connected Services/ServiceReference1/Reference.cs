@@ -1139,6 +1139,15 @@ namespace ServiceReference1
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/VoltarRegistroPedido", ReplyAction="http://tempuri.org/IService1/VoltarRegistroPedidoResponse")]
         System.Threading.Tasks.Task<int> VoltarRegistroPedidoAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/salvarItensPedido", ReplyAction="http://tempuri.org/IService1/salvarItensPedidoResponse")]
+        System.Threading.Tasks.Task salvarItensPedidoAsync(ServiceReference1.PedidoItens item);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/excluirItemPedido", ReplyAction="http://tempuri.org/IService1/excluirItemPedidoResponse")]
+        System.Threading.Tasks.Task excluirItemPedidoAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/excluirItensPedido", ReplyAction="http://tempuri.org/IService1/excluirItensPedidoResponse")]
+        System.Threading.Tasks.Task excluirItensPedidoAsync(int ID);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
@@ -1419,6 +1428,21 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<int> VoltarRegistroPedidoAsync(int ID)
         {
             return base.Channel.VoltarRegistroPedidoAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task salvarItensPedidoAsync(ServiceReference1.PedidoItens item)
+        {
+            return base.Channel.salvarItensPedidoAsync(item);
+        }
+        
+        public System.Threading.Tasks.Task excluirItemPedidoAsync(int ID)
+        {
+            return base.Channel.excluirItemPedidoAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task excluirItensPedidoAsync(int ID)
+        {
+            return base.Channel.excluirItensPedidoAsync(ID);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
