@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace SistemaDoLeoWebService
 {
@@ -96,6 +98,9 @@ namespace SistemaDoLeoWebService
                     TxtValorItem.ReadOnly = true;
                 }
 
+                // ALTERA O NOME DO BOTÃO CONFIRMAR
+                BtnSalvar.Text = "Finalizar";
+
                 // ALTERA O PRODUTO PARA DESATIVAR TODOS OS CAMPOS
                 TxtProduto.Text = "1";
                 TxtProduto.Text = string.Empty;
@@ -144,6 +149,9 @@ namespace SistemaDoLeoWebService
                 {
                     BtnLiberarPedido.Visible = true;
                 }
+
+                // ALTERA O NOME DO BOTÃO CONFIRMAR
+                BtnSalvar.Text = "Salvar";
 
                 // CRIA A LISTA DE ITENS ORGINAIS DO PEDIDO
                 pedidoItensOriginais = new List<PedidoItens>();
@@ -456,7 +464,13 @@ namespace SistemaDoLeoWebService
 
         public bool validarCampos()
         {
-            if (TxtCliente.Text == "")
+            if (MTxtData.Text == "")
+            {
+                MessageBox.Show("Necessário informar uma Data", FormNome);
+                MTxtData.Focus();
+                return false;
+            }
+            else if (TxtCliente.Text == "")
             {
                 MessageBox.Show("Necessário informar um Cliente", FormNome);
                 TxtCliente.Focus();
@@ -468,10 +482,10 @@ namespace SistemaDoLeoWebService
                 TxtFormaPGTO.Focus();
                 return false;
             }
-            else if (MTxtData.Text == "")
+            else if (GridViewItens.Rows.Count < 1)
             {
-                MessageBox.Show("Necessário informar uma Data", FormNome);
-                MTxtData.Focus();
+                MessageBox.Show("Necessário informar ao menos um Item no Pedido", FormNome);
+                TxtProduto.Focus();
                 return false;
             }
             else if (TxtValor.Text == "")
@@ -620,7 +634,7 @@ namespace SistemaDoLeoWebService
             }
             else if (e.KeyChar == 44)
             {
-                if (TxtDescontoItem.Text.Contains(","))
+                if (TxtValorItem.Text.Contains(","))
                 {
                     e.Handled = true;
                 }
@@ -762,6 +776,10 @@ namespace SistemaDoLeoWebService
                     limpaCamposItem();
                     limpaCamposEstoque();
 
+                    // FUNÇÃO PARA CALCULAR O VALOR DO PEDIDO
+                    getValorPedido();
+                    calcularPedido();
+
                     // FOCO NOVAMENTE PARA O TXT PRODUTO
                     TxtProduto.Focus();
                 }
@@ -770,6 +788,54 @@ namespace SistemaDoLeoWebService
             {
                 MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
             }
+        }
+
+        private void calcularPedido()
+        {
+            try
+            {
+                double valor;
+                double desconto;
+                double valorFinal = 0;
+
+                if (TxtValor.Text == "")
+                {
+                    TxtValor.Text = "0,00";
+                }
+
+                if (TxtDesconto.Text == "")
+                {
+                    TxtDesconto.Text = "0,00";
+                }
+
+                if (TxtValorFinal.Text == "")
+                {
+                    TxtValorFinal.Text = "0,00";
+                }
+
+                valor = Convert.ToDouble(TxtValor.Text);
+                desconto = Convert.ToDouble(TxtDesconto.Text) * 0.01;
+
+                valorFinal = valor - (valor * desconto);
+
+                TxtValorFinal.Text = valorFinal.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+            }
+        }
+
+        private void getValorPedido()
+        {
+            double valor = 0;
+
+            foreach (DataGridViewRow item in GridViewItens.Rows)
+            {
+                valor += Convert.ToDouble(item.Cells["ValorTotal"].Value);
+            }
+
+            TxtValor.Text = valor.ToString();
         }
 
         private void adicionarItem(PedidoItens item)
@@ -1018,6 +1084,192 @@ namespace SistemaDoLeoWebService
                 TxtFormaPGTO.Focus();
 
                 e.Handled = true;
+            }
+        }
+
+        private void FormPedido_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (getSetStatus == 0)
+            {
+                // EXCLUI OS ITENS DO PEDIDO
+                excluirItens(Convert.ToInt32(TxtID.Text));
+            }
+            else if (getSetStatus == 1)
+            {
+                // EXCLUI OS PEDIDOS QUE FORAM ADICIONADOS
+                excluirItensPedidoAlterado();
+            }
+        }
+
+        private void TxtDesconto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != 44) // SOMENTE NÚMERO E BACKSPACE E ,
+            {
+                e.Handled = true;
+            }
+            else if (e.KeyChar == 44)
+            {
+                if (TxtDesconto.Text.Contains(","))
+                {
+                    e.Handled = true;
+                }
+            }
+
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtValorFinal.Focus();
+
+                e.Handled = true;
+            }
+        }
+
+        private void TxtValor_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != 44) // SOMENTE NÚMERO E BACKSPACE E ,
+            {
+                e.Handled = true;
+            }
+            else if (e.KeyChar == 44)
+            {
+                if (TxtValor.Text.Contains(","))
+                {
+                    e.Handled = true;
+                }
+            }
+
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtDesconto.Focus();
+
+                e.Handled = true;
+            }
+        }
+
+        private void TxtValorFinal_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != 44) // SOMENTE NÚMERO E BACKSPACE E ,
+            {
+                e.Handled = true;
+            }
+            else if (e.KeyChar == 44)
+            {
+                if (TxtValorFinal.Text.Contains(","))
+                {
+                    e.Handled = true;
+                }
+            }
+
+            if (e.KeyChar == 13) // ENTER
+            {
+                BtnSalvar.Focus();
+
+                e.Handled = true;
+            }
+        }
+
+        private void MTxtData_Leave(object sender, EventArgs e)
+        {
+            if (MTxtData.Text == "  /  /")
+            {
+                DateTime date = DateTime.Now;
+
+                MTxtData.Text = date.ToString();
+            }
+            else
+            {
+                validarData(MTxtData.Text);
+            }
+        }
+
+        private void validarData(string data)
+        {
+            // DATA INVÁLIDA
+            if (!DateTime.TryParse(data, out DateTime date))
+            {
+                MessageBox.Show("data Inválida!", FormNome);
+
+                MTxtData.Text = string.Empty;
+                MTxtData.Focus();
+            }
+        }
+
+        private void TxtCliente_Leave(object sender, EventArgs e)
+        {
+            if (TxtCliente.Text != string.Empty)
+            {
+                validarCliente(Convert.ToInt32(TxtCliente.Text));
+            }
+        }
+
+        private void validarCliente(int ID)
+        {
+            try
+            {
+                var WebService = new ServiceReference1.Service1Client();
+
+                Cliente cliente = WebService.GetClienteAsync(ID).Result;
+
+                TxtClienteNome.Text = cliente.getSetNome;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+                TxtCliente.Text = string.Empty;
+                TxtClienteNome.Text = string.Empty;
+                TxtCliente.Focus();
+            }
+        }
+
+        private void TxtFormaPGTO_Leave(object sender, EventArgs e)
+        {
+            if (TxtFormaPGTO.Text != string.Empty)
+            {
+                validarFormaPGTO(Convert.ToInt32(TxtFormaPGTO.Text));
+            }
+        }
+
+        private void validarFormaPGTO(int ID)
+        {
+            try
+            {
+                var WebService = new ServiceReference1.Service1Client();
+
+                FormaPGTO formaPGTO = WebService.GetFormaPGTOAsync(ID).Result;
+
+                TxtFormaPGTONome.Text = formaPGTO.getSetNome;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+                TxtFormaPGTO.Text = string.Empty;
+                TxtFormaPGTONome.Text = string.Empty;
+                TxtFormaPGTO.Focus();
+            }
+        }
+
+        private void TxtValor_Leave(object sender, EventArgs e)
+        {
+            calcularPedido();
+        }
+
+        private void TxtDesconto_Leave(object sender, EventArgs e)
+        {
+            calcularPedido();
+        }
+
+        private void FormPedido_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 27) // ESC
+            {
+                BtnCancelar_Click(sender, e);
+            }
+        }
+
+        private void FormPedido_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F3) // F3
+            {
+                TxtValor.Focus();
             }
         }
     }

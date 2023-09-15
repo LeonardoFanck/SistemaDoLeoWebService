@@ -92,7 +92,7 @@
             // 
             // BtnAvancar
             // 
-            BtnAvancar.Location = new Point(413, 15);
+            BtnAvancar.Location = new Point(408, 12);
             BtnAvancar.Name = "BtnAvancar";
             BtnAvancar.Size = new Size(30, 25);
             BtnAvancar.TabIndex = 64;
@@ -102,7 +102,7 @@
             // 
             // BtnVoltar
             // 
-            BtnVoltar.Location = new Point(377, 15);
+            BtnVoltar.Location = new Point(372, 12);
             BtnVoltar.Name = "BtnVoltar";
             BtnVoltar.Size = new Size(30, 25);
             BtnVoltar.TabIndex = 63;
@@ -192,6 +192,7 @@
             TxtCliente.Size = new Size(74, 23);
             TxtCliente.TabIndex = 69;
             TxtCliente.KeyPress += TxtCliente_KeyPress;
+            TxtCliente.Leave += TxtCliente_Leave;
             // 
             // label2
             // 
@@ -218,6 +219,7 @@
             TxtFormaPGTO.Size = new Size(74, 23);
             TxtFormaPGTO.TabIndex = 72;
             TxtFormaPGTO.KeyPress += TxtFormaPGTO_KeyPress;
+            TxtFormaPGTO.Leave += TxtFormaPGTO_Leave;
             // 
             // label3
             // 
@@ -231,9 +233,12 @@
             // TxtValor
             // 
             TxtValor.Location = new Point(1054, 22);
+            TxtValor.MaxLength = 10;
             TxtValor.Name = "TxtValor";
             TxtValor.Size = new Size(100, 23);
             TxtValor.TabIndex = 75;
+            TxtValor.KeyPress += TxtValor_KeyPress;
+            TxtValor.Leave += TxtValor_Leave;
             // 
             // label4
             // 
@@ -247,9 +252,12 @@
             // TxtDesconto
             // 
             TxtDesconto.Location = new Point(1054, 55);
+            TxtDesconto.MaxLength = 10;
             TxtDesconto.Name = "TxtDesconto";
             TxtDesconto.Size = new Size(100, 23);
             TxtDesconto.TabIndex = 77;
+            TxtDesconto.KeyPress += TxtDesconto_KeyPress;
+            TxtDesconto.Leave += TxtDesconto_Leave;
             // 
             // label5
             // 
@@ -263,9 +271,12 @@
             // TxtValorFinal
             // 
             TxtValorFinal.Location = new Point(1054, 90);
+            TxtValorFinal.MaxLength = 10;
             TxtValorFinal.Name = "TxtValorFinal";
+            TxtValorFinal.ReadOnly = true;
             TxtValorFinal.Size = new Size(100, 23);
             TxtValorFinal.TabIndex = 79;
+            TxtValorFinal.KeyPress += TxtValorFinal_KeyPress;
             // 
             // label6
             // 
@@ -281,14 +292,15 @@
             MTxtData.Location = new Point(265, 15);
             MTxtData.Mask = "00/00/0000";
             MTxtData.Name = "MTxtData";
-            MTxtData.Size = new Size(74, 23);
+            MTxtData.Size = new Size(69, 23);
             MTxtData.TabIndex = 80;
             MTxtData.ValidatingType = typeof(DateTime);
             MTxtData.KeyPress += MTxtData_KeyPress;
+            MTxtData.Leave += MTxtData_Leave;
             // 
             // BtnLiberarPedido
             // 
-            BtnLiberarPedido.Location = new Point(1173, 20);
+            BtnLiberarPedido.Location = new Point(1164, 21);
             BtnLiberarPedido.Name = "BtnLiberarPedido";
             BtnLiberarPedido.Size = new Size(28, 23);
             BtnLiberarPedido.TabIndex = 94;
@@ -314,6 +326,7 @@
             GridViewItens.DefaultCellStyle = dataGridViewCellStyle2;
             GridViewItens.GridColor = SystemColors.Window;
             GridViewItens.Location = new Point(14, 129);
+            GridViewItens.MultiSelect = false;
             GridViewItens.Name = "GridViewItens";
             GridViewItens.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -395,6 +408,7 @@
             // 
             // TxtClienteNome
             // 
+            TxtClienteNome.Enabled = false;
             TxtClienteNome.Location = new Point(229, 49);
             TxtClienteNome.Name = "TxtClienteNome";
             TxtClienteNome.Size = new Size(354, 23);
@@ -402,6 +416,7 @@
             // 
             // TxtFormaPGTONome
             // 
+            TxtFormaPGTONome.Enabled = false;
             TxtFormaPGTONome.Location = new Point(229, 83);
             TxtFormaPGTONome.Name = "TxtFormaPGTONome";
             TxtFormaPGTONome.Size = new Size(354, 23);
@@ -651,9 +666,13 @@
             Controls.Add(BtnNovo);
             Controls.Add(BtnCancelar);
             Controls.Add(BtnSalvar);
+            KeyPreview = true;
             Name = "FormPedido";
             Text = "FormPedido";
+            FormClosing += FormPedido_FormClosing;
             Load += FormPedido_Load;
+            KeyDown += FormPedido_KeyDown;
+            KeyPress += FormPedido_KeyPress;
             ((System.ComponentModel.ISupportInitialize)GridViewItens).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
