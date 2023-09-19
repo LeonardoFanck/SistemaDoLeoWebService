@@ -44,6 +44,8 @@ namespace SistemaDoLeoWebService
             // PEGA AS CONFIGURAÇÕES GERAIS
             getConfiguracoes();
 
+            this.Text = FormNome;
+
             // LIMPA OS CAMPOS DO ESTOQUE
             limpaCamposEstoque();
 
@@ -153,15 +155,6 @@ namespace SistemaDoLeoWebService
                 // ALTERA O NOME DO BOTÃO CONFIRMAR
                 BtnSalvar.Text = "Salvar";
 
-                // CRIA A LISTA DE ITENS ORGINAIS DO PEDIDO
-                pedidoItensOriginais = new List<PedidoItens>();
-
-                // DEFINE O CONTADOR COMO 0
-                contadorItemOrigial = 0;
-
-                // CRIA A LISTA DE ITENS EDITADOS
-                itensPedidoAlterado = new List<PedidoItens>();
-
                 MTxtData.Focus();
             }
             else if (getSetStatus == 2)
@@ -209,15 +202,29 @@ namespace SistemaDoLeoWebService
                 pedido = WebService.GetRegistroInicialPedidoAsync().Result;
 
                 TxtID.Text = pedido.getSetID.ToString();
+                MTxtData.Text = pedido.getSetData.ToString();
                 TxtCliente.Text = pedido.getSetCliente.ToString();
                 TxtFormaPGTO.Text = pedido.getSetFormaPGTO.ToString();
                 TxtValor.Text = pedido.getSetValor.ToString();
                 TxtDesconto.Text = pedido.getSetDesconto.ToString();
                 TxtValorFinal.Text = pedido.getSetValorTotal.ToString();
-                MTxtData.Text = pedido.getSetData.ToString();
+
+                // CRIA A LISTA DE ITENS ORGINAIS DO PEDIDO
+                pedidoItensOriginais = new List<PedidoItens>();
+
+                // CRIA A LISTA DE ITENS EDITADOS
+                itensPedidoAlterado = new List<PedidoItens>();
+
+                // DEFINE O CONTADOR COMO 0
+                contadorItemOrigial = 0;
 
                 // PREENCHE O GRID COM OS ITENS DO PEDIDO
                 PreencherGridPedidos(pedido.getSetID);
+                contadorItemOrigial++;
+
+                // PREENCHE AS INFORMÇÕES DO CLIENTE E FORMA PGTO
+                validarCliente(pedido.getSetCliente);
+                validarFormaPGTO(pedido.getSetFormaPGTO);
             }
             catch (Exception ex)
             {
@@ -234,14 +241,29 @@ namespace SistemaDoLeoWebService
                 pedido = WebService.GetPedidoAsync(ID).Result;
 
                 TxtID.Text = pedido.getSetID.ToString();
+                MTxtData.Text = pedido.getSetData.ToString();
                 TxtCliente.Text = pedido.getSetCliente.ToString();
                 TxtFormaPGTO.Text = pedido.getSetFormaPGTO.ToString();
                 TxtValor.Text = pedido.getSetValor.ToString();
                 TxtDesconto.Text = pedido.getSetDesconto.ToString();
                 TxtValorFinal.Text = pedido.getSetValorTotal.ToString();
 
+                // CRIA A LISTA DE ITENS ORGINAIS DO PEDIDO
+                pedidoItensOriginais = new List<PedidoItens>();
+
+                // CRIA A LISTA DE ITENS EDITADOS
+                itensPedidoAlterado = new List<PedidoItens>();
+
+                // DEFINE O CONTADOR COMO 0
+                contadorItemOrigial = 0;
+
                 // PREENCHE O GRID COM OS ITENS DO PEDIDO
                 PreencherGridPedidos(pedido.getSetID);
+                contadorItemOrigial++;
+
+                // PREENCHE AS INFORMÇÕES DO CLIENTE E FORMA PGTO
+                validarCliente(pedido.getSetCliente);
+                validarFormaPGTO(pedido.getSetFormaPGTO);
             }
             catch (Exception ex)
             {
@@ -450,8 +472,7 @@ namespace SistemaDoLeoWebService
                     pedido.getSetValorTotal = Convert.ToDouble(TxtValorFinal.Text);
                     pedido.getSetData = MTxtData.Text;
 
-                    // NÃO IMPLEMENTEI AINDA -> VOU VER
-                    //validarNome(operador);
+                    validarValorPedido(pedido);
 
                     //validarRetorno(WebService.SalvarOperadorAsync(pedido).Result);
                 }
@@ -459,6 +480,67 @@ namespace SistemaDoLeoWebService
             catch (Exception ex)
             {
                 MessageBox.Show("" + ex.Message, FormNome);
+            }
+        }
+
+        private void validarValorPedido(Pedido pedido)
+        {
+            try
+            {
+                var WebService = new ServiceReference1.Service1Client();
+                DialogResult validar;
+                int ID = Convert.ToInt32(TxtID.Text);
+
+                double valor = WebService.VerificarValorPedidoAsync(ID).Result;
+
+                if (valor == pedido.getSetValorTotal)
+                {
+                    finalizarPedido(pedido);
+                }
+                else
+                {
+                    validar = MessageBox.Show("Valor do Pedido alterado Manualmente, deseja Prosseguir?", FormNome, MessageBoxButtons.YesNo);
+
+                    if (validar == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        finalizarPedido(pedido);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+            }
+        }
+
+        private void finalizarPedido(Pedido pedido)
+        {
+            try
+            {
+                var WebService = new ServiceReference1.Service1Client();
+
+                validarRetorno(WebService.FinalizarPedidoAsync(pedido).Result);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+            }
+        }
+
+        private void validarRetorno(int retorno)
+        {
+            if (retorno == 0)
+            {
+                MessageBox.Show("Registro alterado com Sucesso!", FormNome);
+                getSetStatus = 2; // STATUS 2 -> VISUALIZAÇÃO
+                validarAcoes();
+            }
+            else if (retorno == 1)
+            {
+                MessageBox.Show("Registro cadastrado com Sucesso!", FormNome);
+                getSetStatus = 2; // STATUS 2 -> VISUALIZAÇÃO
+                validarAcoes();
+                ultimoRegistro();
             }
         }
 
@@ -504,23 +586,6 @@ namespace SistemaDoLeoWebService
             return true;
         }
 
-        public void validarRetorno(int retorno)
-        {
-            if (retorno == 0)
-            {
-                MessageBox.Show("Registro alterado com Sucesso!", FormNome);
-                getSetStatus = 2; // STATUS 2 -> VISUALIZAÇÃO
-                validarAcoes();
-            }
-            else if (retorno == 1)
-            {
-                MessageBox.Show("Registro cadastrado com Sucesso!", FormNome);
-                getSetStatus = 2; // STATUS 2 -> VISUALIZAÇÃO
-                validarAcoes();
-                ultimoRegistro();
-            }
-        }
-
         private void limpaCampos()
         {
             TxtCliente.Text = string.Empty;
@@ -556,6 +621,7 @@ namespace SistemaDoLeoWebService
             var lista = WebService.GetPedidoItensAsync(ID).Result;
 
             GridViewItens.Rows.Clear();
+            itensPedidoAlterado.Clear();
 
             foreach (var item in lista)
             {
@@ -564,25 +630,24 @@ namespace SistemaDoLeoWebService
                 // SE FOR A PRIMEIRA BUSCA NO MODO DE EDIÇÃO, VAI ADICIONAR OS ITENS QUE JÁ ESTAVAM NO
                 // PEDIDO NA LISTA "pedidoItensOriginais"
                 // CONTADOR RESETA QUANDO MUDA O STATUS
-                if (getSetStatus == 1 && contadorItemOrigial < 1)
+                if (contadorItemOrigial < 1)
                 {
                     pedidoItensOriginais.Add(item);
-                    contadorItemOrigial++;
                 }
                 else if (getSetStatus == 1)
                 {
                     // VALIDA OS ITENS NOVOS (QUE FORAM ADICIONADOS NO MODO DE EDIÇÃO)
                     // ADICIONA ELES NA LISTA "itensPedidoAlterado" PARA QUE POSSA EXCLUIR CASO CANCELE
                     // A ALTERAÇÃO
-                    foreach (var itemOriginal in pedidoItensOriginais)
+                    if (!pedidoItensOriginais.Any(itensOriginais => itensOriginais.getSetItemID == item.getSetItemID))
                     {
-                        if (item.getSetItemID != itemOriginal.getSetItemID)
-                        {
-                            itensPedidoAlterado.Add(item);
-                        }
+                        itensPedidoAlterado.Add(item);
                     }
                 }
             }
+
+            // AJUSTA AS CASAS DECIMAIS DO PEDIDO
+            ajustarValorPedido();
 
             // ORDENA A LISTA PELA ORDEM QUE ENTROU OS PRODUTOS
             GridViewItens.Sort(GridViewItens.Columns["IDItemPedido"], ListSortDirection.Ascending);
@@ -819,10 +884,30 @@ namespace SistemaDoLeoWebService
                 valorFinal = valor - (valor * desconto);
 
                 TxtValorFinal.Text = valorFinal.ToString();
+
+                ajustarValorPedido();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+            }
+        }
+
+        private void ajustarValorPedido()
+        {
+            if (TxtValor.Text != string.Empty && TxtValor.Text != string.Empty)
+            {
+                TxtValor.Text = Convert.ToDecimal(TxtValor.Text).ToString("N2");
+            }
+
+            if (TxtDesconto.Text != string.Empty && TxtDesconto.Text != string.Empty)
+            {
+                TxtDesconto.Text = Convert.ToDecimal(TxtDesconto.Text).ToString("N2");
+            }
+
+            if (TxtValorFinal.Text != string.Empty && TxtValorFinal.Text != string.Empty)
+            {
+                TxtValorFinal.Text = Convert.ToDecimal(TxtValorFinal.Text).ToString("N2");
             }
         }
 
@@ -1271,6 +1356,17 @@ namespace SistemaDoLeoWebService
             {
                 TxtValor.Focus();
             }
+        }
+
+        private void BtnID_Click(object sender, EventArgs e)
+        {
+            FormPesquisa formPesquisa = new FormPesquisa();
+            formPesquisa.Show();
+        }
+
+        private void GridViewItens_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

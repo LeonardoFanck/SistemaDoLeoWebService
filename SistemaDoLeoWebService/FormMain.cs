@@ -123,15 +123,16 @@ namespace SistemaDoLeoWebService
             FormConfiguracoesGerais formConfiguracoesGerais = new FormConfiguracoesGerais();
             //formConfiguracoesGerais.MdiParent = this;
 
-            // VALIDA SE O FORM JÁ ESTÁ ABERTO
-            if (Application.OpenForms.OfType<FormConfiguracoesGerais>().Count() > 0)
+            // INATIVA O FORM MAIN
+            this.Enabled = false;
+
+            // FUNÇÃO PARA QUANDO FECHAR O CONFIGURAÇÕES GERAIS, ATIVAR NOVAMENTE O FORMA MAIN
+            formConfiguracoesGerais.FormClosed += (sender, e) =>
             {
-                // FORM JÁ ABERTO
-            }
-            else
-            {
-                formConfiguracoesGerais.Show();
-            }
+                this.Enabled = true;
+            };
+
+            formConfiguracoesGerais.Show();
         }
 
         private void MenuMainCadastroProdutos_Click(object sender, EventArgs e)

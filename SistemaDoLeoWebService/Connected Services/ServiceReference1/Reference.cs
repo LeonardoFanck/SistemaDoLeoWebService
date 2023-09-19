@@ -1148,6 +1148,12 @@ namespace ServiceReference1
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/excluirItensPedido", ReplyAction="http://tempuri.org/IService1/excluirItensPedidoResponse")]
         System.Threading.Tasks.Task excluirItensPedidoAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/VerificarValorPedido", ReplyAction="http://tempuri.org/IService1/VerificarValorPedidoResponse")]
+        System.Threading.Tasks.Task<double> VerificarValorPedidoAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/FinalizarPedido", ReplyAction="http://tempuri.org/IService1/FinalizarPedidoResponse")]
+        System.Threading.Tasks.Task<int> FinalizarPedidoAsync(ServiceReference1.Pedido pedido);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
@@ -1443,6 +1449,16 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task excluirItensPedidoAsync(int ID)
         {
             return base.Channel.excluirItensPedidoAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<double> VerificarValorPedidoAsync(int ID)
+        {
+            return base.Channel.VerificarValorPedidoAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<int> FinalizarPedidoAsync(ServiceReference1.Pedido pedido)
+        {
+            return base.Channel.FinalizarPedidoAsync(pedido);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

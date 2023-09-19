@@ -96,6 +96,7 @@
             BtnAvancar.Name = "BtnAvancar";
             BtnAvancar.Size = new Size(30, 25);
             BtnAvancar.TabIndex = 64;
+            BtnAvancar.TabStop = false;
             BtnAvancar.Text = ">";
             BtnAvancar.UseVisualStyleBackColor = true;
             BtnAvancar.Click += BtnAvancar_Click;
@@ -106,6 +107,7 @@
             BtnVoltar.Name = "BtnVoltar";
             BtnVoltar.Size = new Size(30, 25);
             BtnVoltar.TabIndex = 63;
+            BtnVoltar.TabStop = false;
             BtnVoltar.Text = "<";
             BtnVoltar.UseVisualStyleBackColor = true;
             BtnVoltar.Click += BtnVoltar_Click;
@@ -116,6 +118,7 @@
             BtnAlterar.Name = "BtnAlterar";
             BtnAlterar.Size = new Size(97, 35);
             BtnAlterar.TabIndex = 62;
+            BtnAlterar.TabStop = false;
             BtnAlterar.Text = "Alterar";
             BtnAlterar.UseVisualStyleBackColor = true;
             BtnAlterar.Click += BtnAlterar_Click;
@@ -126,6 +129,7 @@
             BtnNovo.Name = "BtnNovo";
             BtnNovo.Size = new Size(97, 35);
             BtnNovo.TabIndex = 61;
+            BtnNovo.TabStop = false;
             BtnNovo.Text = "Novo";
             BtnNovo.UseVisualStyleBackColor = true;
             BtnNovo.Click += BtnNovo_Click;
@@ -135,7 +139,7 @@
             BtnCancelar.Location = new Point(1064, 402);
             BtnCancelar.Name = "BtnCancelar";
             BtnCancelar.Size = new Size(97, 35);
-            BtnCancelar.TabIndex = 60;
+            BtnCancelar.TabIndex = 15;
             BtnCancelar.Text = "Cancelar";
             BtnCancelar.UseVisualStyleBackColor = true;
             BtnCancelar.Click += BtnCancelar_Click;
@@ -145,7 +149,7 @@
             BtnSalvar.Location = new Point(961, 402);
             BtnSalvar.Name = "BtnSalvar";
             BtnSalvar.Size = new Size(97, 35);
-            BtnSalvar.TabIndex = 59;
+            BtnSalvar.TabIndex = 14;
             BtnSalvar.Text = "Salvar";
             BtnSalvar.UseVisualStyleBackColor = true;
             BtnSalvar.Click += BtnSalvar_Click;
@@ -156,15 +160,17 @@
             BtnID.Name = "BtnID";
             BtnID.Size = new Size(41, 23);
             BtnID.TabIndex = 67;
+            BtnID.TabStop = false;
             BtnID.Text = "->";
             BtnID.UseVisualStyleBackColor = true;
+            BtnID.Click += BtnID_Click;
             // 
             // TxtID
             // 
             TxtID.Location = new Point(102, 16);
             TxtID.Name = "TxtID";
             TxtID.Size = new Size(74, 23);
-            TxtID.TabIndex = 66;
+            TxtID.TabIndex = 1;
             TxtID.KeyPress += TxtID_KeyPress;
             // 
             // label1
@@ -182,6 +188,7 @@
             BtnCliente.Name = "BtnCliente";
             BtnCliente.Size = new Size(41, 23);
             BtnCliente.TabIndex = 70;
+            BtnCliente.TabStop = false;
             BtnCliente.Text = "->";
             BtnCliente.UseVisualStyleBackColor = true;
             // 
@@ -190,7 +197,7 @@
             TxtCliente.Location = new Point(102, 49);
             TxtCliente.Name = "TxtCliente";
             TxtCliente.Size = new Size(74, 23);
-            TxtCliente.TabIndex = 69;
+            TxtCliente.TabIndex = 3;
             TxtCliente.KeyPress += TxtCliente_KeyPress;
             TxtCliente.Leave += TxtCliente_Leave;
             // 
@@ -209,6 +216,7 @@
             BtnFormaPGTO.Name = "BtnFormaPGTO";
             BtnFormaPGTO.Size = new Size(41, 23);
             BtnFormaPGTO.TabIndex = 73;
+            BtnFormaPGTO.TabStop = false;
             BtnFormaPGTO.Text = "->";
             BtnFormaPGTO.UseVisualStyleBackColor = true;
             // 
@@ -217,7 +225,7 @@
             TxtFormaPGTO.Location = new Point(102, 83);
             TxtFormaPGTO.Name = "TxtFormaPGTO";
             TxtFormaPGTO.Size = new Size(74, 23);
-            TxtFormaPGTO.TabIndex = 72;
+            TxtFormaPGTO.TabIndex = 4;
             TxtFormaPGTO.KeyPress += TxtFormaPGTO_KeyPress;
             TxtFormaPGTO.Leave += TxtFormaPGTO_Leave;
             // 
@@ -232,18 +240,18 @@
             // 
             // TxtValor
             // 
-            TxtValor.Location = new Point(1054, 22);
+            TxtValor.Location = new Point(1061, 32);
             TxtValor.MaxLength = 10;
             TxtValor.Name = "TxtValor";
             TxtValor.Size = new Size(100, 23);
-            TxtValor.TabIndex = 75;
+            TxtValor.TabIndex = 11;
             TxtValor.KeyPress += TxtValor_KeyPress;
             TxtValor.Leave += TxtValor_Leave;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(1000, 25);
+            label4.Location = new Point(1007, 35);
             label4.Name = "label4";
             label4.Size = new Size(33, 15);
             label4.TabIndex = 74;
@@ -251,18 +259,18 @@
             // 
             // TxtDesconto
             // 
-            TxtDesconto.Location = new Point(1054, 55);
+            TxtDesconto.Location = new Point(1061, 65);
             TxtDesconto.MaxLength = 10;
             TxtDesconto.Name = "TxtDesconto";
             TxtDesconto.Size = new Size(100, 23);
-            TxtDesconto.TabIndex = 77;
+            TxtDesconto.TabIndex = 12;
             TxtDesconto.KeyPress += TxtDesconto_KeyPress;
             TxtDesconto.Leave += TxtDesconto_Leave;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(1000, 93);
+            label5.Location = new Point(1007, 103);
             label5.Name = "label5";
             label5.Size = new Size(32, 15);
             label5.TabIndex = 76;
@@ -270,18 +278,18 @@
             // 
             // TxtValorFinal
             // 
-            TxtValorFinal.Location = new Point(1054, 90);
+            TxtValorFinal.Location = new Point(1061, 100);
             TxtValorFinal.MaxLength = 10;
             TxtValorFinal.Name = "TxtValorFinal";
             TxtValorFinal.ReadOnly = true;
             TxtValorFinal.Size = new Size(100, 23);
-            TxtValorFinal.TabIndex = 79;
+            TxtValorFinal.TabIndex = 13;
             TxtValorFinal.KeyPress += TxtValorFinal_KeyPress;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(991, 62);
+            label6.Location = new Point(998, 72);
             label6.Name = "label6";
             label6.Size = new Size(57, 15);
             label6.TabIndex = 78;
@@ -293,17 +301,18 @@
             MTxtData.Mask = "00/00/0000";
             MTxtData.Name = "MTxtData";
             MTxtData.Size = new Size(69, 23);
-            MTxtData.TabIndex = 80;
+            MTxtData.TabIndex = 2;
             MTxtData.ValidatingType = typeof(DateTime);
             MTxtData.KeyPress += MTxtData_KeyPress;
             MTxtData.Leave += MTxtData_Leave;
             // 
             // BtnLiberarPedido
             // 
-            BtnLiberarPedido.Location = new Point(1164, 21);
+            BtnLiberarPedido.Location = new Point(1171, 31);
             BtnLiberarPedido.Name = "BtnLiberarPedido";
             BtnLiberarPedido.Size = new Size(28, 23);
             BtnLiberarPedido.TabIndex = 94;
+            BtnLiberarPedido.TabStop = false;
             BtnLiberarPedido.Text = "$";
             BtnLiberarPedido.UseVisualStyleBackColor = true;
             BtnLiberarPedido.Visible = false;
@@ -341,6 +350,8 @@
             GridViewItens.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             GridViewItens.Size = new Size(660, 308);
             GridViewItens.TabIndex = 95;
+            GridViewItens.TabStop = false;
+            GridViewItens.CellContentClick += GridViewItens_CellContentClick;
             // 
             // IDItemPedido
             // 
@@ -413,6 +424,7 @@
             TxtClienteNome.Name = "TxtClienteNome";
             TxtClienteNome.Size = new Size(354, 23);
             TxtClienteNome.TabIndex = 97;
+            TxtClienteNome.TabStop = false;
             // 
             // TxtFormaPGTONome
             // 
@@ -421,6 +433,7 @@
             TxtFormaPGTONome.Name = "TxtFormaPGTONome";
             TxtFormaPGTONome.Size = new Size(354, 23);
             TxtFormaPGTONome.TabIndex = 98;
+            TxtFormaPGTONome.TabStop = false;
             // 
             // groupBox1
             // 
@@ -504,13 +517,14 @@
             TxtNomeProduto.Name = "TxtNomeProduto";
             TxtNomeProduto.Size = new Size(269, 23);
             TxtNomeProduto.TabIndex = 110;
+            TxtNomeProduto.TabStop = false;
             // 
             // BtnAdicionarItem
             // 
             BtnAdicionarItem.Location = new Point(140, 200);
             BtnAdicionarItem.Name = "BtnAdicionarItem";
             BtnAdicionarItem.Size = new Size(97, 35);
-            BtnAdicionarItem.TabIndex = 109;
+            BtnAdicionarItem.TabIndex = 10;
             BtnAdicionarItem.Text = "Adicionar";
             BtnAdicionarItem.UseVisualStyleBackColor = true;
             BtnAdicionarItem.Click += BtnAdicionarItem_Click;
@@ -521,6 +535,7 @@
             BtnRemoverItem.Name = "BtnRemoverItem";
             BtnRemoverItem.Size = new Size(97, 35);
             BtnRemoverItem.TabIndex = 108;
+            BtnRemoverItem.TabStop = false;
             BtnRemoverItem.Text = "Excluir";
             BtnRemoverItem.UseVisualStyleBackColor = true;
             BtnRemoverItem.Click += BtnRemoverItem_Click;
@@ -531,7 +546,7 @@
             TxtQuantidadeItem.MaxLength = 9;
             TxtQuantidadeItem.Name = "TxtQuantidadeItem";
             TxtQuantidadeItem.Size = new Size(100, 23);
-            TxtQuantidadeItem.TabIndex = 107;
+            TxtQuantidadeItem.TabIndex = 7;
             TxtQuantidadeItem.TextChanged += TxtQuantidadeItem_TextChanged;
             TxtQuantidadeItem.KeyPress += TxtQuantidadeItem_KeyPress;
             TxtQuantidadeItem.Leave += TxtQuantidadeItem_Leave;
@@ -551,7 +566,7 @@
             TxtValorFinalItem.Name = "TxtValorFinalItem";
             TxtValorFinalItem.ReadOnly = true;
             TxtValorFinalItem.Size = new Size(100, 23);
-            TxtValorFinalItem.TabIndex = 105;
+            TxtValorFinalItem.TabIndex = 9;
             TxtValorFinalItem.TextChanged += TxtValorFinalItem_TextChanged;
             TxtValorFinalItem.KeyPress += TxtValorFinalItem_KeyPress;
             // 
@@ -570,7 +585,7 @@
             TxtDescontoItem.MaxLength = 9;
             TxtDescontoItem.Name = "TxtDescontoItem";
             TxtDescontoItem.Size = new Size(100, 23);
-            TxtDescontoItem.TabIndex = 103;
+            TxtDescontoItem.TabIndex = 8;
             TxtDescontoItem.TextChanged += TxtDescontoItem_TextChanged;
             TxtDescontoItem.KeyPress += TxtDescontoItem_KeyPress;
             TxtDescontoItem.Leave += TxtDescontoItem_Leave;
@@ -590,7 +605,7 @@
             TxtValorItem.MaxLength = 10;
             TxtValorItem.Name = "TxtValorItem";
             TxtValorItem.Size = new Size(100, 23);
-            TxtValorItem.TabIndex = 101;
+            TxtValorItem.TabIndex = 6;
             TxtValorItem.Text = "                                                                                        ";
             TxtValorItem.TextChanged += TxtValorItem_TextChanged;
             TxtValorItem.KeyPress += TxtValorItem_KeyPress;
@@ -611,6 +626,7 @@
             BtnProduto.Name = "BtnProduto";
             BtnProduto.Size = new Size(41, 23);
             BtnProduto.TabIndex = 99;
+            BtnProduto.TabStop = false;
             BtnProduto.Text = "->";
             BtnProduto.UseVisualStyleBackColor = true;
             // 
@@ -620,7 +636,7 @@
             TxtProduto.MaxLength = 9;
             TxtProduto.Name = "TxtProduto";
             TxtProduto.Size = new Size(84, 23);
-            TxtProduto.TabIndex = 98;
+            TxtProduto.TabIndex = 5;
             TxtProduto.TextChanged += TxtProduto_TextChanged;
             TxtProduto.KeyPress += TxtProduto_KeyPress;
             TxtProduto.Leave += TxtProduto_Leave;
