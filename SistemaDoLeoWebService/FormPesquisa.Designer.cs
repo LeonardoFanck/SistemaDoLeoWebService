@@ -63,11 +63,14 @@
             // 
             GridViewPesquisa.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             GridViewPesquisa.Location = new Point(12, 72);
+            GridViewPesquisa.MultiSelect = false;
             GridViewPesquisa.Name = "GridViewPesquisa";
+            GridViewPesquisa.ReadOnly = true;
             GridViewPesquisa.RowTemplate.Height = 25;
-            GridViewPesquisa.SelectionMode = DataGridViewSelectionMode.FullColumnSelect;
+            GridViewPesquisa.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             GridViewPesquisa.Size = new Size(737, 347);
             GridViewPesquisa.TabIndex = 3;
+            GridViewPesquisa.MouseDoubleClick += GridViewPesquisa_MouseDoubleClick;
             // 
             // FormPesquisa
             // 

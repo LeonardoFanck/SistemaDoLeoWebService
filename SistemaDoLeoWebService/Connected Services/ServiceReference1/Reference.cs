@@ -997,6 +997,88 @@ namespace ServiceReference1
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ListaPedido", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class ListaPedido : object
+    {
+        
+        private int getSetCodigoField;
+        
+        private string getSetDataField;
+        
+        private double getSetValorField;
+        
+        private string getSetclienteField;
+        
+        private string getSetformaPGTOField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetCodigo
+        {
+            get
+            {
+                return this.getSetCodigoField;
+            }
+            set
+            {
+                this.getSetCodigoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetData
+        {
+            get
+            {
+                return this.getSetDataField;
+            }
+            set
+            {
+                this.getSetDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetValor
+        {
+            get
+            {
+                return this.getSetValorField;
+            }
+            set
+            {
+                this.getSetValorField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetcliente
+        {
+            get
+            {
+                return this.getSetclienteField;
+            }
+            set
+            {
+                this.getSetclienteField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetformaPGTO
+        {
+            get
+            {
+                return this.getSetformaPGTOField;
+            }
+            set
+            {
+                this.getSetformaPGTOField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1
@@ -1154,6 +1236,9 @@ namespace ServiceReference1
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/FinalizarPedido", ReplyAction="http://tempuri.org/IService1/FinalizarPedidoResponse")]
         System.Threading.Tasks.Task<int> FinalizarPedidoAsync(ServiceReference1.Pedido pedido);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaPedidos", ReplyAction="http://tempuri.org/IService1/GetListaPedidosResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.ListaPedido[]> GetListaPedidosAsync(string pesquisa);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
@@ -1459,6 +1544,11 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<int> FinalizarPedidoAsync(ServiceReference1.Pedido pedido)
         {
             return base.Channel.FinalizarPedidoAsync(pedido);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.ListaPedido[]> GetListaPedidosAsync(string pesquisa)
+        {
+            return base.Channel.GetListaPedidosAsync(pesquisa);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

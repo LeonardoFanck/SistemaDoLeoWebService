@@ -18,6 +18,7 @@ namespace SistemaDoLeoWebService
     {
         private string FormNome = "Pedidos";
         private Operador operadorLogado;
+        private FormMain formMain;
         private Pedido pedido;
         private Produto produto;
         private ConfiguracoesGerais configuracoes;
@@ -26,9 +27,10 @@ namespace SistemaDoLeoWebService
         private List<PedidoItens> pedidoItensOriginais;
         private List<PedidoItens> itensPedidoAlterado;
 
-        public FormPedido(Operador operador)
+        public FormPedido(Operador operador, FormMain formMain)
         {
             this.operadorLogado = operador;
+            this.formMain = formMain;
 
             InitializeComponent();
         }
@@ -232,7 +234,7 @@ namespace SistemaDoLeoWebService
             }
         }
 
-        private void preencheDados(int ID)
+        public void preencheDados(int ID)
         {
             try
             {
@@ -1360,13 +1362,22 @@ namespace SistemaDoLeoWebService
 
         private void BtnID_Click(object sender, EventArgs e)
         {
-            FormPesquisa formPesquisa = new FormPesquisa();
+            FormPesquisa formPesquisa = new FormPesquisa(2, this); // 2 -> Pesquisa Pedido
+
+            formMain.Enabled = false;
+
+            // FUNÇÃO PARA QUANDO FECHAR O CONFIGURAÇÕES GERAIS, ATIVAR NOVAMENTE O FORMA MAIN
+            formPesquisa.FormClosed += (sender, e) =>
+            {
+                formMain.Enabled = true;
+            };
+
             formPesquisa.Show();
         }
 
         private void GridViewItens_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            
         }
     }
 }

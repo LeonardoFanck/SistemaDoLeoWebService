@@ -103,7 +103,7 @@ namespace SistemaDoLeoWebService
 
         private void MenuMainPedidos_Click(object sender, EventArgs e)
         {
-            FormPedido form = new FormPedido(operador);
+            FormPedido form = new FormPedido(operador, this);
             form.MdiParent = this;
 
             // VALIDA SE O FORM JÁ ESTÁ ABERTO
