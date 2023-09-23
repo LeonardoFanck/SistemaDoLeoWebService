@@ -316,6 +316,7 @@
             BtnLiberarPedido.Text = "$";
             BtnLiberarPedido.UseVisualStyleBackColor = true;
             BtnLiberarPedido.Visible = false;
+            BtnLiberarPedido.Click += BtnLiberarPedido_Click;
             // 
             // GridViewItens
             // 

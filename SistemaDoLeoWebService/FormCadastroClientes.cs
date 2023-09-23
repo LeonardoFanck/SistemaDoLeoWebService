@@ -18,6 +18,7 @@ namespace SistemaDoLeoWebService
         private List<Estados> Estados;
         private Cliente cliente;
         private TipoClientes tipoCliente;
+        private FormMain formMain;
 
         private int getSetStatus
         {
@@ -25,9 +26,10 @@ namespace SistemaDoLeoWebService
             set { Status = value; }
         }
 
-        public FormCadastroClientes()
+        public FormCadastroClientes(FormMain formMain)
         {
             InitializeComponent();
+            this.formMain = formMain;
         }
 
         private void FormCadastroClientes_Load(object sender, EventArgs e)
@@ -443,7 +445,7 @@ namespace SistemaDoLeoWebService
                     validarRetorno(WebService.SalvarClienteAsync(cliente, tipoCliente).Result);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -540,6 +542,22 @@ namespace SistemaDoLeoWebService
             }
 
             return true;
+        }
+
+        private void BtnID_Click(object sender, EventArgs e)
+        {
+            FormPesquisa formPesquisa = new FormPesquisa(0, this); // 0 -> Pesquisa Cliente
+
+            formMain.Enabled = false;
+
+            // FUNÇÃO PARA QUANDO FECHAR O CONFIGURAÇÕES GERAIS, ATIVAR NOVAMENTE O FORMA MAIN
+            formPesquisa.FormClosed += (sender, e) =>
+            {
+                formMain.Enabled = true;
+                TxtID.Focus();
+            };
+
+            formPesquisa.Show();
         }
     }
 }

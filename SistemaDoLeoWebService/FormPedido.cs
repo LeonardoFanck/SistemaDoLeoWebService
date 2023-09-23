@@ -1370,6 +1370,7 @@ namespace SistemaDoLeoWebService
             formPesquisa.FormClosed += (sender, e) =>
             {
                 formMain.Enabled = true;
+                TxtID.Focus();
             };
 
             formPesquisa.Show();
@@ -1377,7 +1378,12 @@ namespace SistemaDoLeoWebService
 
         private void GridViewItens_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
+        }
+
+        private void BtnLiberarPedido_Click(object sender, EventArgs e)
+        {
+            // CHAMA A TELA DE LIBERAÇÃO
         }
     }
 }

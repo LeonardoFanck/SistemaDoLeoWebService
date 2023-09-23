@@ -154,7 +154,7 @@ namespace SistemaDoLeoWebService
 
         private void MenuMainCadastroClienteFornecedor_Click(object sender, EventArgs e)
         {
-            FormCadastroClientes form = new FormCadastroClientes();
+            FormCadastroClientes form = new FormCadastroClientes(this);
             form.MdiParent = this;
 
             // VALIDA SE O FORM JÁ ESTÁ ABERTO

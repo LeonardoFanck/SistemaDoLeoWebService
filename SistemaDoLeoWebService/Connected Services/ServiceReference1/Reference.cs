@@ -1079,6 +1079,88 @@ namespace ServiceReference1
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ListaCliente", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class ListaCliente : object
+    {
+        
+        private int getSetCodigoField;
+        
+        private string getSetDocumentoField;
+        
+        private string getSetDtNascField;
+        
+        private string getSetNomeField;
+        
+        private bool getSetStatusField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetCodigo
+        {
+            get
+            {
+                return this.getSetCodigoField;
+            }
+            set
+            {
+                this.getSetCodigoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetDocumento
+        {
+            get
+            {
+                return this.getSetDocumentoField;
+            }
+            set
+            {
+                this.getSetDocumentoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetDtNasc
+        {
+            get
+            {
+                return this.getSetDtNascField;
+            }
+            set
+            {
+                this.getSetDtNascField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetNome
+        {
+            get
+            {
+                return this.getSetNomeField;
+            }
+            set
+            {
+                this.getSetNomeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool getSetStatus
+        {
+            get
+            {
+                return this.getSetStatusField;
+            }
+            set
+            {
+                this.getSetStatusField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1
@@ -1238,7 +1320,10 @@ namespace ServiceReference1
         System.Threading.Tasks.Task<int> FinalizarPedidoAsync(ServiceReference1.Pedido pedido);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaPedidos", ReplyAction="http://tempuri.org/IService1/GetListaPedidosResponse")]
-        System.Threading.Tasks.Task<ServiceReference1.ListaPedido[]> GetListaPedidosAsync(string pesquisa);
+        System.Threading.Tasks.Task<ServiceReference1.ListaPedido[]> GetListaPedidosAsync(string tipoPesquisa, string pesquisa);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaClientes", ReplyAction="http://tempuri.org/IService1/GetListaClientesResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.ListaCliente[]> GetListaClientesAsync(string tipoPesquisa, string pesquisa);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
@@ -1546,9 +1631,14 @@ namespace ServiceReference1
             return base.Channel.FinalizarPedidoAsync(pedido);
         }
         
-        public System.Threading.Tasks.Task<ServiceReference1.ListaPedido[]> GetListaPedidosAsync(string pesquisa)
+        public System.Threading.Tasks.Task<ServiceReference1.ListaPedido[]> GetListaPedidosAsync(string tipoPesquisa, string pesquisa)
         {
-            return base.Channel.GetListaPedidosAsync(pesquisa);
+            return base.Channel.GetListaPedidosAsync(tipoPesquisa, pesquisa);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.ListaCliente[]> GetListaClientesAsync(string tipoPesquisa, string pesquisa)
+        {
+            return base.Channel.GetListaClientesAsync(tipoPesquisa, pesquisa);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

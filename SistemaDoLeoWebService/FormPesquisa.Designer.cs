@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             BtnBuscaTodos = new Button();
-            textBox1 = new TextBox();
-            comboBox1 = new ComboBox();
+            TxtDados = new TextBox();
+            ComboBoxTipo = new ComboBox();
             GridViewPesquisa = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)GridViewPesquisa).BeginInit();
             SuspendLayout();
@@ -41,26 +41,32 @@
             BtnBuscaTodos.Name = "BtnBuscaTodos";
             BtnBuscaTodos.Size = new Size(85, 27);
             BtnBuscaTodos.TabIndex = 0;
+            BtnBuscaTodos.TabStop = false;
             BtnBuscaTodos.Text = "Buscar Todos";
             BtnBuscaTodos.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // TxtDados
             // 
-            textBox1.Location = new Point(146, 24);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(331, 23);
-            textBox1.TabIndex = 1;
+            TxtDados.Location = new Point(146, 24);
+            TxtDados.Name = "TxtDados";
+            TxtDados.Size = new Size(331, 23);
+            TxtDados.TabIndex = 1;
+            TxtDados.TextChanged += TxtDados_TextChanged;
             // 
-            // comboBox1
+            // ComboBoxTipo
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(23, 24);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(117, 23);
-            comboBox1.TabIndex = 2;
+            ComboBoxTipo.DropDownStyle = ComboBoxStyle.DropDownList;
+            ComboBoxTipo.FormattingEnabled = true;
+            ComboBoxTipo.Location = new Point(23, 24);
+            ComboBoxTipo.Name = "ComboBoxTipo";
+            ComboBoxTipo.Size = new Size(117, 23);
+            ComboBoxTipo.TabIndex = 2;
+            ComboBoxTipo.TabStop = false;
+            ComboBoxTipo.SelectedIndexChanged += ComboBoxTipo_SelectedIndexChanged;
             // 
             // GridViewPesquisa
             // 
+            GridViewPesquisa.AllowUserToAddRows = false;
             GridViewPesquisa.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             GridViewPesquisa.Location = new Point(12, 72);
             GridViewPesquisa.MultiSelect = false;
@@ -70,6 +76,7 @@
             GridViewPesquisa.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             GridViewPesquisa.Size = new Size(737, 347);
             GridViewPesquisa.TabIndex = 3;
+            GridViewPesquisa.TabStop = false;
             GridViewPesquisa.MouseDoubleClick += GridViewPesquisa_MouseDoubleClick;
             // 
             // FormPesquisa
@@ -78,8 +85,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(GridViewPesquisa);
-            Controls.Add(comboBox1);
-            Controls.Add(textBox1);
+            Controls.Add(ComboBoxTipo);
+            Controls.Add(TxtDados);
             Controls.Add(BtnBuscaTodos);
             Name = "FormPesquisa";
             Text = "FormPesquisa";
@@ -92,8 +99,8 @@
         #endregion
 
         private Button BtnBuscaTodos;
-        private TextBox textBox1;
-        private ComboBox comboBox1;
+        private TextBox TxtDados;
+        private ComboBox ComboBoxTipo;
         private DataGridView GridViewPesquisa;
     }
 }

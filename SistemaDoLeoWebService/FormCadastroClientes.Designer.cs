@@ -135,6 +135,7 @@
             BtnID.TabIndex = 34;
             BtnID.Text = "->";
             BtnID.UseVisualStyleBackColor = true;
+            BtnID.Click += BtnID_Click;
             // 
             // CBoxUF
             // 
