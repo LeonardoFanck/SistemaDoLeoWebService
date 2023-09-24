@@ -175,7 +175,17 @@ namespace SistemaDoLeoWebService
         {
             if (codigo == 0) // TELA CLIENTE
             {
-                FormCadastroClientes formCadastroClientes = (FormCadastroClientes) TelaFonte;
+                if (TelaFonte.ToString() == "Cadastro Cliente")
+                {
+                    MessageBox.Show(TelaFonte.ToString());
+                }
+
+                
+                
+                FormCadastroClientes formCadastroClientes = (FormCadastroClientes)TelaFonte;
+
+                
+                
 
                 formCadastroClientes.preencheDados(ID);
 
