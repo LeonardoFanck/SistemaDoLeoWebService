@@ -18,12 +18,16 @@ namespace SistemaDoLeoWebService
     {
         private int State;
         private Produto produto;
+        private Operador operador;
+        private FormMain formMain;
         private List<Categoria> categorias;
         private String nomeForm = "Cadastro Produto";
 
-        public FormCadastroProdutos()
+        public FormCadastroProdutos(Operador operador, FormMain formMain)
         {
             InitializeComponent();
+            this.operador = operador;
+            this.formMain = formMain;
         }
 
         private void BtnID_Click(object sender, EventArgs e)

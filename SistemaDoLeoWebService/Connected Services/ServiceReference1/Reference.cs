@@ -1323,7 +1323,7 @@ namespace ServiceReference1
         System.Threading.Tasks.Task<ServiceReference1.ListaPedido[]> GetListaPedidosAsync(string tipoPesquisa, string pesquisa);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaClientes", ReplyAction="http://tempuri.org/IService1/GetListaClientesResponse")]
-        System.Threading.Tasks.Task<ServiceReference1.ListaCliente[]> GetListaClientesAsync(string tipoPesquisa, string pesquisa);
+        System.Threading.Tasks.Task<ServiceReference1.ListaCliente[]> GetListaClientesAsync(string tipoPesquisa, string pesquisa, bool inativo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
@@ -1636,9 +1636,9 @@ namespace ServiceReference1
             return base.Channel.GetListaPedidosAsync(tipoPesquisa, pesquisa);
         }
         
-        public System.Threading.Tasks.Task<ServiceReference1.ListaCliente[]> GetListaClientesAsync(string tipoPesquisa, string pesquisa)
+        public System.Threading.Tasks.Task<ServiceReference1.ListaCliente[]> GetListaClientesAsync(string tipoPesquisa, string pesquisa, bool inativo)
         {
-            return base.Channel.GetListaClientesAsync(tipoPesquisa, pesquisa);
+            return base.Channel.GetListaClientesAsync(tipoPesquisa, pesquisa, inativo);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

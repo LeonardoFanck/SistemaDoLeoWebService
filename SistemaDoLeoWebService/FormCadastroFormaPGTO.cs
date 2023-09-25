@@ -17,6 +17,8 @@ namespace SistemaDoLeoWebService
         private string NomeForm = "Cadastro Forma de Pagamentos";
         private int Status;
         private FormaPGTO formaPGTO;
+        private Operador operador;
+        private FormMain formMain;
 
         public int getSetStatus
         {
@@ -25,8 +27,11 @@ namespace SistemaDoLeoWebService
             set { this.Status = value; }
         }
 
-        public FormCadastroFormaPGTO()
+        public FormCadastroFormaPGTO(Operador operador, FormMain formMain)
         {
+            this.operador = operador;
+            this.formMain = formMain;
+
             InitializeComponent();
         }
 

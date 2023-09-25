@@ -103,7 +103,7 @@ namespace SistemaDoLeoWebService
 
         private void MenuMainPedidos_Click(object sender, EventArgs e)
         {
-            FormPedido form = new FormPedido(operador, this);
+            FormPedido form = new FormPedido(this.operador, this);
             form.MdiParent = this;
 
             // VALIDA SE O FORM JÁ ESTÁ ABERTO
@@ -137,7 +137,7 @@ namespace SistemaDoLeoWebService
 
         private void MenuMainCadastroProdutos_Click(object sender, EventArgs e)
         {
-            FormCadastroProdutos formCadastroProdutos = new FormCadastroProdutos();
+            FormCadastroProdutos formCadastroProdutos = new FormCadastroProdutos(this.operador, this);
             formCadastroProdutos.MdiParent = this;
 
             // VALIDA SE O FORM JÁ ESTÁ ABERTO
@@ -154,7 +154,7 @@ namespace SistemaDoLeoWebService
 
         private void MenuMainCadastroClienteFornecedor_Click(object sender, EventArgs e)
         {
-            FormCadastroClientes form = new FormCadastroClientes(this);
+            FormCadastroClientes form = new FormCadastroClientes(this.operador, this);
             form.MdiParent = this;
 
             // VALIDA SE O FORM JÁ ESTÁ ABERTO
@@ -171,7 +171,7 @@ namespace SistemaDoLeoWebService
 
         private void MenuMainCadastroFormaPGTO_Click(object sender, EventArgs e)
         {
-            FormCadastroFormaPGTO form = new FormCadastroFormaPGTO();
+            FormCadastroFormaPGTO form = new FormCadastroFormaPGTO(this.operador, this);
             form.MdiParent = this;
 
             // VALIDA SE O FORM JÁ ESTÁ ABERTO
@@ -188,7 +188,7 @@ namespace SistemaDoLeoWebService
 
         private void MenuMainCadastroCategoria_Click(object sender, EventArgs e)
         {
-            FormCadastroCategoria form = new FormCadastroCategoria();
+            FormCadastroCategoria form = new FormCadastroCategoria(this.operador, this);
             form.MdiParent = this;
 
             // VALIDA SE O FORM JÁ ESTÁ ABERTO

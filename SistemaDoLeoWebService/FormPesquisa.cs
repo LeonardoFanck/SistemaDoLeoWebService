@@ -36,11 +36,6 @@ namespace SistemaDoLeoWebService
         {
         }
 
-        private void validarComboBoxTipo()
-        {
-
-        }
-
         private void validarCodigo(int codigo)
         {
             if (codigo == 0) // TELA CLIENTE
@@ -117,13 +112,21 @@ namespace SistemaDoLeoWebService
             try
             {
                 var WebService = new ServiceReference1.Service1Client();
+                bool buscaInativo = false;
 
                 // LIMPA O GRID ANTES DE ADICIONAR
                 GridViewPesquisa.Rows.Clear();
 
                 if (codigo == 0) // TELA CLIENTE
                 {
-                    List<ListaCliente> listaClientes = new List<ListaCliente>(WebService.GetListaClientesAsync(ComboBoxTipo.SelectedItem.ToString(), pesquisa).Result);
+                    // VALIDA SE VAI BUSCAR OS REGISTROS INATIVOS OU NÃO
+                    // SOMENTE A TELA DE CADASTRO DE CLIENTE BUSCA INATIVO
+                    if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormCadastroClientes, Text: Cadastro Cliente")
+                    {
+                        buscaInativo = true;
+                    }
+
+                    List<ListaCliente> listaClientes = new List<ListaCliente>(WebService.GetListaClientesAsync(ComboBoxTipo.SelectedItem.ToString(), pesquisa, buscaInativo).Result);
                     string status;
 
                     foreach (var item in listaClientes)
@@ -173,31 +176,34 @@ namespace SistemaDoLeoWebService
 
         private void validarRetorno(int ID)
         {
-            if (codigo == 0) // TELA CLIENTE
+            if (codigo == 0) // PESQUISA CLIENTE
             {
-                if (TelaFonte.ToString() == "Cadastro Cliente")
+                // VALIDA QUAL A TELA QUE CHAMOU A LISTA DE PESQUISA
+                // TELA CLIENTE
+                if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormCadastroClientes, Text: Cadastro Cliente")
                 {
-                    MessageBox.Show(TelaFonte.ToString());
+                    //MessageBox.Show(TelaFonte.ToString());
+                    FormCadastroClientes formCadastroClientes = (FormCadastroClientes)TelaFonte;
+
+                    formCadastroClientes.preencheDados(ID);
                 }
+                // TELA PEDIDO
+                else if (TelaFonte.ToString().Equals("SistemaDoLeoWebService.FormPedido, Text: Pedidos"))
+                {
+                    FormPedido pedido = (FormPedido)TelaFonte;
 
-                
-                
-                FormCadastroClientes formCadastroClientes = (FormCadastroClientes)TelaFonte;
-
-                
-                
-
-                formCadastroClientes.preencheDados(ID);
+                    pedido.validarCliente(ID);
+                }
 
                 this.Close();
             }
-            else if (codigo == 1) // TELA PRODUTO
+            else if (codigo == 1) // PESQUISA PRODUTO
             {
 
             }
-            else if (codigo == 2) // TELA PEDIDO
+            else if (codigo == 2) // PESQUISA PEDIDO
             {
-                FormPedido formPedido = (FormPedido) TelaFonte;
+                FormPedido formPedido = (FormPedido)TelaFonte;
 
                 formPedido.preencheDados(ID);
 
@@ -213,6 +219,19 @@ namespace SistemaDoLeoWebService
         private void ComboBoxTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
             TxtDados.Text = string.Empty;
+        }
+
+        private void TxtDados_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                if (GridViewPesquisa.CurrentRow.Cells[0].Value != null)
+                {
+                    var ID = GridViewPesquisa.CurrentRow.Cells[0].Value.ToString();
+
+                    validarRetorno(Convert.ToInt32(ID));
+                }
+            }
         }
     }
 }

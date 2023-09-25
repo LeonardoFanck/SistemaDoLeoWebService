@@ -16,6 +16,8 @@ namespace SistemaDoLeoWebService
         private string NomeForm = "Cadastro Categoria";
         private int Status;
         private Categoria categoria;
+        private Operador operador;
+        private FormMain formMain;
 
         public int getSetStatus
         {
@@ -24,8 +26,11 @@ namespace SistemaDoLeoWebService
             set { this.Status = value; }
         }
 
-        public FormCadastroCategoria()
+        public FormCadastroCategoria(Operador operador, FormMain formMain)
         {
+            this.operador = operador;
+            this.formMain = formMain;
+
             InitializeComponent();
         }
 

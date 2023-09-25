@@ -420,7 +420,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FormCadastroClientes";
             Text = "FormCadastroClientes";
             Load += FormCadastroClientes_Load;

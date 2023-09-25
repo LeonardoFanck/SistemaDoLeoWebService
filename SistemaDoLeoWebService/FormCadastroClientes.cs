@@ -17,8 +17,9 @@ namespace SistemaDoLeoWebService
         private int Status;
         private List<Estados> Estados;
         private Cliente cliente;
-        private TipoClientes tipoCliente;
+        private Operador operador;
         private FormMain formMain;
+        private TipoClientes tipoCliente;
 
         private int getSetStatus
         {
@@ -26,9 +27,10 @@ namespace SistemaDoLeoWebService
             set { Status = value; }
         }
 
-        public FormCadastroClientes(FormMain formMain)
+        public FormCadastroClientes(Operador operador, FormMain formMain)
         {
             InitializeComponent();
+            this.operador = operador;
             this.formMain = formMain;
         }
 

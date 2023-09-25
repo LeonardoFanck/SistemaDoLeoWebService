@@ -52,6 +52,7 @@
             TxtDados.Size = new Size(331, 23);
             TxtDados.TabIndex = 1;
             TxtDados.TextChanged += TxtDados_TextChanged;
+            TxtDados.KeyPress += TxtDados_KeyPress;
             // 
             // ComboBoxTipo
             // 
@@ -67,6 +68,7 @@
             // GridViewPesquisa
             // 
             GridViewPesquisa.AllowUserToAddRows = false;
+            GridViewPesquisa.BackgroundColor = SystemColors.ControlLight;
             GridViewPesquisa.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             GridViewPesquisa.Location = new Point(12, 72);
             GridViewPesquisa.MultiSelect = false;
@@ -83,11 +85,13 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackColor = Color.AntiqueWhite;
+            ClientSize = new Size(799, 450);
             Controls.Add(GridViewPesquisa);
             Controls.Add(ComboBoxTipo);
             Controls.Add(TxtDados);
             Controls.Add(BtnBuscaTodos);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FormPesquisa";
             Text = "FormPesquisa";
             Load += FormPesquisa_Load;

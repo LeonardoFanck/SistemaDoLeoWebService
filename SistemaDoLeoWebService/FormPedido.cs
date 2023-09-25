@@ -1288,7 +1288,7 @@ namespace SistemaDoLeoWebService
             }
         }
 
-        private void validarCliente(int ID)
+        public void validarCliente(int ID)
         {
             try
             {
@@ -1315,7 +1315,7 @@ namespace SistemaDoLeoWebService
             }
         }
 
-        private void validarFormaPGTO(int ID)
+        public void validarFormaPGTO(int ID)
         {
             try
             {
@@ -1366,14 +1366,20 @@ namespace SistemaDoLeoWebService
 
             formMain.Enabled = false;
 
+            // CHAMA A FUNÇÃO QUE VALIDA O DESATIVAMENTO DO FORM MAIN QUANDO FECHA A LISTA DE PESQUISA
+            validarPesquisa(formPesquisa);
+        }
+
+        private void validarPesquisa(FormPesquisa pesquisa)
+        {
             // FUNÇÃO PARA QUANDO FECHAR O CONFIGURAÇÕES GERAIS, ATIVAR NOVAMENTE O FORMA MAIN
-            formPesquisa.FormClosed += (sender, e) =>
+            pesquisa.FormClosed += (sender, e) =>
             {
                 formMain.Enabled = true;
                 TxtID.Focus();
             };
 
-            formPesquisa.Show();
+            pesquisa.Show();
         }
 
         private void GridViewItens_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -1384,6 +1390,19 @@ namespace SistemaDoLeoWebService
         private void BtnLiberarPedido_Click(object sender, EventArgs e)
         {
             // CHAMA A TELA DE LIBERAÇÃO
+        }
+
+        private void BtnCliente_Click(object sender, EventArgs e)
+        {
+            FormPesquisa pesquisa = new FormPesquisa(0, this);
+
+            // CHAMA A FUNÇÃO QUE VALIDA O DESATIVAMENTO DO FORM MAIN QUANDO FECHA A LISTA DE PESQUISA
+            validarPesquisa(pesquisa);
+        }
+
+        private void TxtCliente_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

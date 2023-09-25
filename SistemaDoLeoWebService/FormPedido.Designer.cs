@@ -191,6 +191,7 @@
             BtnCliente.TabStop = false;
             BtnCliente.Text = "->";
             BtnCliente.UseVisualStyleBackColor = true;
+            BtnCliente.Click += BtnCliente_Click;
             // 
             // TxtCliente
             // 
@@ -198,6 +199,7 @@
             TxtCliente.Name = "TxtCliente";
             TxtCliente.Size = new Size(74, 23);
             TxtCliente.TabIndex = 3;
+            TxtCliente.TextChanged += TxtCliente_TextChanged;
             TxtCliente.KeyPress += TxtCliente_KeyPress;
             TxtCliente.Leave += TxtCliente_Leave;
             // 
