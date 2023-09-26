@@ -221,6 +221,7 @@
             BtnFormaPGTO.TabStop = false;
             BtnFormaPGTO.Text = "->";
             BtnFormaPGTO.UseVisualStyleBackColor = true;
+            BtnFormaPGTO.Click += BtnFormaPGTO_Click;
             // 
             // TxtFormaPGTO
             // 
@@ -355,6 +356,7 @@
             GridViewItens.TabIndex = 95;
             GridViewItens.TabStop = false;
             GridViewItens.CellContentClick += GridViewItens_CellContentClick;
+            GridViewItens.RowPostPaint += GridViewItens_RowPostPaint;
             // 
             // IDItemPedido
             // 

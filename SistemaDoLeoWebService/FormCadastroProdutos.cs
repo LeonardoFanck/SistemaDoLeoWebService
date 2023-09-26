@@ -32,25 +32,23 @@ namespace SistemaDoLeoWebService
 
         private void BtnID_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var WebService = new Service1Client();
+            // 1 -> Pesquisa de Produto
+            FormPesquisa pesquisa = new FormPesquisa(1, this);
 
-                List<Estados> estados = new List<Estados>(WebService.GetListEstadosAsync().Result);
-                
-                /*
-                for (int i = 0; i < 3; i++)
-                {
-                    MessageBox.Show($"Estados: {estados[i].getSetNome}");
-                }
-                */
-            }
-            catch(Exception Ex)
+            // CHAMA A FUNÇÃO QUE VALIDA O DESATIVAMENTO DO FORM MAIN QUANDO FECHA A LISTA DE PESQUISA
+            validarPesquisa(pesquisa);
+        }
+
+        private void validarPesquisa(FormPesquisa pesquisa)
+        {
+            // FUNÇÃO PARA QUANDO FECHAR O CONFIGURAÇÕES GERAIS, ATIVAR NOVAMENTE O FORMA MAIN
+            pesquisa.FormClosed += (sender, e) =>
             {
-                MessageBox.Show(Ex.Message);
-            }
-            //MessageBox.Show("Funcionou");
-            
+                formMain.Enabled = true;
+                TxtID.Focus();
+            };
+
+            pesquisa.Show();
         }
 
         private void TxtID_KeyDown(object sender, KeyEventArgs e)
@@ -174,7 +172,7 @@ namespace SistemaDoLeoWebService
             }
         }
 
-        private void preencherDados(int ID)
+        public void preencherDados(int ID)
         {
             // 0 -> Novo | 1 -> Edição | 2 -> Visualização
             if (getSetStatus == 0)

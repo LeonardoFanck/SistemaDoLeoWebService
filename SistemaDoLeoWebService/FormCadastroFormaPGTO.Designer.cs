@@ -110,6 +110,7 @@
             BtnID.TabIndex = 51;
             BtnID.Text = "->";
             BtnID.UseVisualStyleBackColor = true;
+            BtnID.Click += BtnID_Click;
             // 
             // TxtNome
             // 

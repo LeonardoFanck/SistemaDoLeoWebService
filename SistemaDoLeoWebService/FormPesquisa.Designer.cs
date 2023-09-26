@@ -79,6 +79,7 @@
             GridViewPesquisa.Size = new Size(737, 347);
             GridViewPesquisa.TabIndex = 3;
             GridViewPesquisa.TabStop = false;
+            GridViewPesquisa.RowPostPaint += GridViewPesquisa_RowPostPaint;
             GridViewPesquisa.MouseDoubleClick += GridViewPesquisa_MouseDoubleClick;
             // 
             // FormPesquisa

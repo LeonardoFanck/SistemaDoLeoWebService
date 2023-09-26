@@ -322,5 +322,27 @@ namespace SistemaDoLeoWebService
             }
             */
         }
+
+        private void BtnID_Click(object sender, EventArgs e)
+        {
+            FormPesquisa formPesquisa = new FormPesquisa(3, this); // 3 -> LISTA FORMA PGTO
+
+            formMain.Enabled = false;
+
+            // CHAMA A FUNÇÃO QUE VALIDA O DESATIVAMENTO DO FORM MAIN QUANDO FECHA A LISTA DE PESQUISA
+            validarPesquisa(formPesquisa);
+        }
+
+        private void validarPesquisa(FormPesquisa pesquisa)
+        {
+            // FUNÇÃO PARA QUANDO FECHAR O CONFIGURAÇÕES GERAIS, ATIVAR NOVAMENTE O FORMA MAIN
+            pesquisa.FormClosed += (sender, e) =>
+            {
+                formMain.Enabled = true;
+                TxtID.Focus();
+            };
+
+            pesquisa.Show();
+        }
     }
 }

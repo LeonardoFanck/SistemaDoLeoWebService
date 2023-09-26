@@ -1161,6 +1161,118 @@ namespace ServiceReference1
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ListaProduto", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class ListaProduto : object
+    {
+        
+        private string getSetCategoriaField;
+        
+        private double getSetCustoField;
+        
+        private long getSetEstoqueField;
+        
+        private int getSetIDField;
+        
+        private string getSetNomeField;
+        
+        private bool getSetStatusField;
+        
+        private double getSetValorField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetCategoria
+        {
+            get
+            {
+                return this.getSetCategoriaField;
+            }
+            set
+            {
+                this.getSetCategoriaField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetCusto
+        {
+            get
+            {
+                return this.getSetCustoField;
+            }
+            set
+            {
+                this.getSetCustoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long getSetEstoque
+        {
+            get
+            {
+                return this.getSetEstoqueField;
+            }
+            set
+            {
+                this.getSetEstoqueField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetID
+        {
+            get
+            {
+                return this.getSetIDField;
+            }
+            set
+            {
+                this.getSetIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetNome
+        {
+            get
+            {
+                return this.getSetNomeField;
+            }
+            set
+            {
+                this.getSetNomeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool getSetStatus
+        {
+            get
+            {
+                return this.getSetStatusField;
+            }
+            set
+            {
+                this.getSetStatusField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetValor
+        {
+            get
+            {
+                return this.getSetValorField;
+            }
+            set
+            {
+                this.getSetValorField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1
@@ -1324,6 +1436,15 @@ namespace ServiceReference1
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaClientes", ReplyAction="http://tempuri.org/IService1/GetListaClientesResponse")]
         System.Threading.Tasks.Task<ServiceReference1.ListaCliente[]> GetListaClientesAsync(string tipoPesquisa, string pesquisa, bool inativo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaFormaPGTO", ReplyAction="http://tempuri.org/IService1/GetListaFormaPGTOResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.FormaPGTO[]> GetListaFormaPGTOAsync(string tipoPesquisa, string pesquisa, bool inativo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaProdutos", ReplyAction="http://tempuri.org/IService1/GetListaProdutosResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.ListaProduto[]> GetListaProdutosAsync(string tipoPesquisa, string pesquisa, bool inativo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaCategorias", ReplyAction="http://tempuri.org/IService1/GetListaCategoriasResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.Categoria[]> GetListaCategoriasAsync(string tipoPesquisa, string pesquisa, bool inativo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
@@ -1639,6 +1760,21 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<ServiceReference1.ListaCliente[]> GetListaClientesAsync(string tipoPesquisa, string pesquisa, bool inativo)
         {
             return base.Channel.GetListaClientesAsync(tipoPesquisa, pesquisa, inativo);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.FormaPGTO[]> GetListaFormaPGTOAsync(string tipoPesquisa, string pesquisa, bool inativo)
+        {
+            return base.Channel.GetListaFormaPGTOAsync(tipoPesquisa, pesquisa, inativo);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.ListaProduto[]> GetListaProdutosAsync(string tipoPesquisa, string pesquisa, bool inativo)
+        {
+            return base.Channel.GetListaProdutosAsync(tipoPesquisa, pesquisa, inativo);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.Categoria[]> GetListaCategoriasAsync(string tipoPesquisa, string pesquisa, bool inativo)
+        {
+            return base.Channel.GetListaCategoriasAsync(tipoPesquisa, pesquisa, inativo);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

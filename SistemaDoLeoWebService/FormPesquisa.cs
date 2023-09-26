@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SistemaDoLeoWebService
 {
@@ -38,7 +39,7 @@ namespace SistemaDoLeoWebService
 
         private void validarCodigo(int codigo)
         {
-            if (codigo == 0) // TELA CLIENTE
+            if (codigo == 0) // LISTA CLIENTE
             {
                 GridViewPesquisa.Columns.Add("getSetCodigo", "Codigo");
                 GridViewPesquisa.Columns["getSetCodigo"].Width = 80;
@@ -55,34 +56,37 @@ namespace SistemaDoLeoWebService
                 ComboBoxTipo.Items.Add("Nome");
                 ComboBoxTipo.Items.Add("Documento");
                 ComboBoxTipo.Items.Add("Dt Nasc");
-                //ComboBoxTipo.Items.Add("Status");
+                ComboBoxTipo.Items.Add("Status");
 
                 ComboBoxTipo.Text = "Nome";
 
                 // DEFINE O NOME DA TELA
                 this.Text = this.Text + "Cliente";
             }
-            else if (codigo == 1) // TELA PRODUTO
+            else if (codigo == 1) // LISTA PRODUTO
             {
                 GridViewPesquisa.Columns.Add("getSetCodigo", "Codigo");
                 GridViewPesquisa.Columns.Add("getSetNome", "Nome");
+                GridViewPesquisa.Columns.Add("getSetCategoria", "Categoria");
                 GridViewPesquisa.Columns.Add("getSetValor", "Valor");
                 GridViewPesquisa.Columns.Add("getSetCusto", "Custo");
+                GridViewPesquisa.Columns.Add("getSetEstoque", "Estoque");
                 GridViewPesquisa.Columns.Add("getSetStatus", "Status");
 
                 // PREENCHE O ComboBoxTipo
                 ComboBoxTipo.Items.Add("Codigo");
                 ComboBoxTipo.Items.Add("Nome");
+                ComboBoxTipo.Items.Add("Categoria");
                 ComboBoxTipo.Items.Add("Valor");
                 ComboBoxTipo.Items.Add("Custo");
-                //ComboBoxTipo.Items.Add("Status");
+                ComboBoxTipo.Items.Add("Status");
 
                 ComboBoxTipo.Text = "Nome";
 
                 // DEFINE O NOME DA TELA
                 this.Text = this.Text + "Produto";
             }
-            else if (codigo == 2) // TELA PEDIDO
+            else if (codigo == 2) // LISTA PEDIDO
             {
                 GridViewPesquisa.Columns.Add("getSetCodigo", "Codigo");
                 GridViewPesquisa.Columns.Add("getSetNome", "Cliente");
@@ -103,6 +107,22 @@ namespace SistemaDoLeoWebService
                 // DEFINE O NOME DA TELA
                 this.Text = this.Text + "Pedido";
             }
+            else if (codigo == 3) // LISTA FORMA PGTO
+            {
+                GridViewPesquisa.Columns.Add("getSetCodigo", "Codigo");
+                GridViewPesquisa.Columns.Add("getSetNome", "Nome");
+                GridViewPesquisa.Columns.Add("getSetStatus", "Status");
+
+                // PREENCHE O ComboBoxTipo
+                ComboBoxTipo.Items.Add("Codigo");
+                ComboBoxTipo.Items.Add("Nome");
+                ComboBoxTipo.Items.Add("Status");
+
+                ComboBoxTipo.Text = "Nome";
+
+                // DEFINE O NOME DA TELA
+                this.Text = this.Text + "Forma PGTO";
+            }
 
             preencheGrid("");
         }
@@ -113,11 +133,12 @@ namespace SistemaDoLeoWebService
             {
                 var WebService = new ServiceReference1.Service1Client();
                 bool buscaInativo = false;
+                string status;
 
                 // LIMPA O GRID ANTES DE ADICIONAR
                 GridViewPesquisa.Rows.Clear();
 
-                if (codigo == 0) // TELA CLIENTE
+                if (codigo == 0) // LISTA CLIENTE
                 {
                     // VALIDA SE VAI BUSCAR OS REGISTROS INATIVOS OU NÃO
                     // SOMENTE A TELA DE CADASTRO DE CLIENTE BUSCA INATIVO
@@ -127,7 +148,6 @@ namespace SistemaDoLeoWebService
                     }
 
                     List<ListaCliente> listaClientes = new List<ListaCliente>(WebService.GetListaClientesAsync(ComboBoxTipo.SelectedItem.ToString(), pesquisa, buscaInativo).Result);
-                    string status;
 
                     foreach (var item in listaClientes)
                     {
@@ -143,17 +163,56 @@ namespace SistemaDoLeoWebService
                         GridViewPesquisa.Rows.Add(item.getSetCodigo, item.getSetNome, item.getSetDocumento, item.getSetDtNasc, status);
                     }
                 }
-                else if (codigo == 1) // TELA PRODUTO
+                else if (codigo == 1) // LISTA PRODUTO
                 {
+                    // VALIDA SE VAI BUSCAR OS REGISTROS INATIVOS OU NÃO
+                    // SOMENTE A TELA DE CADASTRO DE CLIENTE BUSCA INATIVO
+                    if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormCadastroProdutos, Text: Cadastro Produto")
+                    {
+                        buscaInativo = true;
+                    }
 
+                    List<ListaProduto> listaProdutos = new List<ListaProduto>(WebService.GetListaProdutosAsync(ComboBoxTipo.SelectedItem.ToString(), pesquisa, buscaInativo).Result);
+
+                    foreach (var item in listaProdutos)
+                    {
+                        if (item.getSetStatus == true)
+                        {
+                            status = "Sim";
+                        }
+                        else
+                        {
+                            status = "Não";
+                        }
+
+                        GridViewPesquisa.Rows.Add(item.getSetID, item.getSetNome, item.getSetCategoria, item.getSetValor, item.getSetCusto, item.getSetEstoque, status);
+                    }
                 }
-                else if (codigo == 2) // TELA PEDIDO
+                else if (codigo == 2) // LISTA PEDIDO
                 {
                     List<ListaPedido> listaPedidos = new List<ListaPedido>(WebService.GetListaPedidosAsync(ComboBoxTipo.SelectedItem.ToString(), pesquisa).Result);
 
                     foreach (var item in listaPedidos)
                     {
                         GridViewPesquisa.Rows.Add(item.getSetCodigo, item.getSetcliente, item.getSetformaPGTO, item.getSetData, item.getSetValor);
+                    }
+                }
+                else if (codigo == 3) // LISTA FORMA PGTO
+                {
+                    List<FormaPGTO> listaFormaPGTO = new List<FormaPGTO>(WebService.GetListaFormaPGTOAsync(ComboBoxTipo.SelectedItem.ToString(), pesquisa, buscaInativo).Result);
+
+                    foreach (var item in listaFormaPGTO)
+                    {
+                        if (item.getSetStatus == true)
+                        {
+                            status = "Sim";
+                        }
+                        else
+                        {
+                            status = "Não";
+                        }
+
+                        GridViewPesquisa.Rows.Add(item.getSetID, item.getSetNome, status);
                     }
                 }
             }
@@ -179,7 +238,8 @@ namespace SistemaDoLeoWebService
             if (codigo == 0) // PESQUISA CLIENTE
             {
                 // VALIDA QUAL A TELA QUE CHAMOU A LISTA DE PESQUISA
-                // TELA CLIENTE
+
+                // TELA CADASTRO CLIENTE
                 if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormCadastroClientes, Text: Cadastro Cliente")
                 {
                     //MessageBox.Show(TelaFonte.ToString());
@@ -194,21 +254,49 @@ namespace SistemaDoLeoWebService
 
                     pedido.validarCliente(ID);
                 }
-
-                this.Close();
             }
             else if (codigo == 1) // PESQUISA PRODUTO
             {
+                // TELA CADASTRO PRODUTO
+                if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormCadastroProdutos, Text: Cadastro Produto")
+                {
+                    FormCadastroProdutos formCadastroProdutos = (FormCadastroProdutos) TelaFonte;
 
+                    formCadastroProdutos.preencherDados(ID);
+                }
+                // TELA CADASTRO PEDIDO
+                else if (TelaFonte.ToString().Equals("SistemaDoLeoWebService.FormPedido, Text: Pedidos"))
+                {
+                    FormPedido pedido = (FormPedido) TelaFonte;
+
+                    pedido.preencheProduto(ID);
+                }
             }
             else if (codigo == 2) // PESQUISA PEDIDO
             {
-                FormPedido formPedido = (FormPedido)TelaFonte;
+                FormPedido formPedido = (FormPedido) TelaFonte;
 
                 formPedido.preencheDados(ID);
-
-                this.Close();
             }
+            else if (codigo == 3) // PESQUISA FORMA PGTO
+            {
+                // TELA CADASTRO FORMA PGTO
+                if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormCadastroFormaPGTO, Text: Cadastro Forma de Pagamentos")
+                {
+                    FormCadastroFormaPGTO formCadastroFormaPGTO = (FormCadastroFormaPGTO) TelaFonte;
+
+                    formCadastroFormaPGTO.preencheDados(ID);
+                }
+                // TELA PEDIDO
+                else if (TelaFonte.ToString().Equals("SistemaDoLeoWebService.FormPedido, Text: Pedidos"))
+                {
+                    FormPedido pedido = (FormPedido) TelaFonte;
+
+                    pedido.validarFormaPGTO(ID);
+                }
+            }
+
+            this.Close();
         }
 
         private void TxtDados_TextChanged(object sender, EventArgs e)
@@ -232,6 +320,18 @@ namespace SistemaDoLeoWebService
                     validarRetorno(Convert.ToInt32(ID));
                 }
             }
+        }
+
+        private void GridViewPesquisa_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            // Número da linha a ser exibido no cabeçalho da linha
+            string numeracao = (e.RowIndex + 1).ToString();
+
+            // Obtém o retângulo de layout para o cabeçalho da linha
+            Rectangle limitacoes = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, GridViewPesquisa.RowHeadersWidth, e.RowBounds.Height);
+
+            // Centraliza o número da linha no cabeçalho da linha
+            TextRenderer.DrawText(e.Graphics, numeracao, GridViewPesquisa.RowHeadersDefaultCellStyle.Font, limitacoes, GridViewPesquisa.RowHeadersDefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
         }
     }
 }

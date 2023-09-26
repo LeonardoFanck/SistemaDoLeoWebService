@@ -273,7 +273,7 @@ namespace SistemaDoLeoWebService
             }
         }
 
-        private void preencheProduto(int ID)
+        public void preencheProduto(int ID)
         {
             try
             {
@@ -408,7 +408,7 @@ namespace SistemaDoLeoWebService
             }
             else if (getSetStatus == 2)
             {
-                this.Close();
+                //this.Close();
             }
         }
 
@@ -1176,16 +1176,7 @@ namespace SistemaDoLeoWebService
 
         private void FormPedido_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (getSetStatus == 0)
-            {
-                // EXCLUI OS ITENS DO PEDIDO
-                excluirItens(Convert.ToInt32(TxtID.Text));
-            }
-            else if (getSetStatus == 1)
-            {
-                // EXCLUI OS PEDIDOS QUE FORAM ADICIONADOS
-                excluirItensPedidoAlterado();
-            }
+            validarCancelamento();
         }
 
         private void TxtDesconto_KeyPress(object sender, KeyPressEventArgs e)
@@ -1296,6 +1287,7 @@ namespace SistemaDoLeoWebService
 
                 Cliente cliente = WebService.GetClienteAsync(ID).Result;
 
+                TxtCliente.Text = cliente.getSetID.ToString();
                 TxtClienteNome.Text = cliente.getSetNome;
             }
             catch (Exception ex)
@@ -1323,6 +1315,7 @@ namespace SistemaDoLeoWebService
 
                 FormaPGTO formaPGTO = WebService.GetFormaPGTOAsync(ID).Result;
 
+                TxtFormaPGTO.Text = formaPGTO.getSetID.ToString();
                 TxtFormaPGTONome.Text = formaPGTO.getSetNome;
             }
             catch (Exception ex)
@@ -1403,6 +1396,26 @@ namespace SistemaDoLeoWebService
         private void TxtCliente_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void GridViewItens_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            // Número da linha a ser exibido no cabeçalho da linha
+            string numeracao = (e.RowIndex + 1).ToString();
+
+            // Obtém o retângulo de layout para o cabeçalho da linha
+            Rectangle limitacoes = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, GridViewItens.RowHeadersWidth, e.RowBounds.Height);
+
+            // Centraliza o número da linha no cabeçalho da linha
+            TextRenderer.DrawText(e.Graphics, numeracao, GridViewItens.RowHeadersDefaultCellStyle.Font, limitacoes, GridViewItens.RowHeadersDefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
+        }
+
+        private void BtnFormaPGTO_Click(object sender, EventArgs e)
+        {
+            FormPesquisa pesquisa = new FormPesquisa(3, this); // LISTA FORMA PGTO
+
+            // CHAMA A FUNÇÃO QUE VALIDA O DESATIVAMENTO DO FORM MAIN QUANDO FECHA A LISTA DE PESQUISA
+            validarPesquisa(pesquisa);
         }
     }
 }
