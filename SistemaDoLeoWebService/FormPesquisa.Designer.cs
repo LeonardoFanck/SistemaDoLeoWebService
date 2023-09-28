@@ -93,9 +93,12 @@
             Controls.Add(TxtDados);
             Controls.Add(BtnBuscaTodos);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            KeyPreview = true;
             Name = "FormPesquisa";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormPesquisa";
             Load += FormPesquisa_Load;
+            KeyPress += FormPesquisa_KeyPress;
             ((System.ComponentModel.ISupportInitialize)GridViewPesquisa).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -444,5 +444,27 @@ namespace SistemaDoLeoWebService
             this.formMain.getSetOperador = this.operadorLogado;
             this.formMain.validarTelas();
         }
+
+        private void BtnID_Click(object sender, EventArgs e)
+        {
+            FormPesquisa formPesquisa = new FormPesquisa(5, this); // 5 -> Pesquisa Operador
+
+            // CHAMA A FUNÇÃO QUE VALIDA O DESATIVAMENTO DO FORM MAIN QUANDO FECHA A LISTA DE PESQUISA
+            validarPesquisa(formPesquisa);
+        }
+
+        private void validarPesquisa(FormPesquisa pesquisa)
+        {
+            formMain.Enabled = false;
+
+            // FUNÇÃO PARA QUANDO FECHAR O CONFIGURAÇÕES GERAIS, ATIVAR NOVAMENTE O FORMA MAIN
+            pesquisa.FormClosed += (sender, e) =>
+            {
+                formMain.Enabled = true;
+                TxtID.Focus();
+            };
+
+            pesquisa.Show();
+        }
     }
 }

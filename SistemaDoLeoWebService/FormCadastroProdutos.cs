@@ -41,6 +41,8 @@ namespace SistemaDoLeoWebService
 
         private void validarPesquisa(FormPesquisa pesquisa)
         {
+            formMain.Enabled = false;
+
             // FUNÇÃO PARA QUANDO FECHAR O CONFIGURAÇÕES GERAIS, ATIVAR NOVAMENTE O FORMA MAIN
             pesquisa.FormClosed += (sender, e) =>
             {

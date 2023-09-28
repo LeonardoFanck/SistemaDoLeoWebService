@@ -56,7 +56,7 @@ namespace SistemaDoLeoWebService
                 ComboBoxTipo.Items.Add("Nome");
                 ComboBoxTipo.Items.Add("Documento");
                 ComboBoxTipo.Items.Add("Dt Nasc");
-                ComboBoxTipo.Items.Add("Status");
+                ComboBoxTipo.Items.Add("Inativo");
 
                 ComboBoxTipo.Text = "Nome";
 
@@ -71,7 +71,7 @@ namespace SistemaDoLeoWebService
                 GridViewPesquisa.Columns.Add("getSetValor", "Valor");
                 GridViewPesquisa.Columns.Add("getSetCusto", "Custo");
                 GridViewPesquisa.Columns.Add("getSetEstoque", "Estoque");
-                GridViewPesquisa.Columns.Add("getSetStatus", "Status");
+                GridViewPesquisa.Columns.Add("getSetStatus", "Inativo");
 
                 // PREENCHE O ComboBoxTipo
                 ComboBoxTipo.Items.Add("Codigo");
@@ -79,7 +79,7 @@ namespace SistemaDoLeoWebService
                 ComboBoxTipo.Items.Add("Categoria");
                 ComboBoxTipo.Items.Add("Valor");
                 ComboBoxTipo.Items.Add("Custo");
-                ComboBoxTipo.Items.Add("Status");
+                ComboBoxTipo.Items.Add("Inativo");
 
                 ComboBoxTipo.Text = "Nome";
 
@@ -111,17 +111,53 @@ namespace SistemaDoLeoWebService
             {
                 GridViewPesquisa.Columns.Add("getSetCodigo", "Codigo");
                 GridViewPesquisa.Columns.Add("getSetNome", "Nome");
-                GridViewPesquisa.Columns.Add("getSetStatus", "Status");
+                GridViewPesquisa.Columns.Add("getSetStatus", "Inativo");
 
                 // PREENCHE O ComboBoxTipo
                 ComboBoxTipo.Items.Add("Codigo");
                 ComboBoxTipo.Items.Add("Nome");
-                ComboBoxTipo.Items.Add("Status");
+                ComboBoxTipo.Items.Add("Inativo");
 
                 ComboBoxTipo.Text = "Nome";
 
                 // DEFINE O NOME DA TELA
                 this.Text = this.Text + "Forma PGTO";
+            }
+            else if (codigo == 4) // LISTA CATEGORIA
+            {
+                GridViewPesquisa.Columns.Add("getSetCodigo", "Codigo");
+                GridViewPesquisa.Columns.Add("getSetNome", "Nome");
+                GridViewPesquisa.Columns["getSetNome"].Width = 300;
+                GridViewPesquisa.Columns.Add("getSetStatus", "Inativo");
+
+                // PREENCHE O ComboBoxTipo
+                ComboBoxTipo.Items.Add("Codigo");
+                ComboBoxTipo.Items.Add("Nome");
+                ComboBoxTipo.Items.Add("Inativo");
+
+                ComboBoxTipo.Text = "Nome";
+
+                // DEFINE O NOME DA TELA
+                this.Text = this.Text + "Categoria";
+            }
+            else if (codigo == 5) // LISTA OPERADOR
+            {
+                GridViewPesquisa.Columns.Add("getSetCodigo", "Codigo");
+                GridViewPesquisa.Columns.Add("getSetNome", "Nome");
+                GridViewPesquisa.Columns["getSetNome"].Width = 300;
+                GridViewPesquisa.Columns.Add("getSetAdmin", "Admin");
+                GridViewPesquisa.Columns.Add("getSetStatus", "Inativo");
+
+                // PREENCHE O ComboBoxTipo
+                ComboBoxTipo.Items.Add("Codigo");
+                ComboBoxTipo.Items.Add("Nome");
+                ComboBoxTipo.Items.Add("Admin");
+                ComboBoxTipo.Items.Add("Inativo");
+
+                ComboBoxTipo.Text = "Nome";
+
+                // DEFINE O NOME DA TELA
+                this.Text = this.Text + "Operador";
             }
 
             preencheGrid("");
@@ -215,6 +251,45 @@ namespace SistemaDoLeoWebService
                         GridViewPesquisa.Rows.Add(item.getSetID, item.getSetNome, status);
                     }
                 }
+                else if (codigo == 4) // LISTA CATEGORIA
+                {
+                    List<Categoria> listaCategoria = new List<Categoria>(WebService.GetListaCategoriasAsync(ComboBoxTipo.SelectedItem.ToString(), pesquisa, buscaInativo).Result);
+
+                    foreach (var item in listaCategoria)
+                    {
+                        if (item.getSetStatus == true)
+                        {
+                            status = "Sim";
+                        }
+                        else
+                        {
+                            status = "Não";
+                        }
+
+                        GridViewPesquisa.Rows.Add(item.getSetID, item.getSetNome, status);
+                    }
+                }
+                else if (codigo == 5) // LISTA OPERADOR
+                {
+                    List<Operador> listaOperador = new List<Operador>(WebService.GetListaOperadorAsync(ComboBoxTipo.SelectedItem.ToString(), pesquisa, buscaInativo).Result);
+                
+                    foreach (var item in listaOperador)
+                    {
+                        status = "Não";
+                        string admin = "Não";
+                        if (item.getSetStatus == true)
+                        {
+                            status = "Sim";
+                        }
+                        
+                        if (item.getSetAdmin == true)
+                        {
+                            admin = "Sim";
+                        }
+
+                        GridViewPesquisa.Rows.Add(item.getSetID, item.getSetNome, admin, status);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -260,21 +335,21 @@ namespace SistemaDoLeoWebService
                 // TELA CADASTRO PRODUTO
                 if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormCadastroProdutos, Text: Cadastro Produto")
                 {
-                    FormCadastroProdutos formCadastroProdutos = (FormCadastroProdutos) TelaFonte;
+                    FormCadastroProdutos formCadastroProdutos = (FormCadastroProdutos)TelaFonte;
 
                     formCadastroProdutos.preencherDados(ID);
                 }
                 // TELA CADASTRO PEDIDO
                 else if (TelaFonte.ToString().Equals("SistemaDoLeoWebService.FormPedido, Text: Pedidos"))
                 {
-                    FormPedido pedido = (FormPedido) TelaFonte;
+                    FormPedido pedido = (FormPedido)TelaFonte;
 
                     pedido.preencheProduto(ID);
                 }
             }
             else if (codigo == 2) // PESQUISA PEDIDO
             {
-                FormPedido formPedido = (FormPedido) TelaFonte;
+                FormPedido formPedido = (FormPedido)TelaFonte;
 
                 formPedido.preencheDados(ID);
             }
@@ -283,16 +358,36 @@ namespace SistemaDoLeoWebService
                 // TELA CADASTRO FORMA PGTO
                 if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormCadastroFormaPGTO, Text: Cadastro Forma de Pagamentos")
                 {
-                    FormCadastroFormaPGTO formCadastroFormaPGTO = (FormCadastroFormaPGTO) TelaFonte;
+                    FormCadastroFormaPGTO formCadastroFormaPGTO = (FormCadastroFormaPGTO)TelaFonte;
 
                     formCadastroFormaPGTO.preencheDados(ID);
                 }
                 // TELA PEDIDO
                 else if (TelaFonte.ToString().Equals("SistemaDoLeoWebService.FormPedido, Text: Pedidos"))
                 {
-                    FormPedido pedido = (FormPedido) TelaFonte;
+                    FormPedido pedido = (FormPedido)TelaFonte;
 
                     pedido.validarFormaPGTO(ID);
+                }
+            }
+            else if (codigo == 4) // LISTA CATEGORIA
+            {
+                // TELA CADASTRO CATEGORIA
+                if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormCadastroCategoria, Text: Cadastro Categoria")
+                {
+                    FormCadastroCategoria categoria = (FormCadastroCategoria)TelaFonte;
+
+                    categoria.preencheDados(ID);
+                }
+            }
+            else if (codigo == 5) // LISTA OPERADOR
+            {
+                // TELA CADASTRO CATEGORIA
+                if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormCadastroOperador, Text: Cadastro Operador")
+                {
+                    FormCadastroOperador operador = (FormCadastroOperador)TelaFonte;
+
+                    operador.preencheDados(ID);
                 }
             }
 
@@ -313,7 +408,7 @@ namespace SistemaDoLeoWebService
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                if (GridViewPesquisa.CurrentRow.Cells[0].Value != null)
+                if (GridViewPesquisa.RowCount > 0)
                 {
                     var ID = GridViewPesquisa.CurrentRow.Cells[0].Value.ToString();
 
@@ -332,6 +427,15 @@ namespace SistemaDoLeoWebService
 
             // Centraliza o número da linha no cabeçalho da linha
             TextRenderer.DrawText(e.Graphics, numeracao, GridViewPesquisa.RowHeadersDefaultCellStyle.Font, limitacoes, GridViewPesquisa.RowHeadersDefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
+        }
+
+        private void FormPesquisa_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)(Keys.Escape))
+            {
+                this.Close();
+                e.Handled = true;
+            }
         }
     }
 }

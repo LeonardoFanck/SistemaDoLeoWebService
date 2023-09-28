@@ -157,6 +157,7 @@
             Controls.Add(TxtMaxDescItemPedido);
             Controls.Add(TxtMaxDescPedido);
             Name = "FormConfiguracoesGerais";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Configuracoes Gerais";
             Load += FormConfiguracoesGerais_Load;
             ResumeLayout(false);

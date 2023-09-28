@@ -1,10 +1,12 @@
-﻿using ServiceReference1;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using ServiceReference1;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -114,7 +116,7 @@ namespace SistemaDoLeoWebService
                 limpaCampos();
                 limpaCamposItem();
 
-                TxtID.Focus();
+                MTxtData.Focus();
             }
             else if (getSetStatus == 1)
             {
@@ -266,10 +268,16 @@ namespace SistemaDoLeoWebService
                 // PREENCHE AS INFORMÇÕES DO CLIENTE E FORMA PGTO
                 validarCliente(pedido.getSetCliente);
                 validarFormaPGTO(pedido.getSetFormaPGTO);
+
+                // MANTEM SEMPRE O TXT ID COM O TEXTO SELECIONADO
+                TxtID.SelectAll();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("" + ex.Message, FormNome);
+
+                TxtID.Text = pedido.getSetID.ToString();
+                TxtID.SelectAll();
             }
         }
 
@@ -282,6 +290,7 @@ namespace SistemaDoLeoWebService
                 produto = WebService.GetProdutoAsync(ID).Result;
                 LblEstoqueAtual.Text = WebService.GetEstoqueProdutoAsync(ID).Result.ToString();
 
+                TxtProduto.Text = produto.getSetID.ToString();
                 TxtNomeProduto.Text = produto.getSetNome;
                 TxtValorItem.Text = produto.getSetValor.ToString();
                 TxtQuantidadeItem.Text = "1";
@@ -406,10 +415,6 @@ namespace SistemaDoLeoWebService
                     preencheDados(pedido.getSetID);
                 }
             }
-            else if (getSetStatus == 2)
-            {
-                //this.Close();
-            }
         }
 
         private void BtnVoltar_Click(object sender, EventArgs e)
@@ -474,9 +479,8 @@ namespace SistemaDoLeoWebService
                     pedido.getSetValorTotal = Convert.ToDouble(TxtValorFinal.Text);
                     pedido.getSetData = MTxtData.Text;
 
+                    // VALIDA O VALOR DO PEDIDO -> FINALIZA O PEDIDO
                     validarValorPedido(pedido);
-
-                    //validarRetorno(WebService.SalvarOperadorAsync(pedido).Result);
                 }
             }
             catch (Exception ex)
@@ -540,13 +544,81 @@ namespace SistemaDoLeoWebService
             else if (retorno == 1)
             {
                 MessageBox.Show("Registro cadastrado com Sucesso!", FormNome);
+
+                validarImpressaoPedido();
+
                 getSetStatus = 2; // STATUS 2 -> VISUALIZAÇÃO
                 validarAcoes();
                 ultimoRegistro();
             }
         }
 
-        public bool validarCampos()
+        private void validarImpressaoPedido()
+        {
+            DialogResult imprimir;
+            imprimir = MessageBox.Show("Deseja imprimir o Pedido?", $"Impressão Pedido - {TxtID.Text}", MessageBoxButtons.YesNo);
+
+            if (imprimir == System.Windows.Forms.DialogResult.Yes)
+            {
+                impressaoPedido();
+            }
+        }
+
+        private void impressaoPedido()
+        {
+            string nomeArquivo = $@"F:\Pedido_{TxtID.Text}.pdf";
+            FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
+            Document doc = new Document(PageSize.A4);
+            PdfWriter escritorPDF = PdfWriter.GetInstance(doc, arquivoPDF);
+
+            // LOGO
+            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(@"F:\logo.jpg");
+            logo.ScaleToFit(140f, 140f);
+            //logo.ScaleToFit(logo.Width, logo.Height);
+            logo.SetAbsolutePosition(100f, 700f); // x | -y
+
+            string dados = "";
+
+            Paragraph paragrafo = new Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, (int)System.Drawing.FontStyle.Bold));
+            paragrafo.Alignment = Element.ALIGN_CENTER;
+            paragrafo.Add("Impressão de Pedido\n");
+            paragrafo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, (int) (System.Drawing.FontStyle.Italic));
+            paragrafo.Add("Teste");
+            string texto = "teste do leozin";
+            paragrafo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 12, (int)  System.Drawing.FontStyle.Bold);
+            paragrafo.Add(texto + "\n\n\n");
+
+            Paragraph paragrafo2 = new Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, (int)System.Drawing.FontStyle.Bold));
+            paragrafo2.Alignment = Element.ALIGN_CENTER;
+            paragrafo2.Add("Impressão de Pedido\n");
+            paragrafo2.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, (int)(System.Drawing.FontStyle.Italic));
+            paragrafo2.Add("Teste");
+
+            /*
+            // TABELA E PREENCHER OS DADOS
+            PdfPTable tabela = new PdfPTable(3); // 3 colunas
+            tabela.DefaultCell.FixedHeight = 20;
+
+            tabela.AddCell("ID");
+            tabela.AddCell("Nome");
+            tabela.AddCell("Inativo");
+
+            // CHAMAR AS INFORAMAÇÕES DO BANCO()
+
+            foreach (var item in retornoBanco)
+            {
+                tabela.AddCell(item);
+            }
+            */
+
+            doc.Open();
+            doc.Add(logo);
+            doc.Add(paragrafo);
+            doc.Add(paragrafo2);
+            doc.Close();
+        }
+
+        private bool validarCampos()
         {
             if (MTxtData.Text == "")
             {
@@ -591,7 +663,9 @@ namespace SistemaDoLeoWebService
         private void limpaCampos()
         {
             TxtCliente.Text = string.Empty;
+            TxtClienteNome.Text = string.Empty;
             TxtFormaPGTO.Text = string.Empty;
+            TxtFormaPGTONome.Text = string.Empty;
             MTxtData.Text = string.Empty;
             TxtValor.Text = string.Empty;
             TxtDesconto.Text = string.Empty;
@@ -1121,9 +1195,19 @@ namespace SistemaDoLeoWebService
                 e.Handled = true;
             }
 
+
             if (e.KeyChar == 13) // ENTER
             {
-                MTxtData.Focus();
+                if (getSetStatus != 2)
+                {
+                    MTxtData.Focus();
+                }
+                else if (!TxtID.Text.Equals(""))
+                {
+                    preencheDados(Convert.ToInt32(TxtID.Text));
+
+                    TxtID.Focus();
+                }
 
                 e.Handled = true;
             }
@@ -1341,7 +1425,14 @@ namespace SistemaDoLeoWebService
         {
             if (e.KeyChar == 27) // ESC
             {
-                BtnCancelar_Click(sender, e);
+                if (getSetStatus == 2)
+                {
+                    Close();
+                }
+                else
+                {
+                    validarCancelamento();
+                }
             }
         }
 
@@ -1357,14 +1448,14 @@ namespace SistemaDoLeoWebService
         {
             FormPesquisa formPesquisa = new FormPesquisa(2, this); // 2 -> Pesquisa Pedido
 
-            formMain.Enabled = false;
-
             // CHAMA A FUNÇÃO QUE VALIDA O DESATIVAMENTO DO FORM MAIN QUANDO FECHA A LISTA DE PESQUISA
             validarPesquisa(formPesquisa);
         }
 
         private void validarPesquisa(FormPesquisa pesquisa)
         {
+            formMain.Enabled = false;
+
             // FUNÇÃO PARA QUANDO FECHAR O CONFIGURAÇÕES GERAIS, ATIVAR NOVAMENTE O FORMA MAIN
             pesquisa.FormClosed += (sender, e) =>
             {
@@ -1404,7 +1495,7 @@ namespace SistemaDoLeoWebService
             string numeracao = (e.RowIndex + 1).ToString();
 
             // Obtém o retângulo de layout para o cabeçalho da linha
-            Rectangle limitacoes = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, GridViewItens.RowHeadersWidth, e.RowBounds.Height);
+            System.Drawing.Rectangle limitacoes = new System.Drawing.Rectangle(e.RowBounds.Left, e.RowBounds.Top, GridViewItens.RowHeadersWidth, e.RowBounds.Height);
 
             // Centraliza o número da linha no cabeçalho da linha
             TextRenderer.DrawText(e.Graphics, numeracao, GridViewItens.RowHeadersDefaultCellStyle.Font, limitacoes, GridViewItens.RowHeadersDefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
@@ -1416,6 +1507,57 @@ namespace SistemaDoLeoWebService
 
             // CHAMA A FUNÇÃO QUE VALIDA O DESATIVAMENTO DO FORM MAIN QUANDO FECHA A LISTA DE PESQUISA
             validarPesquisa(pesquisa);
+        }
+
+        private void BtnProduto_Click(object sender, EventArgs e)
+        {
+            // 1 -> Pesquisa de Produto
+            FormPesquisa pesquisa = new FormPesquisa(1, this);
+
+            // CHAMA A FUNÇÃO QUE VALIDA O DESATIVAMENTO DO FORM MAIN QUANDO FECHA A LISTA DE PESQUISA
+            validarPesquisa(pesquisa);
+
+            TxtValorItem.Focus();
+        }
+
+        private void TxtID_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.KeyValue == (char)Keys.F4)
+            {
+                FormPesquisa pesquisa = new FormPesquisa(2, this); // 2 -> Lista Pedido
+
+                validarPesquisa(pesquisa);
+            }
+        }
+
+        private void TxtCliente_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.KeyValue == (char)Keys.F4)
+            {
+                FormPesquisa pesquisa = new FormPesquisa(0, this); //Lista Cliente
+
+                validarPesquisa(pesquisa);
+            }
+        }
+
+        private void TxtFormaPGTO_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.KeyValue == (char)Keys.F4)
+            {
+                FormPesquisa pesquisa = new FormPesquisa(3, this); //Lista Forma PGTO
+
+                validarPesquisa(pesquisa);
+            }
+        }
+
+        private void TxtProduto_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.KeyValue == (char)Keys.F4)
+            {
+                FormPesquisa pesquisa = new FormPesquisa(1, this); //Lista Produto
+
+                validarPesquisa(pesquisa);
+            }
         }
     }
 }

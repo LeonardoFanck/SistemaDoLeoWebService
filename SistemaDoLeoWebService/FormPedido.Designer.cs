@@ -171,6 +171,7 @@
             TxtID.Name = "TxtID";
             TxtID.Size = new Size(74, 23);
             TxtID.TabIndex = 1;
+            TxtID.KeyDown += TxtID_KeyDown;
             TxtID.KeyPress += TxtID_KeyPress;
             // 
             // label1
@@ -200,6 +201,7 @@
             TxtCliente.Size = new Size(74, 23);
             TxtCliente.TabIndex = 3;
             TxtCliente.TextChanged += TxtCliente_TextChanged;
+            TxtCliente.KeyDown += TxtCliente_KeyDown;
             TxtCliente.KeyPress += TxtCliente_KeyPress;
             TxtCliente.Leave += TxtCliente_Leave;
             // 
@@ -229,6 +231,7 @@
             TxtFormaPGTO.Name = "TxtFormaPGTO";
             TxtFormaPGTO.Size = new Size(74, 23);
             TxtFormaPGTO.TabIndex = 4;
+            TxtFormaPGTO.KeyDown += TxtFormaPGTO_KeyDown;
             TxtFormaPGTO.KeyPress += TxtFormaPGTO_KeyPress;
             TxtFormaPGTO.Leave += TxtFormaPGTO_Leave;
             // 
@@ -634,6 +637,7 @@
             BtnProduto.TabStop = false;
             BtnProduto.Text = "->";
             BtnProduto.UseVisualStyleBackColor = true;
+            BtnProduto.Click += BtnProduto_Click;
             // 
             // TxtProduto
             // 
@@ -643,6 +647,7 @@
             TxtProduto.Size = new Size(84, 23);
             TxtProduto.TabIndex = 5;
             TxtProduto.TextChanged += TxtProduto_TextChanged;
+            TxtProduto.KeyDown += TxtProduto_KeyDown;
             TxtProduto.KeyPress += TxtProduto_KeyPress;
             TxtProduto.Leave += TxtProduto_Leave;
             // 
