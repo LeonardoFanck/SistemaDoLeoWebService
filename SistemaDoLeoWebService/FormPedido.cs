@@ -1,11 +1,11 @@
-﻿using iTextSharp.text;
-using iTextSharp.text.pdf;
+﻿using FastReport;
 using ServiceReference1;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -516,9 +516,12 @@ namespace SistemaDoLeoWebService
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+                
             }
         }
 
+
+        [STAThread]
         private void finalizarPedido(Pedido pedido)
         {
             try
@@ -530,6 +533,7 @@ namespace SistemaDoLeoWebService
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+                Clipboard.SetText(ex.Message + " - " + ex.Source);
             }
         }
 
@@ -566,56 +570,15 @@ namespace SistemaDoLeoWebService
 
         private void impressaoPedido()
         {
-            string nomeArquivo = $@"F:\Pedido_{TxtID.Text}.pdf";
-            FileStream arquivoPDF = new FileStream(nomeArquivo, FileMode.Create);
-            Document doc = new Document(PageSize.A4);
-            PdfWriter escritorPDF = PdfWriter.GetInstance(doc, arquivoPDF);
+            var report = new Report();
 
-            // LOGO
-            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(@"F:\logo.jpg");
-            logo.ScaleToFit(140f, 140f);
-            //logo.ScaleToFit(logo.Width, logo.Height);
-            logo.SetAbsolutePosition(100f, 700f); // x | -y
+            var WebService = new ServiceReference1.Service1Client();
 
-            string dados = "";
+            var teste = WebService.GetPedidoAsync(1).Result;
 
-            Paragraph paragrafo = new Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, (int)System.Drawing.FontStyle.Bold));
-            paragrafo.Alignment = Element.ALIGN_CENTER;
-            paragrafo.Add("Impressão de Pedido\n");
-            paragrafo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, (int) (System.Drawing.FontStyle.Italic));
-            paragrafo.Add("Teste");
-            string texto = "teste do leozin";
-            paragrafo.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 12, (int)  System.Drawing.FontStyle.Bold);
-            paragrafo.Add(texto + "\n\n\n");
-
-            Paragraph paragrafo2 = new Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, (int)System.Drawing.FontStyle.Bold));
-            paragrafo2.Alignment = Element.ALIGN_CENTER;
-            paragrafo2.Add("Impressão de Pedido\n");
-            paragrafo2.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, (int)(System.Drawing.FontStyle.Italic));
-            paragrafo2.Add("Teste");
-
-            /*
-            // TABELA E PREENCHER OS DADOS
-            PdfPTable tabela = new PdfPTable(3); // 3 colunas
-            tabela.DefaultCell.FixedHeight = 20;
-
-            tabela.AddCell("ID");
-            tabela.AddCell("Nome");
-            tabela.AddCell("Inativo");
-
-            // CHAMAR AS INFORAMAÇÕES DO BANCO()
-
-            foreach (var item in retornoBanco)
-            {
-                tabela.AddCell(item);
-            }
-            */
-
-            doc.Open();
-            doc.Add(logo);
-            doc.Add(paragrafo);
-            doc.Add(paragrafo2);
-            doc.Close();
+            report.Load(@"F:\Leonardo da Silva Fanck\Compumate\Projeto C#\SistemaDoLeoWebService\SistemaDoLeoWebService\Relatorios\ImpressaoPedido.frx");
+            
+            ReportV
         }
 
         private bool validarCampos()

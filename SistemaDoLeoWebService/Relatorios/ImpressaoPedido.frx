@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="09/29/2023 00:59:56" ReportInfo.Modified="09/29/2023 01:37:10" ReportInfo.CreatorVersion="2022.1.0.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="LeonardoDB" ConnectionString="rijcmlqv7gVaV0hrT9yqx6S7jiLNMGQwFlaV5sSZU1ddLu9EQIBzEEUNJE8D56vl9+ERPLy4pJwht/3YsTJ9XlceuHv77pGvGuVxIeEGnHRWORQlR90GRmjr5lbuQFImh7GT62Q+Q8eKcFvjKzGSQL5FQ/VKvDYf4whmoU0CkGbLAf1MPyrGQVRm5FXnKIjb/JxUgzYfeESsFcC4AwMumxx8j7YZg==">
+      <TableDataSource Name="Pedido" DataType="System.Int32" Enabled="true" TableName="Pedido">
+        <Column Name="IdPedidos" DataType="System.Int32"/>
+        <Column Name="PedidoIdCli" DataType="System.Int32"/>
+        <Column Name="PedidoIdPgto" DataType="System.Int32"/>
+        <Column Name="PedidoValor" DataType="System.Decimal"/>
+        <Column Name="PedidoDesconto" DataType="System.Decimal"/>
+        <Column Name="PedidoValorTotal" DataType="System.Decimal"/>
+        <Column Name="PedidoData" DataType="System.DateTime"/>
+      </TableDataSource>
+      <TableDataSource Name="ItensPedido" DataType="System.Int32" Enabled="true" TableName="ItensPedido">
+        <Column Name="CodItensPedido" DataType="System.Int32"/>
+        <Column Name="CodPedido" DataType="System.Int32"/>
+        <Column Name="CodProduto" DataType="System.Int32"/>
+        <Column Name="ValorProduto" DataType="System.Decimal"/>
+        <Column Name="QuantidadeProduto" DataType="System.Int32"/>
+        <Column Name="DescontoProduto" DataType="System.Decimal"/>
+        <Column Name="ValorTotalProduto" DataType="System.Decimal"/>
+      </TableDataSource>
+      <TableDataSource Name="FormaPgto" DataType="System.Int32" Enabled="true" TableName="FormaPgto">
+        <Column Name="IdFormaPgt" DataType="System.Int32"/>
+        <Column Name="NomeFormaPgt" DataType="System.String"/>
+        <Column Name="StatusFormaPgt" DataType="System.Boolean" BindableControl="CheckBox"/>
+      </TableDataSource>
+      <TableDataSource Name="Clientes" DataType="System.Int32" Enabled="true" TableName="Clientes">
+        <Column Name="IdCliente" DataType="System.Int32"/>
+        <Column Name="CliNome" DataType="System.String"/>
+        <Column Name="CliCPF" DataType="System.String"/>
+        <Column Name="CliEmail" DataType="System.String"/>
+        <Column Name="CliDtNascimento" DataType="System.DateTime"/>
+        <Column Name="CliEstado" DataType="System.String"/>
+        <Column Name="CliCidade" DataType="System.String"/>
+        <Column Name="CliBairro" DataType="System.String"/>
+        <Column Name="CliEndereco" DataType="System.String"/>
+        <Column Name="CliNumero" DataType="System.String"/>
+        <Column Name="CliStatus" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="Moradia" DataType="System.Int32"/>
+      </TableDataSource>
+      <TableDataSource Name="Produtos" DataType="System.Int32" Enabled="true" TableName="Produtos">
+        <Column Name="CodProduto" DataType="System.Int32"/>
+        <Column Name="NomeProduto" DataType="System.String"/>
+        <Column Name="CategoriaProduto" DataType="System.Int32"/>
+        <Column Name="ValorProduto" DataType="System.Decimal"/>
+        <Column Name="CustoProduto" DataType="System.Decimal"/>
+        <Column Name="StatusProduto" DataType="System.Boolean" BindableControl="CheckBox"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Relation Name="Pedido_ItensPedido" ParentDataSource="Pedido" ChildDataSource="ItensPedido" ParentColumns="IdPedidos" ChildColumns="CodPedido" Enabled="true"/>
+    <Relation Name="Pedido_Clientes" ParentDataSource="Pedido" ChildDataSource="Clientes" ParentColumns="PedidoIdCli" ChildColumns="IdCliente" Enabled="true"/>
+    <Relation Name="Pedido_FormaPgto" ParentDataSource="Pedido" ChildDataSource="FormaPgto" ParentColumns="PedidoIdPgto" ChildColumns="IdFormaPgt" Enabled="true"/>
+    <Relation Name="ItensPedido_Produtos" ParentDataSource="ItensPedido" ChildDataSource="Produtos" ParentColumns="CodProduto" ChildColumns="CodProduto" Enabled="true"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="217.35">
+      <ShapeObject Name="Shape1" Left="567" Width="151.2" Height="56.7"/>
+      <TextObject Name="Text1" Left="226.8" Top="9.45" Width="264.6" Height="37.8" Text="Impressão Pedido" Font="Arial, 22pt"/>
+      <TextObject Name="Text2" Left="567" Top="9.45" Width="151.2" Height="37.8" Text="Pedido&#13;&#10;[Pedido.IdPedidos]" HorzAlign="Center" Font="Arial, 12pt"/>
+      <TextObject Name="Text3" Left="103.95" Top="94.5" Width="217.35" Height="18.9" Text="Cliente: [Clientes.CliNome]" HorzAlign="Center" Font="Arial, 12pt"/>
+      <TextObject Name="Text4" Left="103.95" Top="132.3" Width="217.35" Height="18.9" Text="Forma PGTO: [FormaPgto.NomeFormaPgt]" HorzAlign="Center" Font="Arial, 12pt"/>
+      <TextObject Name="Text5" Left="103.95" Top="170.1" Width="217.35" Height="18.9" Text="Data: [Pedido.PedidoData]" Format="Date" Format.Format="d" HorzAlign="Center" Font="Arial, 12pt"/>
+      <TextObject Name="Text6" Left="368.55" Top="94.5" Width="255.15" Height="18.9" Text="Valor: [Pedido.PedidoValor]" HorzAlign="Center" Font="Arial, 12pt"/>
+      <TextObject Name="Text7" Left="368.55" Top="170.1" Width="255.15" Height="18.9" Text="Total: [Pedido.PedidoValorTotal]" HorzAlign="Center" Font="Arial, 12pt"/>
+      <TextObject Name="Text8" Left="368.55" Top="132.3" Width="255.15" Height="18.9" Text="Desconto: [Pedido.PedidoDesconto]" HorzAlign="Center" Font="Arial, 12pt"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="221.35" Width="718.2" Height="37.8">
+      <TextObject Name="Text10" Left="28.35" Width="94.5" Height="18.9" Text="Cod" HorzAlign="Center" Font="Arial, 12pt"/>
+      <TextObject Name="Text12" Left="151.2" Width="94.5" Height="18.9" Text="Produto" HorzAlign="Center" Font="Arial, 12pt"/>
+      <TextObject Name="Text14" Left="283.5" Width="94.5" Height="18.9" Text="Valor" HorzAlign="Center" Font="Arial, 12pt"/>
+      <TextObject Name="Text16" Left="415.8" Width="94.5" Height="18.9" Text="Desconto" HorzAlign="Center" Font="Arial, 12pt"/>
+      <TextObject Name="Text18" Left="538.65" Width="94.5" Height="18.9" Text="Valor Total" HorzAlign="Center" Font="Arial, 12pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="263.15" Width="718.2" Height="75.6" DataSource="ItensPedido">
+      <TextObject Name="Text9" Left="28.35" Top="9.45" Width="94.5" Height="18.9" Text="[ItensPedido.CodProduto]" HorzAlign="Center" Font="Arial, 12pt"/>
+      <TextObject Name="Text11" Left="151.2" Top="9.45" Width="94.5" Height="18.9" Text="[Produtos.NomeProduto]" HorzAlign="Center" Font="Arial, 12pt"/>
+      <TextObject Name="Text13" Left="283.5" Top="9.45" Width="94.5" Height="18.9" Text="[ItensPedido.ValorProduto]" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial, 12pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text15" Left="415.8" Top="9.45" Width="94.5" Height="18.9" Text="[ItensPedido.DescontoProduto]" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial, 12pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text17" Left="538.65" Top="9.45" Width="94.5" Height="18.9" Text="[ItensPedido.ValorTotalProduto]" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial, 12pt" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="342.75" Width="718.2" Height="18.9">
+      <TextObject Name="Text19" Left="340.2" Width="359.1" Height="18.9" Text="Sistema do Leo 2.0 - Versão C# ([Date])" Format="Date" Format.Format="d" HorzAlign="Center" Font="Arial, 12pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>
