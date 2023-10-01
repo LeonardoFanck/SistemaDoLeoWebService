@@ -521,7 +521,7 @@ namespace SistemaDoLeoWebService
         }
 
 
-        [STAThread]
+        //[STAThread] para utiliazar o CTRL + C
         private void finalizarPedido(Pedido pedido)
         {
             try
@@ -533,7 +533,7 @@ namespace SistemaDoLeoWebService
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
-                Clipboard.SetText(ex.Message + " - " + ex.Source);
+                //Clipboard.SetText(ex.Message + " - " + ex.Source); CTRL + C
             }
         }
 
@@ -570,15 +570,47 @@ namespace SistemaDoLeoWebService
 
         private void impressaoPedido()
         {
-            var report = new Report();
+            try
+            {
+                var WebService = new ServiceReference1.Service1Client();
+                var dtItens = new DataTable();
+                var dtPedido = new DataTable();
+                PedidoComDados pedido;
 
-            var WebService = new ServiceReference1.Service1Client();
+                PedidoComDados pedidoComDados = WebService.GetPedidoComDadosAsync(Convert.ToInt32(TxtID.Text)).Result;
 
-            var teste = WebService.GetPedidoAsync(1).Result;
+                dtPedido.Columns.Add("CodPedido");
+                dtPedido.Columns.Add("Data");
+                dtPedido.Columns.Add("Cliente");
+                dtPedido.Columns.Add("FormaPGTO");
+                dtPedido.Columns.Add("PedidoValor");
+                dtPedido.Columns.Add("PedidoDesconto");
+                dtPedido.Columns.Add("PedidoValorTotal");
 
-            report.Load(@"F:\Leonardo da Silva Fanck\Compumate\Projeto C#\SistemaDoLeoWebService\SistemaDoLeoWebService\Relatorios\ImpressaoPedido.frx");
-            
-            ReportV
+                dtPedido.Rows.Add(pedidoComDados.getSetID, pedidoComDados.getSetData, pedidoComDados.getSetCliente, pedidoComDados.getSetFormaPGTO, pedidoComDados.getSetValor, pedidoComDados.getSetDesconto, pedidoComDados.getSetValorTotal);
+
+                List<PedidoItens> itens = new List<PedidoItens>(WebService.GetPedidoItensAsync(Convert.ToInt32(TxtID.Text)).Result);
+
+                dtItens.Columns.Add("ID");
+                dtItens.Columns.Add("Nome");
+                dtItens.Columns.Add("Valor");
+                dtItens.Columns.Add("Quantidade");
+                dtItens.Columns.Add("Desconto");
+                dtItens.Columns.Add("ValorTotal");
+
+                foreach(var item in itens)
+                {
+                    dtItens.Rows.Add(item.getSetProduto, item.getSetItemNomeProduto, item.getSetItemValor, item.getSetQuantidade, item.getSetItemDesconto, item.getSetItemValorTotal);
+                }
+
+                // ABRE O FORMULÁRIO DE IMPESSAO
+                using (var formImpressao = new FormImpressoes(dtPedido, dtItens)) 
+                    formImpressao.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+            }
         }
 
         private bool validarCampos()

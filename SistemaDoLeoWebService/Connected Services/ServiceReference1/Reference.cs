@@ -999,6 +999,118 @@ namespace ServiceReference1
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PedidoComDados", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class PedidoComDados : object
+    {
+        
+        private string getSetClienteField;
+        
+        private string getSetDataField;
+        
+        private double getSetDescontoField;
+        
+        private string getSetFormaPGTOField;
+        
+        private int getSetIDField;
+        
+        private double getSetValorField;
+        
+        private double getSetValorTotalField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetCliente
+        {
+            get
+            {
+                return this.getSetClienteField;
+            }
+            set
+            {
+                this.getSetClienteField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetData
+        {
+            get
+            {
+                return this.getSetDataField;
+            }
+            set
+            {
+                this.getSetDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetDesconto
+        {
+            get
+            {
+                return this.getSetDescontoField;
+            }
+            set
+            {
+                this.getSetDescontoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetFormaPGTO
+        {
+            get
+            {
+                return this.getSetFormaPGTOField;
+            }
+            set
+            {
+                this.getSetFormaPGTOField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetID
+        {
+            get
+            {
+                return this.getSetIDField;
+            }
+            set
+            {
+                this.getSetIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetValor
+        {
+            get
+            {
+                return this.getSetValorField;
+            }
+            set
+            {
+                this.getSetValorField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetValorTotal
+        {
+            get
+            {
+                return this.getSetValorTotalField;
+            }
+            set
+            {
+                this.getSetValorTotalField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ListaPedido", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
     public partial class ListaPedido : object
     {
@@ -1407,6 +1519,9 @@ namespace ServiceReference1
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetRegistroInicialPedido", ReplyAction="http://tempuri.org/IService1/GetRegistroInicialPedidoResponse")]
         System.Threading.Tasks.Task<ServiceReference1.Pedido> GetRegistroInicialPedidoAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetPedidoComDados", ReplyAction="http://tempuri.org/IService1/GetPedidoComDadosResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.PedidoComDados> GetPedidoComDadosAsync(int ID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetProximoRegistroPedido", ReplyAction="http://tempuri.org/IService1/GetProximoRegistroPedidoResponse")]
         System.Threading.Tasks.Task<int> GetProximoRegistroPedidoAsync();
         
@@ -1713,6 +1828,11 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<ServiceReference1.Pedido> GetRegistroInicialPedidoAsync()
         {
             return base.Channel.GetRegistroInicialPedidoAsync();
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.PedidoComDados> GetPedidoComDadosAsync(int ID)
+        {
+            return base.Channel.GetPedidoComDadosAsync(ID);
         }
         
         public System.Threading.Tasks.Task<int> GetProximoRegistroPedidoAsync()

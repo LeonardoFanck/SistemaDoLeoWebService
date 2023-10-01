@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="09/29/2023 00:59:56" ReportInfo.Modified="09/29/2023 01:37:10" ReportInfo.CreatorVersion="2022.1.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="09/29/2023 00:59:56" ReportInfo.Modified="09/29/2023 02:27:10" ReportInfo.CreatorVersion="2022.1.0.0">
   <Dictionary>
-    <MsSqlDataConnection Name="LeonardoDB" ConnectionString="rijcmlqv7gVaV0hrT9yqx6S7jiLNMGQwFlaV5sSZU1ddLu9EQIBzEEUNJE8D56vl9+ERPLy4pJwht/3YsTJ9XlceuHv77pGvGuVxIeEGnHRWORQlR90GRmjr5lbuQFImh7GT62Q+Q8eKcFvjKzGSQL5FQ/VKvDYf4whmoU0CkGbLAf1MPyrGQVRm5FXnKIjb/JxUgzYfeESsFcC4AwMumxx8j7YZg==">
+    <MsSqlDataConnection Name="LeonardoDB" ConnectionString="rijcmlqv7gVaV0hrT9yqx6S7jiLNMGQwFlaV5sSZU1ddLu9EQIBzEEUNJE8D56vl9+ERPLy4pJwht/3YsTJ9XlceuHv77pGvGuVxIeEGnHRWORQlR90GRmjr5lbuQFImh7GT62Q+Q8eKcFvjKzGSQL5FQ/VKvDYf4whmoU0CkGbLAf1MPyrGQVRm5FXnKIjb/JxUgzYwup3FZ+/ZBCvU3a+PQjK3A==">
       <TableDataSource Name="Pedido" DataType="System.Int32" Enabled="true" TableName="Pedido">
         <Column Name="IdPedidos" DataType="System.Int32"/>
         <Column Name="PedidoIdCli" DataType="System.Int32"/>
@@ -53,8 +53,8 @@
     <Relation Name="Pedido_FormaPgto" ParentDataSource="Pedido" ChildDataSource="FormaPgto" ParentColumns="PedidoIdPgto" ChildColumns="IdFormaPgt" Enabled="true"/>
     <Relation Name="ItensPedido_Produtos" ParentDataSource="ItensPedido" ChildDataSource="Produtos" ParentColumns="CodProduto" ChildColumns="CodProduto" Enabled="true"/>
   </Dictionary>
-  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
-    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="217.35">
+  <ReportPage Name="Page1" Guides="680.4" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Restrictions="DontModify, DontEdit, DontDelete" Width="718.2" Height="217.35">
       <ShapeObject Name="Shape1" Left="567" Width="151.2" Height="56.7"/>
       <TextObject Name="Text1" Left="226.8" Top="9.45" Width="264.6" Height="37.8" Text="Impressão Pedido" Font="Arial, 22pt"/>
       <TextObject Name="Text2" Left="567" Top="9.45" Width="151.2" Height="37.8" Text="Pedido&#13;&#10;[Pedido.IdPedidos]" HorzAlign="Center" Font="Arial, 12pt"/>

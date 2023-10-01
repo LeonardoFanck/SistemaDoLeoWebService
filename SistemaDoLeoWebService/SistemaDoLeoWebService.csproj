@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -10,36 +10,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FastReport.OpenSource" Version="2023.3.2" />
-    <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2023.3.2" />
+    <EmbeddedResource Include="Relatorios\ImpressaoPedido.rdlc" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.18" />
     <PackageReference Include="System.ServiceModel.Duplex" Version="4.10.*" />
     <PackageReference Include="System.ServiceModel.Federation" Version="4.10.*" />
     <PackageReference Include="System.ServiceModel.Http" Version="4.10.*" />
     <PackageReference Include="System.ServiceModel.NetTcp" Version="4.10.*" />
     <PackageReference Include="System.ServiceModel.Security" Version="4.10.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Relatorios\" />
   </ItemGroup>
 
   <ItemGroup>
