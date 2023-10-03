@@ -121,6 +121,7 @@
             relatorioGeralDePedidosToolStripMenuItem.Name = "relatorioGeralDePedidosToolStripMenuItem";
             relatorioGeralDePedidosToolStripMenuItem.Size = new Size(212, 22);
             relatorioGeralDePedidosToolStripMenuItem.Text = "Relatorio Geral de Pedidos";
+            relatorioGeralDePedidosToolStripMenuItem.Click += relatorioGeralDePedidosToolStripMenuItem_Click;
             // 
             // MenuMainConfiguraçõesDoSistema
             // 

@@ -169,6 +169,7 @@ namespace SistemaDoLeoWebService
                 BtnAvancar.Enabled = true;
                 BtnVoltar.Enabled = true;
                 BtnID.Enabled = true;
+                BtnSalvar.Enabled = true;
 
                 BtnCliente.Enabled = false;
                 BtnFormaPGTO.Enabled = false;
@@ -176,7 +177,6 @@ namespace SistemaDoLeoWebService
                 BtnAdicionarItem.Enabled = false;
                 BtnRemoverItem.Enabled = false;
                 BtnCancelar.Enabled = false;
-                BtnSalvar.Enabled = false;
 
                 // CAMPOS
                 TxtID.Enabled = true;
@@ -192,6 +192,9 @@ namespace SistemaDoLeoWebService
                 TxtQuantidadeItem.Enabled = false;
                 TxtDescontoItem.Enabled = false;
                 TxtValorFinalItem.Enabled = false;
+
+                // ALTERA O NOME DO BOTÃO CONFIRMAR
+                BtnSalvar.Text = "Imprimir";
 
                 MTxtData.Focus();
             }
@@ -453,34 +456,43 @@ namespace SistemaDoLeoWebService
 
         private void BtnSalvar_Click(object sender, EventArgs e)
         {
-            int ID;
-
             try
             {
-                var WebService = new ServiceReference1.Service1Client();
-
-                if (getSetStatus == 0)
+                // SE ESTIVER EM MODO VISUALIZAÇÃO, IRÁ IMPRIMIR
+                if (getSetStatus == 2)
                 {
-                    ID = -1;
+                    validarImpressaoPedido();
                 }
+                // SENÃO IRÁ SALVAR | ALTERAR
                 else
                 {
-                    ID = Convert.ToInt32(TxtID.Text);
-                }
+                    int ID;
 
-                if (validarCampos() == true)
-                {
-                    Pedido pedido = new Pedido();
-                    pedido.getSetID = ID;
-                    pedido.getSetCliente = Convert.ToInt32(TxtCliente.Text);
-                    pedido.getSetFormaPGTO = Convert.ToInt32(TxtFormaPGTO.Text);
-                    pedido.getSetValor = Convert.ToDouble(TxtValor.Text);
-                    pedido.getSetDesconto = Convert.ToDouble(TxtDesconto.Text);
-                    pedido.getSetValorTotal = Convert.ToDouble(TxtValorFinal.Text);
-                    pedido.getSetData = MTxtData.Text;
+                    var WebService = new ServiceReference1.Service1Client();
 
-                    // VALIDA O VALOR DO PEDIDO -> FINALIZA O PEDIDO
-                    validarValorPedido(pedido);
+                    if (getSetStatus == 0)
+                    {
+                        ID = -1;
+                    }
+                    else
+                    {
+                        ID = Convert.ToInt32(TxtID.Text);
+                    }
+
+                    if (validarCampos() == true)
+                    {
+                        Pedido pedido = new Pedido();
+                        pedido.getSetID = ID;
+                        pedido.getSetCliente = Convert.ToInt32(TxtCliente.Text);
+                        pedido.getSetFormaPGTO = Convert.ToInt32(TxtFormaPGTO.Text);
+                        pedido.getSetValor = Convert.ToDouble(TxtValor.Text);
+                        pedido.getSetDesconto = Convert.ToDouble(TxtDesconto.Text);
+                        pedido.getSetValorTotal = Convert.ToDouble(TxtValorFinal.Text);
+                        pedido.getSetData = MTxtData.Text;
+
+                        // VALIDA O VALOR DO PEDIDO -> FINALIZA O PEDIDO
+                        validarValorPedido(pedido);
+                    }
                 }
             }
             catch (Exception ex)
@@ -516,7 +528,7 @@ namespace SistemaDoLeoWebService
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
-                
+
             }
         }
 
@@ -598,13 +610,13 @@ namespace SistemaDoLeoWebService
                 dtItens.Columns.Add("Desconto");
                 dtItens.Columns.Add("ValorTotal");
 
-                foreach(var item in itens)
+                foreach (var item in itens)
                 {
                     dtItens.Rows.Add(item.getSetProduto, item.getSetItemNomeProduto, item.getSetItemValor, item.getSetQuantidade, item.getSetItemDesconto, item.getSetItemValorTotal);
                 }
 
                 // ABRE O FORMULÁRIO DE IMPESSAO
-                using (var formImpressao = new FormImpressoes(dtPedido, dtItens)) 
+                using (var formImpressao = new FormImpressoes(dtPedido, dtItens))
                     formImpressao.ShowDialog();
             }
             catch (Exception ex)
@@ -615,7 +627,7 @@ namespace SistemaDoLeoWebService
 
         private bool validarCampos()
         {
-            if (MTxtData.Text == "")
+            if (MTxtData.Text == "  /  /")
             {
                 MessageBox.Show("Necessário informar uma Data", FormNome);
                 MTxtData.Focus();

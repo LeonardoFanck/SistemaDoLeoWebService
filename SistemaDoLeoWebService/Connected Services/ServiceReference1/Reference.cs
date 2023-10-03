@@ -1563,6 +1563,9 @@ namespace ServiceReference1
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaOperador", ReplyAction="http://tempuri.org/IService1/GetListaOperadorResponse")]
         System.Threading.Tasks.Task<ServiceReference1.Operador[]> GetListaOperadorAsync(string tipoPesquisa, string pesquisa, bool inativo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetRelatorioPedido", ReplyAction="http://tempuri.org/IService1/GetRelatorioPedidoResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.PedidoComDados[]> GetRelatorioPedidoAsync(string dtInicio, string dtFinal, string cliente, string PGTO);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
@@ -1903,6 +1906,11 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<ServiceReference1.Operador[]> GetListaOperadorAsync(string tipoPesquisa, string pesquisa, bool inativo)
         {
             return base.Channel.GetListaOperadorAsync(tipoPesquisa, pesquisa, inativo);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.PedidoComDados[]> GetRelatorioPedidoAsync(string dtInicio, string dtFinal, string cliente, string PGTO)
+        {
+            return base.Channel.GetRelatorioPedidoAsync(dtInicio, dtFinal, cliente, PGTO);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

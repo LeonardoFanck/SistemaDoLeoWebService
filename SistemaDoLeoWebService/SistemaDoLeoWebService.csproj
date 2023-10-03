@@ -10,6 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Relatorios\ImpressaoListaPedidos.rdlc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Relatorios\ImpressaoListaPedidos.rdlc" />
     <EmbeddedResource Include="Relatorios\ImpressaoPedido.rdlc" />
   </ItemGroup>
 

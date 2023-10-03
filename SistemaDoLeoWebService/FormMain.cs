@@ -16,8 +16,9 @@ namespace SistemaDoLeoWebService
         private int ID;
         private Operador operador;
 
-        public Operador getSetOperador{
-            get { return operador; } 
+        public Operador getSetOperador
+        {
+            get { return operador; }
             set { operador = value; }
         }
 
@@ -213,6 +214,23 @@ namespace SistemaDoLeoWebService
             {
                 // FORM JÁ ABERTO
                 Application.OpenForms["FormCadastroOperador"].BringToFront();
+            }
+            else
+            {
+                form.Show();
+            }
+        }
+
+        private void relatorioGeralDePedidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormRelatorioPedidos form = new FormRelatorioPedidos(this.operador, this);
+            form.MdiParent = this;
+
+            // VALIDA SE O FORM JÁ ESTÁ ABERTO
+            if (Application.OpenForms.OfType<FormRelatorioPedidos>().Count() > 0)
+            {
+                // FORM JÁ ABERTO
+                Application.OpenForms["FormRelatorioPedidos"].BringToFront();
             }
             else
             {

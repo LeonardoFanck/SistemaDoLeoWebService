@@ -329,6 +329,13 @@ namespace SistemaDoLeoWebService
 
                     pedido.validarCliente(ID);
                 }
+                // TELA RELATÓRIO DE PEDIDOS
+                else if (TelaFonte.ToString().Equals("SistemaDoLeoWebService.FormRelatorioPedidos, Text: Relatório de Pedidos"))
+                {
+                    FormRelatorioPedidos relatorio = (FormRelatorioPedidos)TelaFonte;
+
+                    relatorio.validarCliente(ID);
+                }
             }
             else if (codigo == 1) // PESQUISA PRODUTO
             {
@@ -368,6 +375,13 @@ namespace SistemaDoLeoWebService
                     FormPedido pedido = (FormPedido)TelaFonte;
 
                     pedido.validarFormaPGTO(ID);
+                }
+                // TELA RELATÓRIO DE PEDIDOS
+                else if (TelaFonte.ToString().Equals("SistemaDoLeoWebService.FormRelatorioPedidos, Text: Relatório de Pedidos"))
+                {
+                    FormRelatorioPedidos relatorio = (FormRelatorioPedidos)TelaFonte;
+
+                    relatorio.validarFormaPGTO(ID);
                 }
             }
             else if (codigo == 4) // LISTA CATEGORIA
