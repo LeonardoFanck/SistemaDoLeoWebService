@@ -1111,6 +1111,357 @@ namespace ServiceReference1
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Entrada", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class Entrada : object
+    {
+        
+        private int getSetClienteField;
+        
+        private double getSetCustoField;
+        
+        private double getSetCustoTotalField;
+        
+        private string getSetDataField;
+        
+        private double getSetDescontoField;
+        
+        private int getSetFormaPGTOField;
+        
+        private int getSetIDField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetCliente
+        {
+            get
+            {
+                return this.getSetClienteField;
+            }
+            set
+            {
+                this.getSetClienteField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetCusto
+        {
+            get
+            {
+                return this.getSetCustoField;
+            }
+            set
+            {
+                this.getSetCustoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetCustoTotal
+        {
+            get
+            {
+                return this.getSetCustoTotalField;
+            }
+            set
+            {
+                this.getSetCustoTotalField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetData
+        {
+            get
+            {
+                return this.getSetDataField;
+            }
+            set
+            {
+                this.getSetDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetDesconto
+        {
+            get
+            {
+                return this.getSetDescontoField;
+            }
+            set
+            {
+                this.getSetDescontoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetFormaPGTO
+        {
+            get
+            {
+                return this.getSetFormaPGTOField;
+            }
+            set
+            {
+                this.getSetFormaPGTOField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetID
+        {
+            get
+            {
+                return this.getSetIDField;
+            }
+            set
+            {
+                this.getSetIDField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EntradaItens", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class EntradaItens : object
+    {
+        
+        private int getSetEntradaIDField;
+        
+        private double getSetItemCustoField;
+        
+        private double getSetItemCustoTotalField;
+        
+        private double getSetItemDescontoField;
+        
+        private int getSetItemIDField;
+        
+        private string getSetItemNomeProdutoField;
+        
+        private int getSetProdutoField;
+        
+        private int getSetQuantidadeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetEntradaID
+        {
+            get
+            {
+                return this.getSetEntradaIDField;
+            }
+            set
+            {
+                this.getSetEntradaIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetItemCusto
+        {
+            get
+            {
+                return this.getSetItemCustoField;
+            }
+            set
+            {
+                this.getSetItemCustoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetItemCustoTotal
+        {
+            get
+            {
+                return this.getSetItemCustoTotalField;
+            }
+            set
+            {
+                this.getSetItemCustoTotalField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetItemDesconto
+        {
+            get
+            {
+                return this.getSetItemDescontoField;
+            }
+            set
+            {
+                this.getSetItemDescontoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetItemID
+        {
+            get
+            {
+                return this.getSetItemIDField;
+            }
+            set
+            {
+                this.getSetItemIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetItemNomeProduto
+        {
+            get
+            {
+                return this.getSetItemNomeProdutoField;
+            }
+            set
+            {
+                this.getSetItemNomeProdutoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetProduto
+        {
+            get
+            {
+                return this.getSetProdutoField;
+            }
+            set
+            {
+                this.getSetProdutoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetQuantidade
+        {
+            get
+            {
+                return this.getSetQuantidadeField;
+            }
+            set
+            {
+                this.getSetQuantidadeField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EntradaComDados", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class EntradaComDados : object
+    {
+        
+        private string getSetClienteField;
+        
+        private double getSetCustoField;
+        
+        private double getSetCustoTotalField;
+        
+        private string getSetDataField;
+        
+        private double getSetDescontoField;
+        
+        private string getSetFormaPGTOField;
+        
+        private int getSetIDField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetCliente
+        {
+            get
+            {
+                return this.getSetClienteField;
+            }
+            set
+            {
+                this.getSetClienteField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetCusto
+        {
+            get
+            {
+                return this.getSetCustoField;
+            }
+            set
+            {
+                this.getSetCustoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetCustoTotal
+        {
+            get
+            {
+                return this.getSetCustoTotalField;
+            }
+            set
+            {
+                this.getSetCustoTotalField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetData
+        {
+            get
+            {
+                return this.getSetDataField;
+            }
+            set
+            {
+                this.getSetDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetDesconto
+        {
+            get
+            {
+                return this.getSetDescontoField;
+            }
+            set
+            {
+                this.getSetDescontoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetFormaPGTO
+        {
+            get
+            {
+                return this.getSetFormaPGTOField;
+            }
+            set
+            {
+                this.getSetFormaPGTOField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetID
+        {
+            get
+            {
+                return this.getSetIDField;
+            }
+            set
+            {
+                this.getSetIDField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ListaPedido", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
     public partial class ListaPedido : object
     {
@@ -1546,6 +1897,42 @@ namespace ServiceReference1
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/FinalizarPedido", ReplyAction="http://tempuri.org/IService1/FinalizarPedidoResponse")]
         System.Threading.Tasks.Task<int> FinalizarPedidoAsync(ServiceReference1.Pedido pedido);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetEntrada", ReplyAction="http://tempuri.org/IService1/GetEntradaResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.Entrada> GetEntradaAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetEntradaItens", ReplyAction="http://tempuri.org/IService1/GetEntradaItensResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.EntradaItens[]> GetEntradaItensAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetRegistroInicialEntrada", ReplyAction="http://tempuri.org/IService1/GetRegistroInicialEntradaResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.Entrada> GetRegistroInicialEntradaAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetEntradaComDados", ReplyAction="http://tempuri.org/IService1/GetEntradaComDadosResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.EntradaComDados> GetEntradaComDadosAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetProximoRegistroEntrada", ReplyAction="http://tempuri.org/IService1/GetProximoRegistroEntradaResponse")]
+        System.Threading.Tasks.Task<int> GetProximoRegistroEntradaAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AvancarRegistroEntrada", ReplyAction="http://tempuri.org/IService1/AvancarRegistroEntradaResponse")]
+        System.Threading.Tasks.Task<int> AvancarRegistroEntradaAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/VoltarRegistroEntrada", ReplyAction="http://tempuri.org/IService1/VoltarRegistroEntradaResponse")]
+        System.Threading.Tasks.Task<int> VoltarRegistroEntradaAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/salvarItensEntrada", ReplyAction="http://tempuri.org/IService1/salvarItensEntradaResponse")]
+        System.Threading.Tasks.Task salvarItensEntradaAsync(ServiceReference1.EntradaItens item);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/excluirItemEntrada", ReplyAction="http://tempuri.org/IService1/excluirItemEntradaResponse")]
+        System.Threading.Tasks.Task excluirItemEntradaAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/excluirItensEntrada", ReplyAction="http://tempuri.org/IService1/excluirItensEntradaResponse")]
+        System.Threading.Tasks.Task excluirItensEntradaAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/VerificarValorEntrada", ReplyAction="http://tempuri.org/IService1/VerificarValorEntradaResponse")]
+        System.Threading.Tasks.Task<double> VerificarValorEntradaAsync(int ID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/FinalizarEntrada", ReplyAction="http://tempuri.org/IService1/FinalizarEntradaResponse")]
+        System.Threading.Tasks.Task<int> FinalizarEntradaAsync(ServiceReference1.Entrada entrada);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaPedidos", ReplyAction="http://tempuri.org/IService1/GetListaPedidosResponse")]
         System.Threading.Tasks.Task<ServiceReference1.ListaPedido[]> GetListaPedidosAsync(string tipoPesquisa, string pesquisa);
         
@@ -1878,6 +2265,66 @@ namespace ServiceReference1
             return base.Channel.FinalizarPedidoAsync(pedido);
         }
         
+        public System.Threading.Tasks.Task<ServiceReference1.Entrada> GetEntradaAsync(int ID)
+        {
+            return base.Channel.GetEntradaAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.EntradaItens[]> GetEntradaItensAsync(int ID)
+        {
+            return base.Channel.GetEntradaItensAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.Entrada> GetRegistroInicialEntradaAsync()
+        {
+            return base.Channel.GetRegistroInicialEntradaAsync();
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.EntradaComDados> GetEntradaComDadosAsync(int ID)
+        {
+            return base.Channel.GetEntradaComDadosAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetProximoRegistroEntradaAsync()
+        {
+            return base.Channel.GetProximoRegistroEntradaAsync();
+        }
+        
+        public System.Threading.Tasks.Task<int> AvancarRegistroEntradaAsync(int ID)
+        {
+            return base.Channel.AvancarRegistroEntradaAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<int> VoltarRegistroEntradaAsync(int ID)
+        {
+            return base.Channel.VoltarRegistroEntradaAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task salvarItensEntradaAsync(ServiceReference1.EntradaItens item)
+        {
+            return base.Channel.salvarItensEntradaAsync(item);
+        }
+        
+        public System.Threading.Tasks.Task excluirItemEntradaAsync(int ID)
+        {
+            return base.Channel.excluirItemEntradaAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task excluirItensEntradaAsync(int ID)
+        {
+            return base.Channel.excluirItensEntradaAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<double> VerificarValorEntradaAsync(int ID)
+        {
+            return base.Channel.VerificarValorEntradaAsync(ID);
+        }
+        
+        public System.Threading.Tasks.Task<int> FinalizarEntradaAsync(ServiceReference1.Entrada entrada)
+        {
+            return base.Channel.FinalizarEntradaAsync(entrada);
+        }
+        
         public System.Threading.Tasks.Task<ServiceReference1.ListaPedido[]> GetListaPedidosAsync(string tipoPesquisa, string pesquisa)
         {
             return base.Channel.GetListaPedidosAsync(tipoPesquisa, pesquisa);
@@ -1936,7 +2383,7 @@ namespace ServiceReference1
         {
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IService1))
             {
-                return new System.ServiceModel.EndpointAddress("http://localhost:55569/Service1.svc");
+                return new System.ServiceModel.EndpointAddress("http://localhost/Service1.svc");
             }
             throw new System.InvalidOperationException(string.Format("Não foi possível encontrar o ponto de extremidade com o nome \'{0}\'.", endpointConfiguration));
         }

@@ -9,13 +9,13 @@
               <Width>1.35061cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.42537cm</Width>
+              <Width>2.13433cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>5.76728cm</Width>
+              <Width>4.70486cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.33743cm</Width>
+              <Width>2.93514cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.89146cm</Width>
@@ -483,9 +483,9 @@
         </TablixRowHierarchy>
         <DataSetName>Pedido</DataSetName>
         <Top>0.49389cm</Top>
-        <Left>0.65828cm</Left>
+        <Left>0.28787cm</Left>
         <Height>1.7027cm</Height>
-        <Width>19.34341cm</Width>
+        <Width>16.58764cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -496,7 +496,7 @@
     <Height>1.03368in</Height>
     <Style />
   </Body>
-  <Width>8.01426in</Width>
+  <Width>6.78973in</Width>
   <Page>
     <PageHeader>
       <Height>2.3548cm</Height>
@@ -524,7 +524,7 @@
           <rd:DefaultName>Textbox1</rd:DefaultName>
           <Top>0.52599cm</Top>
           <Height>1.36729cm</Height>
-          <Width>20.35622cm</Width>
+          <Width>17.24592cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -599,9 +599,9 @@
           </Paragraphs>
           <rd:DefaultName>Textbox5</rd:DefaultName>
           <Top>0.5198cm</Top>
-          <Left>11.58148cm</Left>
+          <Left>8.56113cm</Left>
           <Height>0.6cm</Height>
-          <Width>8.42021cm</Width>
+          <Width>8.31438cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
