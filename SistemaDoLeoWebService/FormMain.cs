@@ -89,7 +89,7 @@ namespace SistemaDoLeoWebService
             // SE NÃO TIVER NENHUMA TELA LIBERADA, LIBERA A TELA DE PEDIDOS
             if (quantiaTelas < 0)
             {
-                // LIBERAR TELA DE PEDIDOS
+                MenuMainPedidos.Visible = true;
             }
         }
 

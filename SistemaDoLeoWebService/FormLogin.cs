@@ -51,8 +51,17 @@ namespace SistemaDoLeoWebService
                     
                     if (resultado.Equals(0))
                     {
-                        operador = WebReference.GetOperadorAsync(ID).Result;
-                        LblNomeOperador.Text = operador.getSetNome;
+                        if (TxtID.Text.Equals("0"))
+                        {
+                            LblNomeOperador.Text = "Administrador";
+
+                            definirPermissoesADMIN();
+                        }
+                        else
+                        {
+                            operador = WebReference.GetOperadorAsync(ID).Result;
+                            LblNomeOperador.Text = operador.getSetNome;
+                        }
                     }
                     else if (resultado.Equals(1))
                     {
@@ -72,8 +81,24 @@ namespace SistemaDoLeoWebService
             {
                 MessageBox.Show(ex.Message);
             }
-            
-            
+        }
+
+        private void definirPermissoesADMIN()
+        {
+            operador = new Operador();
+            operador.getSetID = 0;
+            operador.getSetNome = "Administrador";
+            operador.getSetSenha = TxtSenha.ToString();
+            operador.getSetAdmin = true;
+            operador.getSetStatus = false;
+            operador.getSetCadastroOperador = true;
+            operador.getSetCadastroCategoria = true;
+            operador.getSetCadastroCliente = true;
+            operador.getSetCadastroProduto = true;
+            operador.getSetCadastroFormaPGTO = true;
+            operador.getSetTabelaUsuario = true;
+            operador.getSetPedidos = true;
+            operador.getSetEntrada = true;
         }
 
         private void BtnFinalizar_Click(object sender, EventArgs e)
