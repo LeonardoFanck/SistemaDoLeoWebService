@@ -42,6 +42,7 @@
             configuraçõesGeraisToolStripMenuItem = new ToolStripMenuItem();
             MenuMainSobre = new ToolStripMenuItem();
             MenuMainInfoSistemaDoLeo = new ToolStripMenuItem();
+            MenuMainEntradas = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -56,7 +57,7 @@
             // 
             // MenuMainTelasDeAcesso
             // 
-            MenuMainTelasDeAcesso.DropDownItems.AddRange(new ToolStripItem[] { MenuMainPedidos, MenuMainCadastroClienteFornecedor, MenuMainCadastroProdutos, MenuMainCadastroFormaPGTO, MenuMainCadastroCategoria, MenuMainCadastroOperador });
+            MenuMainTelasDeAcesso.DropDownItems.AddRange(new ToolStripItem[] { MenuMainPedidos, MenuMainCadastroClienteFornecedor, MenuMainCadastroProdutos, MenuMainCadastroFormaPGTO, MenuMainCadastroCategoria, MenuMainCadastroOperador, MenuMainEntradas });
             MenuMainTelasDeAcesso.Name = "MenuMainTelasDeAcesso";
             MenuMainTelasDeAcesso.Size = new Size(100, 20);
             MenuMainTelasDeAcesso.Text = "Telas de Acesso";
@@ -151,6 +152,13 @@
             MenuMainInfoSistemaDoLeo.Text = "Info. Sistema do Leo";
             MenuMainInfoSistemaDoLeo.Click += infoSistemaDoLeoToolStripMenuItem_Click;
             // 
+            // MenuMainEntradas
+            // 
+            MenuMainEntradas.Name = "MenuMainEntradas";
+            MenuMainEntradas.Size = new Size(226, 22);
+            MenuMainEntradas.Text = "Entradas";
+            MenuMainEntradas.Click += MenuMainEntradas_Click;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -186,5 +194,6 @@
         private ToolStripMenuItem MenuMainCadastroFormaPGTO;
         private ToolStripMenuItem MenuMainCadastroCategoria;
         private ToolStripMenuItem MenuMainCadastroOperador;
+        private ToolStripMenuItem MenuMainEntradas;
     }
 }

@@ -206,9 +206,11 @@
             Controls.Add(label1);
             Controls.Add(TxtDtFinal);
             Controls.Add(TxtDtInicio);
+            KeyPreview = true;
             Name = "FormRelatorioPedidos";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormRelatorioPedidos";
+            KeyPress += FormRelatorioPedidos_KeyPress;
             ResumeLayout(false);
             PerformLayout();
         }

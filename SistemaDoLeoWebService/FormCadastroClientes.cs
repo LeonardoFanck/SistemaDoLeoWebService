@@ -259,6 +259,9 @@ namespace SistemaDoLeoWebService
                     tipoCliente = WebService.GetTipoClientesAsync(cliente.getSetID).Result;
                     ChkBoxCliente.Checked = tipoCliente.getSetTipoCliente;
                     ChkBoxFornecedor.Checked = tipoCliente.getSetTipoFornecedor;
+
+                    // MANTEM SEMPRE O TXT ID COM O TEXTO SELECIONADO
+                    TxtID.SelectAll();
                 }
                 catch (Exception ex)
                 {
@@ -560,6 +563,70 @@ namespace SistemaDoLeoWebService
             };
 
             formPesquisa.Show();
+        }
+
+        private void TxtID_Leave(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8) // SOMENTE NÚMERO E BACKSPACE
+            {
+                e.Handled = true;
+            }
+
+
+            if (e.KeyChar == 13) // ENTER
+            {
+                if (getSetStatus != 2)
+                {
+                    TxtNome.Focus();
+                }
+                else if (!TxtID.Text.Equals(""))
+                {
+                    preencheDados(Convert.ToInt32(TxtID.Text));
+
+                    TxtID.Focus();
+                }
+
+                e.Handled = true;
+            }
+        }
+
+        private void TxtID_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == (char)Keys.F4)
+            {
+                FormPesquisa formPesquisa = new FormPesquisa(0, this); // 0 -> Pesquisa Cliente
+
+                formMain.Enabled = false;
+
+                // FUNÇÃO PARA QUANDO FECHAR O CONFIGURAÇÕES GERAIS, ATIVAR NOVAMENTE O FORMA MAIN
+                formPesquisa.FormClosed += (sender, e) =>
+                {
+                    formMain.Enabled = true;
+                    TxtID.Focus();
+                };
+
+                formPesquisa.Show();
+            }
+        }
+
+        private void FormCadastroClientes_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 27) // ESC
+            {
+                if (getSetStatus == 2)
+                {
+                    Close();
+                }
+                else
+                {
+                    validarCancelamento();
+                }
+            }
         }
     }
 }

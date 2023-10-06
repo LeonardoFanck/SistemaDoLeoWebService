@@ -45,7 +45,7 @@
             // ChkBoxInativo
             // 
             ChkBoxInativo.AutoSize = true;
-            ChkBoxInativo.Location = new Point(607, 57);
+            ChkBoxInativo.Location = new Point(270, 14);
             ChkBoxInativo.Name = "ChkBoxInativo";
             ChkBoxInativo.Size = new Size(62, 19);
             ChkBoxInativo.TabIndex = 64;
@@ -66,7 +66,7 @@
             // 
             TxtNome.Location = new Point(62, 68);
             TxtNome.Name = "TxtNome";
-            TxtNome.Size = new Size(369, 23);
+            TxtNome.Size = new Size(485, 23);
             TxtNome.TabIndex = 62;
             // 
             // TxtID
@@ -75,6 +75,8 @@
             TxtID.Name = "TxtID";
             TxtID.Size = new Size(100, 23);
             TxtID.TabIndex = 61;
+            TxtID.KeyDown += TxtID_KeyDown;
+            TxtID.KeyPress += TxtID_KeyPress;
             // 
             // label2
             // 
@@ -96,7 +98,7 @@
             // 
             // BtnAvancar
             // 
-            BtnAvancar.Location = new Point(147, 207);
+            BtnAvancar.Location = new Point(62, 158);
             BtnAvancar.Name = "BtnAvancar";
             BtnAvancar.Size = new Size(30, 25);
             BtnAvancar.TabIndex = 58;
@@ -106,7 +108,7 @@
             // 
             // BtnVoltar
             // 
-            BtnVoltar.Location = new Point(111, 207);
+            BtnVoltar.Location = new Point(26, 158);
             BtnVoltar.Name = "BtnVoltar";
             BtnVoltar.Size = new Size(30, 25);
             BtnVoltar.TabIndex = 57;
@@ -116,7 +118,7 @@
             // 
             // BtnAlterar
             // 
-            BtnAlterar.Location = new Point(329, 197);
+            BtnAlterar.Location = new Point(244, 148);
             BtnAlterar.Name = "BtnAlterar";
             BtnAlterar.Size = new Size(97, 35);
             BtnAlterar.TabIndex = 56;
@@ -126,7 +128,7 @@
             // 
             // BtnNovo
             // 
-            BtnNovo.Location = new Point(226, 197);
+            BtnNovo.Location = new Point(141, 148);
             BtnNovo.Name = "BtnNovo";
             BtnNovo.Size = new Size(97, 35);
             BtnNovo.TabIndex = 55;
@@ -136,7 +138,7 @@
             // 
             // BtnCancelar
             // 
-            BtnCancelar.Location = new Point(535, 197);
+            BtnCancelar.Location = new Point(450, 148);
             BtnCancelar.Name = "BtnCancelar";
             BtnCancelar.Size = new Size(97, 35);
             BtnCancelar.TabIndex = 54;
@@ -146,7 +148,7 @@
             // 
             // BtnSalvar
             // 
-            BtnSalvar.Location = new Point(432, 197);
+            BtnSalvar.Location = new Point(347, 148);
             BtnSalvar.Name = "BtnSalvar";
             BtnSalvar.Size = new Size(97, 35);
             BtnSalvar.TabIndex = 53;
@@ -158,7 +160,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 250);
+            ClientSize = new Size(604, 206);
             Controls.Add(ChkBoxInativo);
             Controls.Add(BtnID);
             Controls.Add(TxtNome);
@@ -171,9 +173,11 @@
             Controls.Add(BtnNovo);
             Controls.Add(BtnCancelar);
             Controls.Add(BtnSalvar);
+            KeyPreview = true;
             Name = "FormCadastroCategoria";
             Text = "FormCadastroCategoria";
             Load += FormCadastroCategoria_Load;
+            KeyPress += FormCadastroCategoria_KeyPress;
             ResumeLayout(false);
             PerformLayout();
         }

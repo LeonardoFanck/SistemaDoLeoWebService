@@ -291,16 +291,24 @@ namespace SistemaDoLeoWebService
                 var WebService = new ServiceReference1.Service1Client();
 
                 produto = WebService.GetProdutoAsync(ID).Result;
-                LblEstoqueAtual.Text = WebService.GetEstoqueProdutoAsync(ID).Result.ToString();
+                
+                if (produto.getSetStatus)
+                {
+                    MessageBox.Show("Produto Inativo!", FormNome);
+                    limpaCamposItem();
+                }
+                else
+                {
+                    LblEstoqueAtual.Text = WebService.GetEstoqueProdutoAsync(ID).Result.ToString();
+                    TxtProduto.Text = produto.getSetID.ToString();
+                    TxtNomeProduto.Text = produto.getSetNome;
+                    TxtValorItem.Text = produto.getSetValor.ToString();
+                    TxtQuantidadeItem.Text = "1";
+                    TxtDescontoItem.Text = "0,00";
 
-                TxtProduto.Text = produto.getSetID.ToString();
-                TxtNomeProduto.Text = produto.getSetNome;
-                TxtValorItem.Text = produto.getSetValor.ToString();
-                TxtQuantidadeItem.Text = "1";
-                TxtDescontoItem.Text = "0,00";
-
-                calcularProduto();
-                calculaEstoqueProduto();
+                    calcularProduto();
+                    calculaEstoqueProduto();
+                }                
             }
             catch (Exception ex)
             {
@@ -1202,7 +1210,6 @@ namespace SistemaDoLeoWebService
                 e.Handled = true;
             }
 
-
             if (e.KeyChar == 13) // ENTER
             {
                 if (getSetStatus != 2)
@@ -1377,9 +1384,30 @@ namespace SistemaDoLeoWebService
                 var WebService = new ServiceReference1.Service1Client();
 
                 Cliente cliente = WebService.GetClienteAsync(ID).Result;
+                TipoClientes tipoClientes = WebService.GetTipoClientesAsync(cliente.getSetID).Result;
 
-                TxtCliente.Text = cliente.getSetID.ToString();
-                TxtClienteNome.Text = cliente.getSetNome;
+                if (getSetStatus != 2)
+                {
+                    if (cliente.getSetStatus)
+                    {
+                        MessageBox.Show("Cliente Inativo!", FormNome);
+                        TxtCliente.Text = string.Empty;
+                        TxtClienteNome.Text = string.Empty;
+                        TxtCliente.Focus();
+                    }
+                    else if (!tipoClientes.getSetTipoCliente)
+                    {
+                        MessageBox.Show("Tipo do Cliente inválido para esta Operação!", FormNome);
+                        TxtCliente.Text = string.Empty;
+                        TxtClienteNome.Text = string.Empty;
+                        TxtCliente.Focus();
+                    }
+                }
+                else
+                {
+                    TxtCliente.Text = cliente.getSetID.ToString();
+                    TxtClienteNome.Text = cliente.getSetNome;
+                }
             }
             catch (Exception ex)
             {
@@ -1406,8 +1434,21 @@ namespace SistemaDoLeoWebService
 
                 FormaPGTO formaPGTO = WebService.GetFormaPGTOAsync(ID).Result;
 
-                TxtFormaPGTO.Text = formaPGTO.getSetID.ToString();
-                TxtFormaPGTONome.Text = formaPGTO.getSetNome;
+                if (getSetStatus != 2)
+                {
+                    if (formaPGTO.getSetStatus)
+                    {
+                        MessageBox.Show("Forma de Pagamento Inativa!", FormNome);
+                        TxtFormaPGTO.Text = string.Empty;
+                        TxtFormaPGTONome.Text = string.Empty;
+                        TxtFormaPGTO.Focus();
+                    }
+                }
+                else
+                {
+                    TxtFormaPGTO.Text = formaPGTO.getSetID.ToString();
+                    TxtFormaPGTONome.Text = formaPGTO.getSetNome;
+                }
             }
             catch (Exception ex)
             {

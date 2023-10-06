@@ -159,6 +159,27 @@ namespace SistemaDoLeoWebService
                 // DEFINE O NOME DA TELA
                 this.Text = this.Text + "Operador";
             }
+            else if (codigo == 6) // LISTA ENTRADA
+            {
+                GridViewPesquisa.Columns.Add("ID", "Codigo");
+                GridViewPesquisa.Columns.Add("Fornecedor", "Fornecedor");
+                GridViewPesquisa.Columns["Fornecedor"].Width = 300;
+                GridViewPesquisa.Columns.Add("FormaPGTO", "FormaPGTO");
+                GridViewPesquisa.Columns.Add("Data", "Data");
+                GridViewPesquisa.Columns.Add("Custo", "Custo");
+
+                // PREENCHE O ComboBoxTipo
+                ComboBoxTipo.Items.Add("Codigo");
+                ComboBoxTipo.Items.Add("Fornecedor");
+                ComboBoxTipo.Items.Add("FormaPGTO");
+                ComboBoxTipo.Items.Add("Data");
+                ComboBoxTipo.Items.Add("Custo");
+
+                ComboBoxTipo.Text = "Fornecedor";
+
+                // DEFINE O NOME DA TELA
+                this.Text = this.Text + "Entrada";
+            }
 
             preencheGrid("");
         }
@@ -170,6 +191,7 @@ namespace SistemaDoLeoWebService
                 var WebService = new ServiceReference1.Service1Client();
                 bool buscaInativo = false;
                 string status;
+                string tipoCliente = "";
 
                 // LIMPA O GRID ANTES DE ADICIONAR
                 GridViewPesquisa.Rows.Clear();
@@ -181,9 +203,18 @@ namespace SistemaDoLeoWebService
                     if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormCadastroClientes, Text: Cadastro Cliente")
                     {
                         buscaInativo = true;
+                        tipoCliente = "0";
+                    }
+                    else if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormPedido, Text: Pedidos")
+                    {
+                        tipoCliente = "1"; // CLIENTE
+                    }
+                    else if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormEntrada, Text: Pedido Entrada")
+                    {
+                        tipoCliente = "2"; // FORNECEDOR
                     }
 
-                    List<ListaCliente> listaClientes = new List<ListaCliente>(WebService.GetListaClientesAsync(ComboBoxTipo.SelectedItem.ToString(), pesquisa, buscaInativo).Result);
+                    List<ListaCliente> listaClientes = new List<ListaCliente>(WebService.GetListaClientesAsync(ComboBoxTipo.SelectedItem.ToString(), pesquisa, buscaInativo, tipoCliente).Result);
 
                     foreach (var item in listaClientes)
                     {
@@ -253,6 +284,13 @@ namespace SistemaDoLeoWebService
                 }
                 else if (codigo == 4) // LISTA CATEGORIA
                 {
+                    // VALIDA SE VAI BUSCAR OS REGISTROS INATIVOS OU NÃO
+                    // SOMENTE A TELA DE CADASTRO DE CLIENTE BUSCA INATIVO
+                    if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormCadastroCategoria, Text: Cadastro Categoria")
+                    {
+                        buscaInativo = true;
+                    }
+
                     List<Categoria> listaCategoria = new List<Categoria>(WebService.GetListaCategoriasAsync(ComboBoxTipo.SelectedItem.ToString(), pesquisa, buscaInativo).Result);
 
                     foreach (var item in listaCategoria)
@@ -272,7 +310,7 @@ namespace SistemaDoLeoWebService
                 else if (codigo == 5) // LISTA OPERADOR
                 {
                     List<Operador> listaOperador = new List<Operador>(WebService.GetListaOperadorAsync(ComboBoxTipo.SelectedItem.ToString(), pesquisa, buscaInativo).Result);
-                
+
                     foreach (var item in listaOperador)
                     {
                         status = "Não";
@@ -281,13 +319,22 @@ namespace SistemaDoLeoWebService
                         {
                             status = "Sim";
                         }
-                        
+
                         if (item.getSetAdmin == true)
                         {
                             admin = "Sim";
                         }
 
                         GridViewPesquisa.Rows.Add(item.getSetID, item.getSetNome, admin, status);
+                    }
+                }
+                else if (codigo == 6) // LISTA ENTRADA
+                {
+                    List<ListaEntrada> listaEntrada = new List<ListaEntrada>(WebService.GetListaEntradasAsync(ComboBoxTipo.SelectedItem.ToString(), pesquisa).Result);
+
+                    foreach (var item in listaEntrada)
+                    {
+                        GridViewPesquisa.Rows.Add(item.getSetID, item.getSetFornecedor, item.getSetformaPGTO, item.getSetData, item.getSetCusto);
                     }
                 }
             }
@@ -402,6 +449,16 @@ namespace SistemaDoLeoWebService
                     FormCadastroOperador operador = (FormCadastroOperador)TelaFonte;
 
                     operador.preencheDados(ID);
+                }
+            }
+            else if (codigo == 6) // LISTA ENTRADA
+            {
+                // TELA ENTRADA
+                if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormEntrada, Text: Pedido Entrada")
+                {
+                    FormEntrada form = (FormEntrada)TelaFonte;
+
+                    form.preencheDados(ID);
                 }
             }
 

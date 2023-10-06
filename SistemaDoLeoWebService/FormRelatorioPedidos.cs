@@ -296,7 +296,7 @@ namespace SistemaDoLeoWebService
 
                 finalizarRelatorio(pedidos);
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message} - {ex.Source}", nomeForm);
             }
@@ -314,10 +314,10 @@ namespace SistemaDoLeoWebService
             dtPedido.Columns.Add("PedidoDesconto");
             dtPedido.Columns.Add("PedidoValorTotal");
 
-            foreach(var pedido in pedidos)
+            foreach (var pedido in pedidos)
             {
-                dtPedido.Rows.Add(pedido.getSetID, pedido.getSetData, 
-                    pedido.getSetCliente, pedido.getSetFormaPGTO, 
+                dtPedido.Rows.Add(pedido.getSetID, pedido.getSetData,
+                    pedido.getSetCliente, pedido.getSetFormaPGTO,
                     pedido.getSetValor, pedido.getSetDesconto, pedido.getSetValorTotal);
             }
 
@@ -328,7 +328,7 @@ namespace SistemaDoLeoWebService
 
         private bool validarCampos()
         {
-            if(TxtDtInicio.Text.Equals("  /  /"))
+            if (TxtDtInicio.Text.Equals("  /  /"))
             {
                 MessageBox.Show("Necessário informar uma data Inicial!", nomeForm);
                 TxtDtInicio.Focus();
@@ -344,6 +344,11 @@ namespace SistemaDoLeoWebService
             }
 
             return true;
+        }
+
+        private void FormRelatorioPedidos_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -217,6 +217,8 @@ namespace SistemaDoLeoWebService
                 ChkTabelaUsuarios.Checked = operador.getSetTabelaUsuario;
                 ChkPedido.Checked = operador.getSetPedidos;
                 ChkEntrada.Checked = operador.getSetEntrada;
+
+                TxtID.SelectAll();
             }
             catch (Exception ex)
             {
@@ -382,25 +384,6 @@ namespace SistemaDoLeoWebService
             return true;
         }
 
-        // NÃO IMPLEMENTADO -> VERIFICAR
-        /*
-        public void validarNome(Operador operador)
-        {
-            var WebService = new ServiceReference1.Service1Client();
-
-            int retorno = WebService.ValidarNomeFormaPGTOAsync(operador).Result;
-
-            if (retorno == -1)
-            {
-
-            }
-            else
-            {
-                throw new Exception("Nome já utilizado no registro: " + retorno);
-            }
-        }
-        */
-
         public void validarRetorno(int retorno)
         {
             if (retorno == 0)
@@ -465,6 +448,55 @@ namespace SistemaDoLeoWebService
             };
 
             pesquisa.Show();
+        }
+
+        private void FormCadastroOperador_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 27) // ESC
+            {
+                if (getSetStatus == 2)
+                {
+                    Close();
+                }
+                else
+                {
+                    validarCancelamento();
+                }
+            }
+        }
+
+        private void TxtID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8) // SOMENTE NÚMERO E BACKSPACE
+            {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar == 13) // ENTER
+            {
+                if (getSetStatus != 2)
+                {
+                    TxtNome.Focus();
+                }
+                else if (!TxtID.Text.Equals(""))
+                {
+                    preencheDados(Convert.ToInt32(TxtID.Text));
+
+                    TxtID.Focus();
+                }
+
+                e.Handled = true;
+            }
+        }
+
+        private void TxtID_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == (char)Keys.F4)
+            {
+                FormPesquisa pesquisa = new FormPesquisa(5, this); // 5 -> Pesquisa Operador
+
+                validarPesquisa(pesquisa);
+            }
         }
     }
 }

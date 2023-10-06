@@ -66,6 +66,7 @@
             BtnID.Name = "BtnID";
             BtnID.Size = new Size(41, 23);
             BtnID.TabIndex = 63;
+            BtnID.TabStop = false;
             BtnID.Text = "->";
             BtnID.UseVisualStyleBackColor = true;
             BtnID.Click += BtnID_Click;
@@ -75,7 +76,9 @@
             TxtID.Location = new Point(129, 21);
             TxtID.Name = "TxtID";
             TxtID.Size = new Size(100, 23);
-            TxtID.TabIndex = 61;
+            TxtID.TabIndex = 0;
+            TxtID.KeyDown += TxtID_KeyDown;
+            TxtID.KeyPress += TxtID_KeyPress;
             // 
             // label1
             // 
@@ -92,6 +95,7 @@
             BtnAvancar.Name = "BtnAvancar";
             BtnAvancar.Size = new Size(30, 25);
             BtnAvancar.TabIndex = 58;
+            BtnAvancar.TabStop = false;
             BtnAvancar.Text = ">";
             BtnAvancar.UseVisualStyleBackColor = true;
             BtnAvancar.Click += BtnAvancar_Click;
@@ -102,6 +106,7 @@
             BtnVoltar.Name = "BtnVoltar";
             BtnVoltar.Size = new Size(30, 25);
             BtnVoltar.TabIndex = 57;
+            BtnVoltar.TabStop = false;
             BtnVoltar.Text = "<";
             BtnVoltar.UseVisualStyleBackColor = true;
             BtnVoltar.Click += BtnVoltar_Click;
@@ -112,6 +117,7 @@
             BtnAlterar.Name = "BtnAlterar";
             BtnAlterar.Size = new Size(97, 35);
             BtnAlterar.TabIndex = 56;
+            BtnAlterar.TabStop = false;
             BtnAlterar.Text = "Alterar";
             BtnAlterar.UseVisualStyleBackColor = true;
             BtnAlterar.Click += BtnAlterar_Click;
@@ -122,6 +128,7 @@
             BtnNovo.Name = "BtnNovo";
             BtnNovo.Size = new Size(97, 35);
             BtnNovo.TabIndex = 55;
+            BtnNovo.TabStop = false;
             BtnNovo.Text = "Novo";
             BtnNovo.UseVisualStyleBackColor = true;
             BtnNovo.Click += BtnNovo_Click;
@@ -179,6 +186,7 @@
             ChkAdmin.Name = "ChkAdmin";
             ChkAdmin.Size = new Size(102, 19);
             ChkAdmin.TabIndex = 75;
+            ChkAdmin.TabStop = false;
             ChkAdmin.Text = "Administrador";
             ChkAdmin.UseVisualStyleBackColor = true;
             // 
@@ -189,6 +197,7 @@
             ChkInativo.Name = "ChkInativo";
             ChkInativo.Size = new Size(62, 19);
             ChkInativo.TabIndex = 74;
+            ChkInativo.TabStop = false;
             ChkInativo.Text = "Inativo";
             ChkInativo.UseVisualStyleBackColor = true;
             // 
@@ -209,7 +218,7 @@
             TxtSenha.Location = new Point(59, 15);
             TxtSenha.Name = "TxtSenha";
             TxtSenha.Size = new Size(369, 23);
-            TxtSenha.TabIndex = 72;
+            TxtSenha.TabIndex = 2;
             TxtSenha.UseSystemPasswordChar = true;
             // 
             // label3
@@ -246,6 +255,7 @@
             ChkTabelaUsuarios.Name = "ChkTabelaUsuarios";
             ChkTabelaUsuarios.Size = new Size(123, 19);
             ChkTabelaUsuarios.TabIndex = 8;
+            ChkTabelaUsuarios.TabStop = false;
             ChkTabelaUsuarios.Text = "Tabela de Usuários";
             ChkTabelaUsuarios.UseVisualStyleBackColor = true;
             // 
@@ -256,6 +266,7 @@
             ChkEntrada.Name = "ChkEntrada";
             ChkEntrada.Size = new Size(66, 19);
             ChkEntrada.TabIndex = 6;
+            ChkEntrada.TabStop = false;
             ChkEntrada.Text = "Entrada";
             ChkEntrada.UseVisualStyleBackColor = true;
             // 
@@ -266,6 +277,7 @@
             ChkFormaPGTO.Name = "ChkFormaPGTO";
             ChkFormaPGTO.Size = new Size(142, 19);
             ChkFormaPGTO.TabIndex = 5;
+            ChkFormaPGTO.TabStop = false;
             ChkFormaPGTO.Text = "Cadastro Forma PGTO";
             ChkFormaPGTO.UseVisualStyleBackColor = true;
             // 
@@ -276,6 +288,7 @@
             ChkPedido.Name = "ChkPedido";
             ChkPedido.Size = new Size(68, 19);
             ChkPedido.TabIndex = 4;
+            ChkPedido.TabStop = false;
             ChkPedido.Text = "Pedidos";
             ChkPedido.UseVisualStyleBackColor = true;
             // 
@@ -286,16 +299,18 @@
             ChkProduto.Name = "ChkProduto";
             ChkProduto.Size = new Size(119, 19);
             ChkProduto.TabIndex = 3;
+            ChkProduto.TabStop = false;
             ChkProduto.Text = "Cadastro Produto";
             ChkProduto.UseVisualStyleBackColor = true;
             // 
             // ChkCliente
             // 
             ChkCliente.AutoSize = true;
-            ChkCliente.Location = new Point(10, 69);
+            ChkCliente.Location = new Point(10, 70);
             ChkCliente.Name = "ChkCliente";
             ChkCliente.Size = new Size(113, 19);
             ChkCliente.TabIndex = 2;
+            ChkCliente.TabStop = false;
             ChkCliente.Text = "Cadastro Cliente";
             ChkCliente.UseVisualStyleBackColor = true;
             // 
@@ -306,6 +321,7 @@
             ChkCategoria.Name = "ChkCategoria";
             ChkCategoria.Size = new Size(127, 19);
             ChkCategoria.TabIndex = 1;
+            ChkCategoria.TabStop = false;
             ChkCategoria.Text = "Cadastro Categoria";
             ChkCategoria.UseVisualStyleBackColor = true;
             // 
@@ -316,6 +332,7 @@
             ChkOperador.Name = "ChkOperador";
             ChkOperador.Size = new Size(126, 19);
             ChkOperador.TabIndex = 0;
+            ChkOperador.TabStop = false;
             ChkOperador.Text = "Cadastro Operador";
             ChkOperador.UseVisualStyleBackColor = true;
             // 
@@ -324,7 +341,7 @@
             TxtNome.Location = new Point(328, 26);
             TxtNome.Name = "TxtNome";
             TxtNome.Size = new Size(369, 23);
-            TxtNome.TabIndex = 74;
+            TxtNome.TabIndex = 1;
             // 
             // label2
             // 
@@ -352,10 +369,12 @@
             Controls.Add(BtnNovo);
             Controls.Add(BtnCancelar);
             Controls.Add(BtnSalvar);
+            KeyPreview = true;
             Name = "FormCadastroOperador";
             Text = "FormCadastroOperador";
             FormClosing += FormCadastroOperador_FormClosing;
             Load += FormCadastroOperador_Load;
+            KeyPress += FormCadastroOperador_KeyPress;
             tabControl1.ResumeLayout(false);
             TabDados.ResumeLayout(false);
             TabDados.PerformLayout();

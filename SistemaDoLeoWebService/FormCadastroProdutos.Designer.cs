@@ -260,11 +260,13 @@
             Controls.Add(label2);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            KeyPreview = true;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FormCadastroProdutos";
             Text = "FormCadastroProdutos";
             Load += FormCadastroProdutos_Load;
+            KeyPress += FormCadastroProdutos_KeyPress;
             ResumeLayout(false);
             PerformLayout();
         }

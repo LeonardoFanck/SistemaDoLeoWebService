@@ -166,6 +166,9 @@
             TxtID.Name = "TxtID";
             TxtID.Size = new Size(100, 23);
             TxtID.TabIndex = 27;
+            TxtID.KeyDown += TxtID_KeyDown;
+            TxtID.KeyPress += TxtID_KeyPress;
+            TxtID.Leave += TxtID_Leave;
             // 
             // ChkBoxInativo
             // 
@@ -421,9 +424,11 @@
             Controls.Add(label2);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            KeyPreview = true;
             Name = "FormCadastroClientes";
             Text = "FormCadastroClientes";
             Load += FormCadastroClientes_Load;
+            KeyPress += FormCadastroClientes_KeyPress;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);

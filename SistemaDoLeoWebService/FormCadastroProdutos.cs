@@ -64,17 +64,25 @@ namespace SistemaDoLeoWebService
 
         private void TxtID_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //MessageBox.Show("->" + (byte)e.KeyChar);
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8) // SOMENTE NÚMERO E BACKSPACE
             {
                 e.Handled = true;
             }
 
+
             if (e.KeyChar == 13) // ENTER
             {
-                //buscarProduto();
+                if (getSetStatus != 2)
+                {
+                    TxtNome.Focus();
+                }
+                else if (!TxtID.Text.Equals(""))
+                {
+                    preencherDados(Convert.ToInt32(TxtID.Text));
 
-                TxtID.Focus();
+                    TxtID.Focus();
+                }
+
                 e.Handled = true;
             }
         }
@@ -213,10 +221,12 @@ namespace SistemaDoLeoWebService
                     ChkBoxInativo.Checked = produto.getSetStatus;
 
                     TxtEstoque.Text = WebReference.GetEstoqueProdutoAsync(produto.getSetID).Result.ToString();
+
+                    TxtID.SelectAll();
                 }
                 catch (Exception e)
                 {
-
+                    MessageBox.Show($"{e.Message} - {e.Source}");
                 }
 
             }
@@ -444,6 +454,21 @@ namespace SistemaDoLeoWebService
             }
 
             return true;
+        }
+
+        private void FormCadastroProdutos_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 27) // ESC
+            {
+                if (getSetStatus == 2)
+                {
+                    Close();
+                }
+                else
+                {
+                    validarCancelamento();
+                }
+            }
         }
 
         public int getSetStatus

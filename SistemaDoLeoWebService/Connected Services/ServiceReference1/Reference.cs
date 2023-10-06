@@ -1736,6 +1736,88 @@ namespace ServiceReference1
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ListaEntrada", Namespace="http://schemas.datacontract.org/2004/07/WEBServiceWCF.Classes")]
+    public partial class ListaEntrada : object
+    {
+        
+        private double getSetCustoField;
+        
+        private string getSetDataField;
+        
+        private string getSetFornecedorField;
+        
+        private int getSetIDField;
+        
+        private string getSetformaPGTOField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double getSetCusto
+        {
+            get
+            {
+                return this.getSetCustoField;
+            }
+            set
+            {
+                this.getSetCustoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetData
+        {
+            get
+            {
+                return this.getSetDataField;
+            }
+            set
+            {
+                this.getSetDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetFornecedor
+        {
+            get
+            {
+                return this.getSetFornecedorField;
+            }
+            set
+            {
+                this.getSetFornecedorField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int getSetID
+        {
+            get
+            {
+                return this.getSetIDField;
+            }
+            set
+            {
+                this.getSetIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetformaPGTO
+        {
+            get
+            {
+                return this.getSetformaPGTOField;
+            }
+            set
+            {
+                this.getSetformaPGTOField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1
@@ -1937,7 +2019,7 @@ namespace ServiceReference1
         System.Threading.Tasks.Task<ServiceReference1.ListaPedido[]> GetListaPedidosAsync(string tipoPesquisa, string pesquisa);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaClientes", ReplyAction="http://tempuri.org/IService1/GetListaClientesResponse")]
-        System.Threading.Tasks.Task<ServiceReference1.ListaCliente[]> GetListaClientesAsync(string tipoPesquisa, string pesquisa, bool inativo);
+        System.Threading.Tasks.Task<ServiceReference1.ListaCliente[]> GetListaClientesAsync(string tipoPesquisa, string pesquisa, bool inativo, string tipoCliente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaFormaPGTO", ReplyAction="http://tempuri.org/IService1/GetListaFormaPGTOResponse")]
         System.Threading.Tasks.Task<ServiceReference1.FormaPGTO[]> GetListaFormaPGTOAsync(string tipoPesquisa, string pesquisa, bool inativo);
@@ -1950,6 +2032,9 @@ namespace ServiceReference1
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaOperador", ReplyAction="http://tempuri.org/IService1/GetListaOperadorResponse")]
         System.Threading.Tasks.Task<ServiceReference1.Operador[]> GetListaOperadorAsync(string tipoPesquisa, string pesquisa, bool inativo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaEntradas", ReplyAction="http://tempuri.org/IService1/GetListaEntradasResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.ListaEntrada[]> GetListaEntradasAsync(string tipoPesquisa, string pesquisa);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetRelatorioPedido", ReplyAction="http://tempuri.org/IService1/GetRelatorioPedidoResponse")]
         System.Threading.Tasks.Task<ServiceReference1.PedidoComDados[]> GetRelatorioPedidoAsync(string dtInicio, string dtFinal, string cliente, string PGTO);
@@ -2330,9 +2415,9 @@ namespace ServiceReference1
             return base.Channel.GetListaPedidosAsync(tipoPesquisa, pesquisa);
         }
         
-        public System.Threading.Tasks.Task<ServiceReference1.ListaCliente[]> GetListaClientesAsync(string tipoPesquisa, string pesquisa, bool inativo)
+        public System.Threading.Tasks.Task<ServiceReference1.ListaCliente[]> GetListaClientesAsync(string tipoPesquisa, string pesquisa, bool inativo, string tipoCliente)
         {
-            return base.Channel.GetListaClientesAsync(tipoPesquisa, pesquisa, inativo);
+            return base.Channel.GetListaClientesAsync(tipoPesquisa, pesquisa, inativo, tipoCliente);
         }
         
         public System.Threading.Tasks.Task<ServiceReference1.FormaPGTO[]> GetListaFormaPGTOAsync(string tipoPesquisa, string pesquisa, bool inativo)
@@ -2353,6 +2438,11 @@ namespace ServiceReference1
         public System.Threading.Tasks.Task<ServiceReference1.Operador[]> GetListaOperadorAsync(string tipoPesquisa, string pesquisa, bool inativo)
         {
             return base.Channel.GetListaOperadorAsync(tipoPesquisa, pesquisa, inativo);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.ListaEntrada[]> GetListaEntradasAsync(string tipoPesquisa, string pesquisa)
+        {
+            return base.Channel.GetListaEntradasAsync(tipoPesquisa, pesquisa);
         }
         
         public System.Threading.Tasks.Task<ServiceReference1.PedidoComDados[]> GetRelatorioPedidoAsync(string dtInicio, string dtFinal, string cliente, string PGTO)

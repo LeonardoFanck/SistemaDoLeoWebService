@@ -156,10 +156,12 @@
             Controls.Add(label1);
             Controls.Add(TxtMaxDescItemPedido);
             Controls.Add(TxtMaxDescPedido);
+            KeyPreview = true;
             Name = "FormConfiguracoesGerais";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Configuracoes Gerais";
             Load += FormConfiguracoesGerais_Load;
+            KeyPress += FormConfiguracoesGerais_KeyPress;
             ResumeLayout(false);
             PerformLayout();
         }

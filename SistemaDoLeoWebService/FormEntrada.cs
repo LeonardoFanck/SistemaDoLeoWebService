@@ -48,14 +48,40 @@ namespace SistemaDoLeoWebService
             // LIMPA OS CAMPOS DO ESTOQUE
             limpaCamposEstoque();
 
+            definirColunasGrid();
+
             getSetStatus = 2; // 2 -> Visualização
             validarAcoes();  // 0 -> Novo | 1 -> Edição | 2 -> Visualização
             ultimoRegistro();
         }
 
+        private void definirColunasGrid()
+        {
+            GridViewItens.Columns.Add("ID", "Codigo");
+            GridViewItens.Columns["ID"].Visible = false;
+
+            GridViewItens.Columns.Add("Produto", "Produto");
+            GridViewItens.Columns["Produto"].Width = 60;
+
+            GridViewItens.Columns.Add("Nome", "Nome");
+            GridViewItens.Columns["Nome"].Width = 243;
+
+            GridViewItens.Columns.Add("Custo", "Custo");
+            GridViewItens.Columns["Custo"].Width = 80;
+
+            GridViewItens.Columns.Add("Quantidade", "Quantidade");
+            GridViewItens.Columns["Quantidade"].Width = 74;
+
+            GridViewItens.Columns.Add("Desconto", "Desconto(%)");
+            GridViewItens.Columns["Desconto"].Width = 80;
+
+            GridViewItens.Columns.Add("Total", "Total");
+            GridViewItens.Columns["Total"].Width = 80;
+        }
+
         private void validarAcoes()
         {
-            if (getSetStatus == 0)
+            if (getSetStatus == 0) // NOVO
             {
                 // BOTÕES
                 BtnNovo.Enabled = false;
@@ -200,6 +226,14 @@ namespace SistemaDoLeoWebService
             try
             {
                 var WebService = new ServiceReference1.Service1Client();
+                // CRIA A LISTA DE ITENS ORGINAIS DO PEDIDO
+                ItensOriginais = new List<EntradaItens>();
+
+                // CRIA A LISTA DE ITENS EDITADOS
+                itensAlterados = new List<EntradaItens>();
+
+                // DEFINE O CONTADOR COMO 0
+                contadorItemOrigial = 0;
 
                 entrada = WebService.GetRegistroInicialEntradaAsync().Result;
 
@@ -211,15 +245,6 @@ namespace SistemaDoLeoWebService
                 TxtDesconto.Text = entrada.getSetDesconto.ToString();
                 TxtCustoFinal.Text = entrada.getSetCustoTotal.ToString();
 
-                // CRIA A LISTA DE ITENS ORGINAIS DO PEDIDO
-                ItensOriginais = new List<EntradaItens>();
-
-                // CRIA A LISTA DE ITENS EDITADOS
-                itensAlterados = new List<EntradaItens>();
-
-                // DEFINE O CONTADOR COMO 0
-                contadorItemOrigial = 0;
-
                 // PREENCHE O GRID COM OS ITENS DO PEDIDO
                 PreencherGridItens(entrada.getSetID);
                 contadorItemOrigial++;
@@ -230,7 +255,7 @@ namespace SistemaDoLeoWebService
             }
             catch (Exception ex)
             {
-                MessageBox.Show("" + ex.Message, FormNome);
+                //MessageBox.Show("" + ex.Message, FormNome);
             }
         }
 
@@ -272,10 +297,17 @@ namespace SistemaDoLeoWebService
             }
             catch (Exception ex)
             {
-                MessageBox.Show("" + ex.Message, FormNome);
+                try
+                {
+                    MessageBox.Show("" + ex.Message, FormNome);
 
-                TxtID.Text = entrada.getSetID.ToString();
-                TxtID.SelectAll();
+                    TxtID.Text = entrada.getSetID.ToString();
+                    TxtID.SelectAll();
+                }
+                catch (Exception e)
+                {
+                    TxtID.Text = string.Empty;
+                }
             }
         }
 
@@ -286,16 +318,24 @@ namespace SistemaDoLeoWebService
                 var WebService = new ServiceReference1.Service1Client();
 
                 produto = WebService.GetProdutoAsync(ID).Result;
-                LblEstoqueAtual.Text = WebService.GetEstoqueProdutoAsync(ID).Result.ToString();
 
-                TxtProduto.Text = produto.getSetID.ToString();
-                TxtNomeProduto.Text = produto.getSetNome;
-                TxtCustoItem.Text = produto.getSetCusto.ToString();
-                TxtQuantidadeItem.Text = "1";
-                TxtDescontoItem.Text = "0,00";
+                if (produto.getSetStatus)
+                {
+                    MessageBox.Show("Produto Inativo!", FormNome);
+                    limpaCamposItem();
+                }
+                else
+                {
+                    LblEstoqueAtual.Text = WebService.GetEstoqueProdutoAsync(ID).Result.ToString();
+                    TxtProduto.Text = produto.getSetID.ToString();
+                    TxtNomeProduto.Text = produto.getSetNome;
+                    TxtCustoItem.Text = produto.getSetCusto.ToString();
+                    TxtQuantidadeItem.Text = "1";
+                    TxtDescontoItem.Text = "0,00";
 
-                calcularProduto();
-                calculaEstoqueProduto();
+                    calcularProduto();
+                    calculaEstoqueProduto();
+                }
             }
             catch (Exception ex)
             {
@@ -398,7 +438,7 @@ namespace SistemaDoLeoWebService
 
                 double custo = WebService.VerificarValorEntradaAsync(ID).Result;
 
-                if (custo == entrada.getSetCustoTotal)
+                if (custo == entrada.getSetCusto)
                 {
                     finalizarEntrada(entrada);
                 }
@@ -593,7 +633,7 @@ namespace SistemaDoLeoWebService
 
             foreach (var item in lista)
             {
-                GridViewItens.Rows.Add(item.getSetItemID, item.getSetEntradaID, item.getSetProduto, item.getSetItemNomeProduto, item.getSetItemCusto, item.getSetQuantidade, item.getSetItemDesconto, item.getSetItemCustoTotal);
+                GridViewItens.Rows.Add(item.getSetItemID, item.getSetProduto, item.getSetItemNomeProduto, item.getSetItemCusto, item.getSetQuantidade, item.getSetItemDesconto, item.getSetItemCustoTotal);
 
                 // SE FOR A PRIMEIRA BUSCA NO MODO DE EDIÇÃO, VAI ADICIONAR OS ITENS QUE JÁ ESTAVAM NO
                 // PEDIDO NA LISTA "pedidoItensOriginais"
@@ -609,7 +649,7 @@ namespace SistemaDoLeoWebService
                     // A ALTERAÇÃO
                     if (!ItensOriginais.Any(itensOriginais => itensOriginais.getSetItemID == item.getSetItemID))
                     {
-                        ItensOriginais.Add(item);
+                        itensAlterados.Add(item);
                     }
                 }
             }
@@ -618,7 +658,7 @@ namespace SistemaDoLeoWebService
             ajustarValores();
 
             // ORDENA A LISTA PELA ORDEM QUE ENTROU OS PRODUTOS
-            GridViewItens.Sort(GridViewItens.Columns["IDItemEntrada"], ListSortDirection.Ascending);
+            GridViewItens.Sort(GridViewItens.Columns["ID"], ListSortDirection.Ascending);
         }
 
         private void getConfiguracoes()
@@ -697,7 +737,7 @@ namespace SistemaDoLeoWebService
 
             foreach (DataGridViewRow item in GridViewItens.Rows)
             {
-                custo += Convert.ToDouble(item.Cells["CustoTotal"].Value);
+                custo += Convert.ToDouble(item.Cells["Total"].Value);
             }
 
             TxtCusto.Text = custo.ToString();
@@ -814,9 +854,30 @@ namespace SistemaDoLeoWebService
                 var WebService = new ServiceReference1.Service1Client();
 
                 Cliente cliente = WebService.GetClienteAsync(ID).Result;
+                TipoClientes tipoCliente = WebService.GetTipoClientesAsync(cliente.getSetID).Result;
 
-                TxtCliente.Text = cliente.getSetID.ToString();
-                TxtClienteNome.Text = cliente.getSetNome;
+                if (getSetStatus != 2)
+                {
+                    if (cliente.getSetStatus)
+                    {
+                        MessageBox.Show("Fornecedor Inativo!", FormNome);
+                        TxtCliente.Text = string.Empty;
+                        TxtClienteNome.Text = string.Empty;
+                        TxtCliente.Focus();
+                    }
+                    else if (!tipoCliente.getSetTipoFornecedor)
+                    {
+                        MessageBox.Show("Tipo de Cliente Inválido para o Tipo de Operação", FormNome);
+                        TxtCliente.Text = string.Empty;
+                        TxtClienteNome.Text = string.Empty;
+                        TxtCliente.Focus();
+                    }
+                }
+                else
+                {
+                    TxtCliente.Text = cliente.getSetID.ToString();
+                    TxtClienteNome.Text = cliente.getSetNome;
+                }
             }
             catch (Exception ex)
             {
@@ -835,8 +896,21 @@ namespace SistemaDoLeoWebService
 
                 FormaPGTO formaPGTO = WebService.GetFormaPGTOAsync(ID).Result;
 
-                TxtFormaPGTO.Text = formaPGTO.getSetID.ToString();
-                TxtFormaPGTONome.Text = formaPGTO.getSetNome;
+                if (getSetStatus != 2)
+                {
+                    if (formaPGTO.getSetStatus)
+                    {
+                        MessageBox.Show("Forma de Pagamento Inativa!", FormNome);
+                        TxtFormaPGTO.Text = string.Empty;
+                        TxtFormaPGTONome.Text = string.Empty;
+                        TxtFormaPGTO.Focus();
+                    }
+                }
+                else
+                {
+                    TxtFormaPGTO.Text = formaPGTO.getSetID.ToString();
+                    TxtFormaPGTONome.Text = formaPGTO.getSetNome;
+                }
             }
             catch (Exception ex)
             {
@@ -863,7 +937,7 @@ namespace SistemaDoLeoWebService
 
         private void BtnID_Click(object sender, EventArgs e)
         {
-            FormPesquisa formPesquisa = new FormPesquisa(2, this); // 2 -> Pesquisa Pedido
+            FormPesquisa formPesquisa = new FormPesquisa(6, this); // 6 -> LISTA ENTRADA
 
             // CHAMA A FUNÇÃO QUE VALIDA O DESATIVAMENTO DO FORM MAIN QUANDO FECHA A LISTA DE PESQUISA
             validarPesquisa(formPesquisa);
@@ -919,10 +993,13 @@ namespace SistemaDoLeoWebService
             if (GridViewItens.CurrentRow != null)
             {
                 //MessageBox.Show(GridViewItens.CurrentRow.Cells["IDItemPedido"].Value.ToString());
-                excluirItem(Convert.ToInt32(GridViewItens.CurrentRow.Cells["IDItemPedido"].Value));
+                excluirItem(Convert.ToInt32(GridViewItens.CurrentRow.Cells["ID"].Value));
 
                 // PREENCHE O GRID COM OS ITENS DO PEDIDO
                 PreencherGridItens(Convert.ToInt32(TxtID.Text));
+
+                // ATUALIZA O CUSTO DO PEDIDO
+                atualizarCustoExclusaoItem();
 
                 // FOCO NOVAMENTE PARA O TXT PRODUTO
                 TxtProduto.Focus();
@@ -930,6 +1007,25 @@ namespace SistemaDoLeoWebService
             else
             {
                 MessageBox.Show("Selecione um item para Excluír!", FormNome);
+            }
+        }
+
+        private void atualizarCustoExclusaoItem()
+        {
+            try
+            {
+                var WebService = new ServiceReference1.Service1Client();
+                DialogResult validar;
+                int ID = Convert.ToInt32(TxtID.Text);
+
+                TxtCusto.Text = WebService.VerificarValorEntradaAsync(ID).Result.ToString();
+
+                // ATUALIZA O CUSTO TOTAL
+                calcularEntrada();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message} - {ex.Source}", FormNome);
             }
         }
 
@@ -1111,7 +1207,7 @@ namespace SistemaDoLeoWebService
         {
             if (e.KeyValue == (char)Keys.F4)
             {
-                FormPesquisa pesquisa = new FormPesquisa(2, this); // 2 -> Lista Pedido
+                FormPesquisa pesquisa = new FormPesquisa(6, this); // 6 -> LISTA ENTRADA
 
                 validarPesquisa(pesquisa);
             }

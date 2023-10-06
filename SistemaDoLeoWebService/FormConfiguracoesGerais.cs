@@ -231,5 +231,10 @@ namespace SistemaDoLeoWebService
                 }
             }
         }
+
+        private void FormConfiguracoesGerais_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -54,14 +54,6 @@
             TxtFormaPGTONome = new TextBox();
             TxtClienteNome = new TextBox();
             GridViewItens = new DataGridView();
-            IDItemPedido = new DataGridViewTextBoxColumn();
-            PedidoID = new DataGridViewTextBoxColumn();
-            IDProduto = new DataGridViewTextBoxColumn();
-            NomeProduto = new DataGridViewTextBoxColumn();
-            Valor = new DataGridViewTextBoxColumn();
-            Quantidade = new DataGridViewTextBoxColumn();
-            Desconto = new DataGridViewTextBoxColumn();
-            ValorTotal = new DataGridViewTextBoxColumn();
             BtnLiberarPedido = new Button();
             MTxtData = new MaskedTextBox();
             TxtCustoFinal = new TextBox();
@@ -330,7 +322,6 @@
             dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
             GridViewItens.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             GridViewItens.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            GridViewItens.Columns.AddRange(new DataGridViewColumn[] { IDItemPedido, PedidoID, IDProduto, NomeProduto, Valor, Quantidade, Desconto, ValorTotal });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.ScrollBar;
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -358,70 +349,6 @@
             GridViewItens.TabIndex = 123;
             GridViewItens.TabStop = false;
             GridViewItens.RowPostPaint += GridViewItens_RowPostPaint_1;
-            // 
-            // IDItemPedido
-            // 
-            IDItemPedido.DataPropertyName = "getSetItemID";
-            IDItemPedido.HeaderText = "IDItemPedido";
-            IDItemPedido.Name = "IDItemPedido";
-            IDItemPedido.ReadOnly = true;
-            IDItemPedido.Visible = false;
-            // 
-            // PedidoID
-            // 
-            PedidoID.DataPropertyName = "getSetPedidoID";
-            PedidoID.HeaderText = "PedidoID";
-            PedidoID.Name = "PedidoID";
-            PedidoID.ReadOnly = true;
-            PedidoID.Visible = false;
-            // 
-            // IDProduto
-            // 
-            IDProduto.DataPropertyName = "getSetProduto";
-            IDProduto.HeaderText = "Produto";
-            IDProduto.Name = "IDProduto";
-            IDProduto.ReadOnly = true;
-            IDProduto.Width = 70;
-            // 
-            // NomeProduto
-            // 
-            NomeProduto.DataPropertyName = "getSetItemNomeProduto";
-            NomeProduto.HeaderText = "Nome";
-            NomeProduto.Name = "NomeProduto";
-            NomeProduto.ReadOnly = true;
-            NomeProduto.Width = 200;
-            // 
-            // Valor
-            // 
-            Valor.DataPropertyName = "getSetItemValor";
-            Valor.HeaderText = "Valor";
-            Valor.Name = "Valor";
-            Valor.ReadOnly = true;
-            Valor.Width = 90;
-            // 
-            // Quantidade
-            // 
-            Quantidade.DataPropertyName = "getSetQuantidade";
-            Quantidade.HeaderText = "Quantidade";
-            Quantidade.Name = "Quantidade";
-            Quantidade.ReadOnly = true;
-            Quantidade.Width = 80;
-            // 
-            // Desconto
-            // 
-            Desconto.DataPropertyName = "getSetItemDesconto";
-            Desconto.HeaderText = "Desconto(%)";
-            Desconto.Name = "Desconto";
-            Desconto.ReadOnly = true;
-            Desconto.Width = 80;
-            // 
-            // ValorTotal
-            // 
-            ValorTotal.DataPropertyName = "getSetItemValorTotal";
-            ValorTotal.HeaderText = "Valor Total";
-            ValorTotal.Name = "ValorTotal";
-            ValorTotal.ReadOnly = true;
-            ValorTotal.Width = 97;
             // 
             // BtnLiberarPedido
             // 
@@ -729,14 +656,6 @@
         private TextBox TxtFormaPGTONome;
         private TextBox TxtClienteNome;
         private DataGridView GridViewItens;
-        private DataGridViewTextBoxColumn IDItemPedido;
-        private DataGridViewTextBoxColumn PedidoID;
-        private DataGridViewTextBoxColumn IDProduto;
-        private DataGridViewTextBoxColumn NomeProduto;
-        private DataGridViewTextBoxColumn Valor;
-        private DataGridViewTextBoxColumn Quantidade;
-        private DataGridViewTextBoxColumn Desconto;
-        private DataGridViewTextBoxColumn ValorTotal;
         private Button BtnLiberarPedido;
         private MaskedTextBox MTxtData;
         private TextBox TxtCustoFinal;

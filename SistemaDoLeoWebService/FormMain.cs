@@ -237,5 +237,22 @@ namespace SistemaDoLeoWebService
                 form.Show();
             }
         }
+
+        private void MenuMainEntradas_Click(object sender, EventArgs e)
+        {
+            FormEntrada form = new FormEntrada(this.operador, this);
+            form.MdiParent = this;
+
+            // VALIDA SE O FORM JÁ ESTÁ ABERTO
+            if (Application.OpenForms.OfType<FormEntrada>().Count() > 0)
+            {
+                // FORM JÁ ABERTO
+                Application.OpenForms["FormEntrada"].BringToFront();
+            }
+            else
+            {
+                form.Show();
+            }
+        }
     }
 }
