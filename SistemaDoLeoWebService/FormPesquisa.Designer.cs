@@ -52,6 +52,7 @@
             TxtDados.Size = new Size(331, 23);
             TxtDados.TabIndex = 1;
             TxtDados.TextChanged += TxtDados_TextChanged;
+            TxtDados.KeyDown += TxtDados_KeyDown;
             TxtDados.KeyPress += TxtDados_KeyPress;
             // 
             // ComboBoxTipo
@@ -98,6 +99,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormPesquisa";
             Load += FormPesquisa_Load;
+            KeyDown += FormPesquisa_KeyDown;
             KeyPress += FormPesquisa_KeyPress;
             ((System.ComponentModel.ISupportInitialize)GridViewPesquisa).EndInit();
             ResumeLayout(false);

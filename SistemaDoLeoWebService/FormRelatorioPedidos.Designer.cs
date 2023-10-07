@@ -46,23 +46,27 @@
             // 
             // TxtDtInicio
             // 
+            TxtDtInicio.InsertKeyMode = InsertKeyMode.Overwrite;
             TxtDtInicio.Location = new Point(99, 31);
             TxtDtInicio.Mask = "00/00/0000";
             TxtDtInicio.Name = "TxtDtInicio";
             TxtDtInicio.Size = new Size(74, 23);
             TxtDtInicio.TabIndex = 0;
             TxtDtInicio.ValidatingType = typeof(DateTime);
+            TxtDtInicio.Enter += TxtDtInicio_Enter;
             TxtDtInicio.KeyPress += TxtDtInicio_KeyPress;
             TxtDtInicio.Leave += TxtDtInicio_Leave;
             // 
             // TxtDtFinal
             // 
+            TxtDtFinal.InsertKeyMode = InsertKeyMode.Overwrite;
             TxtDtFinal.Location = new Point(99, 67);
             TxtDtFinal.Mask = "00/00/0000";
             TxtDtFinal.Name = "TxtDtFinal";
             TxtDtFinal.Size = new Size(74, 23);
             TxtDtFinal.TabIndex = 1;
             TxtDtFinal.ValidatingType = typeof(DateTime);
+            TxtDtFinal.Enter += TxtDtFinal_Enter;
             TxtDtFinal.KeyPress += TxtDtFinal_KeyPress;
             TxtDtFinal.Leave += TxtDtFinal_Leave;
             // 
@@ -143,6 +147,7 @@
             TxtFormaPGTO.Size = new Size(74, 23);
             TxtFormaPGTO.TabIndex = 3;
             TxtFormaPGTO.TextChanged += TxtFormaPGTO_TextChanged;
+            TxtFormaPGTO.Enter += TxtFormaPGTO_Enter;
             TxtFormaPGTO.KeyDown += TxtFormaPGTO_KeyDown;
             TxtFormaPGTO.KeyPress += TxtFormaPGTO_KeyPress;
             TxtFormaPGTO.Leave += TxtFormaPGTO_Leave;
@@ -174,6 +179,7 @@
             TxtCliente.Size = new Size(74, 23);
             TxtCliente.TabIndex = 2;
             TxtCliente.TextChanged += TxtCliente_TextChanged;
+            TxtCliente.Enter += TxtCliente_Enter;
             TxtCliente.KeyDown += TxtCliente_KeyDown;
             TxtCliente.KeyPress += TxtCliente_KeyPress;
             TxtCliente.Leave += TxtCliente_Leave;

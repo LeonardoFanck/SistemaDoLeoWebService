@@ -508,5 +508,31 @@ namespace SistemaDoLeoWebService
                 e.Handled = true;
             }
         }
+
+        private void FormPesquisa_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == (char)(Keys.Down))
+            {
+                if (GridViewPesquisa.CurrentCell != null && GridViewPesquisa.CurrentCell.RowIndex + 1 < GridViewPesquisa.RowCount)
+                {
+                    GridViewPesquisa.CurrentCell = GridViewPesquisa.Rows[GridViewPesquisa.CurrentCell.RowIndex + 1].Cells[0]; 
+                }
+            }
+            else if (e.KeyValue == (char)(Keys.Up))
+            {
+                if (GridViewPesquisa.CurrentCell != null && GridViewPesquisa.CurrentCell.RowIndex - 1 >= 0)
+                {
+                    GridViewPesquisa.CurrentCell = GridViewPesquisa.Rows[GridViewPesquisa.CurrentCell.RowIndex - 1].Cells[0];
+                }
+            }
+        }
+
+        private void TxtDados_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == (char)Keys.Down || e.KeyValue == (char)Keys.Up)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

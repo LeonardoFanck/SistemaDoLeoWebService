@@ -25,6 +25,7 @@ namespace SistemaDoLeoWebService
         private Produto produto;
         private ConfiguracoesGerais configuracoes;
         private int Status;
+        private int StatusItem;
         private int contadorItemOrigial;
         private List<PedidoItens> pedidoItensOriginais;
         private List<PedidoItens> itensPedidoAlterado;
@@ -41,6 +42,13 @@ namespace SistemaDoLeoWebService
             // 0 -> Novo Cadastro | 1 -> Edição | 2 -> Visualização
             get { return this.Status; }
             set { this.Status = value; }
+        }
+
+        public int getSetStatusItem
+        {
+            // 0 -> Novo Item | 1 -> Edição de Item
+            get { return this.StatusItem; }
+            set { this.StatusItem = value; }
         }
 
         private void FormPedido_Load(object sender, EventArgs e)
@@ -290,8 +298,11 @@ namespace SistemaDoLeoWebService
             {
                 var WebService = new ServiceReference1.Service1Client();
 
-                produto = WebService.GetProdutoAsync(ID).Result;
-                
+                if (getSetStatusItem == 0)
+                {
+                    produto = WebService.GetProdutoAsync(ID).Result;
+                }
+
                 if (produto.getSetStatus)
                 {
                     MessageBox.Show("Produto Inativo!", FormNome);
@@ -300,15 +311,28 @@ namespace SistemaDoLeoWebService
                 else
                 {
                     LblEstoqueAtual.Text = WebService.GetEstoqueProdutoAsync(ID).Result.ToString();
-                    TxtProduto.Text = produto.getSetID.ToString();
-                    TxtNomeProduto.Text = produto.getSetNome;
-                    TxtValorItem.Text = produto.getSetValor.ToString();
-                    TxtQuantidadeItem.Text = "1";
-                    TxtDescontoItem.Text = "0,00";
+
+                    if (getSetStatusItem == 0)
+                    {
+                        TxtProduto.Text = produto.getSetID.ToString();
+                        TxtNomeProduto.Text = produto.getSetNome;
+                        TxtValorItem.Text = produto.getSetValor.ToString();
+                        TxtQuantidadeItem.Text = "1";
+                        TxtDescontoItem.Text = "0,00";
+                    }
+                    else
+                    {
+                        TxtProduto.Text = GridViewItens.CurrentRow.Cells["getSetProduto"].Value.ToString();
+                        TxtNomeProduto.Text = GridViewItens.CurrentRow.Cells["getSetItemNomeProduto"].Value.ToString();
+                        TxtValorItem.Text = GridViewItens.CurrentRow.Cells["getSetItemValor"].Value.ToString();
+                        TxtQuantidadeItem.Text = GridViewItens.CurrentRow.Cells["getSetQuantidade"].Value.ToString();
+                        TxtDescontoItem.Text = GridViewItens.CurrentRow.Cells["getSetItemDesconto"].Value.ToString();
+                        TxtValorFinalItem.Text = GridViewItens.CurrentRow.Cells["getSetItemValorTotal"].Value.ToString();
+                    }
 
                     calcularProduto();
                     calculaEstoqueProduto();
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -735,6 +759,8 @@ namespace SistemaDoLeoWebService
                         itensPedidoAlterado.Add(item);
                     }
                 }
+
+                GridViewItens.ClearSelection();
             }
 
             // AJUSTA AS CASAS DECIMAIS DO PEDIDO
@@ -913,7 +939,19 @@ namespace SistemaDoLeoWebService
                 }
                 else
                 {
+                    int ID;
+
+                    if (getSetStatusItem == 0)
+                    {
+                        ID = -1;
+                    }
+                    else
+                    {
+                        ID = Convert.ToInt32(GridViewItens.CurrentRow.Cells["IDItemPedido"].Value);
+                    }
+
                     PedidoItens item = new PedidoItens();
+                    item.getSetItemID = ID;
                     item.getSetPedidoID = Convert.ToInt32(TxtID.Text);
                     item.getSetProduto = Convert.ToInt32(TxtProduto.Text);
                     item.getSetItemValor = Convert.ToDouble(TxtValorItem.Text);
@@ -1402,6 +1440,11 @@ namespace SistemaDoLeoWebService
                         TxtClienteNome.Text = string.Empty;
                         TxtCliente.Focus();
                     }
+                    else
+                    {
+                        TxtCliente.Text = cliente.getSetID.ToString();
+                        TxtClienteNome.Text = cliente.getSetNome;
+                    }
                 }
                 else
                 {
@@ -1442,6 +1485,11 @@ namespace SistemaDoLeoWebService
                         TxtFormaPGTO.Text = string.Empty;
                         TxtFormaPGTONome.Text = string.Empty;
                         TxtFormaPGTO.Focus();
+                    }
+                    else
+                    {
+                        TxtFormaPGTO.Text = formaPGTO.getSetID.ToString();
+                        TxtFormaPGTONome.Text = formaPGTO.getSetNome;
                     }
                 }
                 else
@@ -1508,7 +1556,7 @@ namespace SistemaDoLeoWebService
             pesquisa.FormClosed += (sender, e) =>
             {
                 formMain.Enabled = true;
-                TxtID.Focus();
+                SendKeys.Send("+{TAB}");
             };
 
             pesquisa.Show();
@@ -1572,9 +1620,8 @@ namespace SistemaDoLeoWebService
         {
             if (e.KeyValue == (char)Keys.F4)
             {
-                FormPesquisa pesquisa = new FormPesquisa(2, this); // 2 -> Lista Pedido
-
-                validarPesquisa(pesquisa);
+                BtnID.Focus();
+                BtnID_Click(sender, e);
             }
         }
 
@@ -1582,9 +1629,8 @@ namespace SistemaDoLeoWebService
         {
             if (e.KeyValue == (char)Keys.F4)
             {
-                FormPesquisa pesquisa = new FormPesquisa(0, this); //Lista Cliente
-
-                validarPesquisa(pesquisa);
+                BtnCliente.Focus();
+                BtnCliente_Click(sender, e);
             }
         }
 
@@ -1592,9 +1638,8 @@ namespace SistemaDoLeoWebService
         {
             if (e.KeyValue == (char)Keys.F4)
             {
-                FormPesquisa pesquisa = new FormPesquisa(3, this); //Lista Forma PGTO
-
-                validarPesquisa(pesquisa);
+                BtnFormaPGTO.Focus();
+                BtnFormaPGTO_Click(sender, e);
             }
         }
 
@@ -1602,10 +1647,14 @@ namespace SistemaDoLeoWebService
         {
             if (e.KeyValue == (char)Keys.F4)
             {
-                FormPesquisa pesquisa = new FormPesquisa(1, this); //Lista Produto
-
-                validarPesquisa(pesquisa);
+                BtnProduto.Focus();
+                BtnProduto_Click(sender, e);
             }
+        }
+
+        private void GridViewItens_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            preencheProduto();
         }
     }
 }

@@ -159,6 +159,7 @@ namespace SistemaDoLeoWebService
             pesquisa.FormClosed += (sender, e) =>
             {
                 formMain.Enabled = true;
+
             };
 
             pesquisa.Show();
@@ -348,7 +349,30 @@ namespace SistemaDoLeoWebService
 
         private void FormRelatorioPedidos_KeyPress(object sender, KeyPressEventArgs e)
         {
-            this.Close();
+            if (e.KeyChar == (char)Keys.Escape)
+            {
+                this.Close();
+            }
+        }
+
+        private void TxtDtInicio_Enter(object sender, EventArgs e)
+        {
+            TxtDtInicio.SelectAll();
+        }
+
+        private void TxtDtFinal_Enter(object sender, EventArgs e)
+        {
+            TxtDtFinal.SelectAll();
+        }
+
+        private void TxtCliente_Enter(object sender, EventArgs e)
+        {
+            TxtCliente.SelectAll();
+        }
+
+        private void TxtFormaPGTO_Enter(object sender, EventArgs e)
+        {
+            TxtFormaPGTO.SelectAll();
         }
     }
 }
