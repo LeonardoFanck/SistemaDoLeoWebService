@@ -464,7 +464,7 @@
             groupBox1.Location = new Point(721, 129);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(471, 250);
-            groupBox1.TabIndex = 8;
+            groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             groupBox1.Text = "Produtos";
             // 

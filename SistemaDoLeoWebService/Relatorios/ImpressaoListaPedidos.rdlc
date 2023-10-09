@@ -9,19 +9,19 @@
               <Width>1.35061cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.13433cm</Width>
+              <Width>1.79037cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.70486cm</Width>
+              <Width>3.59361cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.93514cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.89146cm</Width>
+              <Width>1.57396cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.60041cm</Width>
+              <Width>1.91791cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.97083cm</Width>
@@ -29,7 +29,7 @@
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.85135cm</Height>
+              <Height>0.66614cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -41,10 +41,14 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Pedido</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox2</rd:DefaultName>
@@ -71,10 +75,14 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Data</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox15</rd:DefaultName>
@@ -101,10 +109,14 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Cliente</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox4</rd:DefaultName>
@@ -131,10 +143,14 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Forma PGTO</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox7</rd:DefaultName>
@@ -161,10 +177,14 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Valor</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox9</rd:DefaultName>
@@ -191,10 +211,14 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Desconto</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox11</rd:DefaultName>
@@ -221,10 +245,14 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Valor Total</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox13</rd:DefaultName>
@@ -484,8 +512,8 @@
         <DataSetName>Pedido</DataSetName>
         <Top>0.49389cm</Top>
         <Left>0.28787cm</Left>
-        <Height>1.7027cm</Height>
-        <Width>16.58764cm</Width>
+        <Height>1.51749cm</Height>
+        <Width>15.13243cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -496,7 +524,7 @@
     <Height>1.03368in</Height>
     <Style />
   </Body>
-  <Width>6.78973in</Width>
+  <Width>6.07098in</Width>
   <Page>
     <PageHeader>
       <Height>2.3548cm</Height>
@@ -524,7 +552,7 @@
           <rd:DefaultName>Textbox1</rd:DefaultName>
           <Top>0.52599cm</Top>
           <Height>1.36729cm</Height>
-          <Width>17.24592cm</Width>
+          <Width>15.4203cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -599,7 +627,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox5</rd:DefaultName>
           <Top>0.5198cm</Top>
-          <Left>8.56113cm</Left>
+          <Left>7.10592cm</Left>
           <Height>0.6cm</Height>
           <Width>8.31438cm</Width>
           <ZIndex>1</ZIndex>

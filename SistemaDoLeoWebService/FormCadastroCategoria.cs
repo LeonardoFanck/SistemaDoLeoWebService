@@ -63,6 +63,8 @@ namespace SistemaDoLeoWebService
 
                 // LIMPAR CAMPOS
                 limpaCampos();
+
+                TxtNome.Focus();
             }
             else if (getSetStatus == 1)
             {
@@ -80,6 +82,8 @@ namespace SistemaDoLeoWebService
                 TxtID.Enabled = false;
                 TxtNome.Enabled = true;
                 ChkBoxInativo.Enabled = true;
+
+                TxtNome.Focus();
             }
             else if (getSetStatus == 2)
             {
@@ -97,6 +101,8 @@ namespace SistemaDoLeoWebService
                 TxtID.Enabled = true;
                 TxtNome.Enabled = false;
                 ChkBoxInativo.Enabled = false;
+
+                TxtID.Focus();
             }
         }
 
@@ -141,6 +147,9 @@ namespace SistemaDoLeoWebService
             catch (Exception ex)
             {
                 MessageBox.Show("" + ex.Message, NomeForm);
+
+                TxtID.Text = categoria.getSetID.ToString();
+                TxtID.SelectAll();
             }
         }
 
@@ -383,6 +392,32 @@ namespace SistemaDoLeoWebService
                 FormPesquisa pesquisa = new FormPesquisa(4, this); // 4 -> Pesquisa Categoria
 
                 validarPesquisa(pesquisa);
+            }
+        }
+
+        private void TxtNome_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                BtnSalvar.Focus();
+            }
+        }
+
+        private void FormCadastroCategoria_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (getSetStatus != 2)
+            {
+                if (e.KeyValue == (char)Keys.F3)
+                {
+                    BtnSalvar_Click(sender, e);
+                }
+            }
+            else
+            {
+                if (e.KeyValue == (char)Keys.F2)
+                {
+                    BtnNovo_Click(sender, e);
+                }
             }
         }
     }

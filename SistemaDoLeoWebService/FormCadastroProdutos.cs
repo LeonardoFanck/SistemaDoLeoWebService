@@ -10,7 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.Windows.Forms;
-using static System.Windows.Forms.AxHost;
 
 namespace SistemaDoLeoWebService
 {
@@ -93,12 +92,24 @@ namespace SistemaDoLeoWebService
             {
                 e.Handled = true;
             }
+
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtCusto.Focus();
+                e.Handled = true;
+            }
         }
 
         private void TxtCusto_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != 44) // SOMENTE NÚMERO E BACKSPACE E ,
             {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar == 13) // ENTER
+            {
+                BtnSalvar.Focus();
                 e.Handled = true;
             }
         }
@@ -137,6 +148,8 @@ namespace SistemaDoLeoWebService
                 TxtCusto.Enabled = true;
                 ChkBoxInativo.Enabled = true;
                 CBoxCategoria.Enabled = true;
+
+                TxtNome.Focus();
             }
             else if (getSetStatus == 1)
             {
@@ -158,6 +171,8 @@ namespace SistemaDoLeoWebService
                 TxtCusto.Enabled = true;
                 ChkBoxInativo.Enabled = true;
                 CBoxCategoria.Enabled = true;
+
+                TxtNome.Focus();
             }
             else if (getSetStatus == 2)
             {
@@ -179,6 +194,8 @@ namespace SistemaDoLeoWebService
                 TxtCusto.Enabled = false;
                 ChkBoxInativo.Enabled = false;
                 CBoxCategoria.Enabled = false;
+
+                TxtID.Focus();
             }
         }
 
@@ -191,6 +208,7 @@ namespace SistemaDoLeoWebService
                 // SELECT MAX + 1
                 proximoRegistro();
                 TxtNome.Text = string.Empty;
+                ChkBoxInativo.Checked = false;
                 CBoxCategoria.Text = string.Empty;
                 TxtValor.Text = string.Empty;
                 TxtCusto.Text = string.Empty;
@@ -222,13 +240,39 @@ namespace SistemaDoLeoWebService
 
                     TxtEstoque.Text = WebReference.GetEstoqueProdutoAsync(produto.getSetID).Result.ToString();
 
+                    // DEFINE OS VALORES COMO 0,00
+                    ajustarValores();
+
                     TxtID.SelectAll();
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show($"{e.Message} - {e.Source}");
+                    TxtID.Text = produto.getSetID.ToString();
+                    TxtID.SelectAll();
                 }
 
+            }
+        }
+
+        private void ajustarValores()
+        {
+            if (TxtValor.Text != string.Empty)
+            {
+                TxtValor.Text = Convert.ToDecimal(TxtValor.Text).ToString("N2");
+            }
+            else
+            {
+                TxtValor.Text = "0,00";
+            }
+
+            if (TxtCusto.Text != string.Empty)
+            {
+                TxtCusto.Text = Convert.ToDecimal(TxtCusto.Text).ToString("N2");
+            }
+            else
+            {
+                TxtCusto.Text = "0,00";
             }
         }
 
@@ -252,6 +296,9 @@ namespace SistemaDoLeoWebService
             ChkBoxInativo.Checked = produto.getSetStatus;
 
             TxtEstoque.Text = WebReference.GetEstoqueProdutoAsync(produto.getSetID).Result.ToString();
+
+            // DEFINE OS VALORES COMO 0,00
+            ajustarValores();
         }
 
         private void BtnVoltar_Click(object sender, EventArgs e)
@@ -409,20 +456,20 @@ namespace SistemaDoLeoWebService
         {
             if (retorno == 0)
             {
-                MessageBox.Show("Produto alterado com Sucesso");
+                MessageBox.Show("Produto alterado com Sucesso", nomeForm);
                 getSetStatus = 2; // STATUS 2 -> VISUALIZAÇÃO
                 validarAcoes();
             }
             else if (retorno == 1)
             {
-                MessageBox.Show("Produto cadastrado com Sucesso");
+                MessageBox.Show("Produto cadastrado com Sucesso", nomeForm);
                 getSetStatus = 2; // STATUS 2 -> VISUALIZAÇÃO
                 validarAcoes();
                 PrimeiroProduto();
             }
             else if (retorno == 2)
             {
-                MessageBox.Show("Ocorreu algum erro ao tentar finalizar a Operação");
+                MessageBox.Show("Ocorreu algum erro ao tentar finalizar a Operação", nomeForm);
             }
         }
 
@@ -430,25 +477,25 @@ namespace SistemaDoLeoWebService
         {
             if (TxtNome.Text == "")
             {
-                MessageBox.Show("Necessário informar um Nome para o Produto");
+                MessageBox.Show("Necessário informar um Nome para o Produto", nomeForm);
                 TxtNome.Focus();
                 return false;
             }
             else if (CBoxCategoria.Text == "")
             {
-                MessageBox.Show("Necessário informar uma Categoria para o Produto");
+                MessageBox.Show("Necessário informar uma Categoria para o Produto", nomeForm);
                 CBoxCategoria.Focus();
                 return false;
             }
             else if (TxtValor.Text == "")
             {
-                MessageBox.Show("Necessário informar um Valor para o Produto");
+                MessageBox.Show("Necessário informar um Valor para o Produto", nomeForm);
                 TxtValor.Focus();
                 return false;
             }
             else if (TxtCusto.Text == "")
             {
-                MessageBox.Show("Necessário informar um Custo para o Produto");
+                MessageBox.Show("Necessário informar um Custo para o Produto", nomeForm);
                 TxtCusto.Focus();
                 return false;
             }
@@ -469,6 +516,59 @@ namespace SistemaDoLeoWebService
                     validarCancelamento();
                 }
             }
+        }
+
+        private void TxtEstoque_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormCadastroProdutos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (getSetStatus != 2)
+            {
+                if (e.KeyValue == (char)Keys.F3)
+                {
+                    BtnSalvar_Click(sender, e);
+                }
+            }
+            else
+            {
+                if (e.KeyValue == (char)Keys.F2)
+                {
+                    BtnNovo_Click(sender, e);
+                }
+            }
+        }
+
+        private void TxtNome_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                CBoxCategoria.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void CBoxCategoria_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtValor.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void TxtValor_Leave(object sender, EventArgs e)
+        {
+            // DEFINE OS VALORES COMO FORMATAÇÃO [0,00]
+            ajustarValores();
+        }
+
+        private void TxtCusto_Leave(object sender, EventArgs e)
+        {
+            // DEFINE OS VALORES COMO FORMATAÇÃO [0,00]
+            ajustarValores();
         }
 
         public int getSetStatus

@@ -222,6 +222,8 @@ namespace ServiceReference1
         
         private string getSetBairroField;
         
+        private string getSetCEPField;
+        
         private string getSetCPFField;
         
         private string getSetCidadeField;
@@ -254,6 +256,19 @@ namespace ServiceReference1
             set
             {
                 this.getSetBairroField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string getSetCEP
+        {
+            get
+            {
+                return this.getSetCEPField;
+            }
+            set
+            {
+                this.getSetCEPField = value;
             }
         }
         

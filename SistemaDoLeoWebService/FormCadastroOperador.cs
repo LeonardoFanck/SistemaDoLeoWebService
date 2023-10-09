@@ -80,6 +80,8 @@ namespace SistemaDoLeoWebService
 
                 // LIMPAR CAMPOS
                 limpaCampos();
+
+                TxtNome.Focus();
             }
             else if (getSetStatus == 1)
             {
@@ -114,6 +116,8 @@ namespace SistemaDoLeoWebService
                     ChkAdmin.Enabled = true;
                     ChkVerificarSenha.Visible = true;
                 }
+
+                TxtNome.Focus();
             }
             else if (getSetStatus == 2)
             {
@@ -148,6 +152,8 @@ namespace SistemaDoLeoWebService
                 {
                     ChkVerificarSenha.Visible = true;
                 }
+
+                TxtID.Focus();
             }
         }
 
@@ -223,6 +229,9 @@ namespace SistemaDoLeoWebService
             catch (Exception ex)
             {
                 MessageBox.Show("" + ex.Message, NomeForm);
+
+                TxtID.Text = operador.getSetID.ToString();
+                TxtID.SelectAll();
             }
         }
 
@@ -496,6 +505,42 @@ namespace SistemaDoLeoWebService
                 FormPesquisa pesquisa = new FormPesquisa(5, this); // 5 -> Pesquisa Operador
 
                 validarPesquisa(pesquisa);
+            }
+        }
+
+        private void FormCadastroOperador_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (getSetStatus != 2)
+            {
+                if (e.KeyValue == (char)Keys.F3)
+                {
+                    BtnSalvar_Click(sender, e);
+                }
+            }
+            else
+            {
+                if (e.KeyValue == (char)Keys.F2)
+                {
+                    BtnNovo_Click(sender, e);
+                }
+            }
+        }
+
+        private void TxtNome_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtSenha.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void TxtSenha_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                BtnSalvar.Focus();
+                e.Handled = true;
             }
         }
     }

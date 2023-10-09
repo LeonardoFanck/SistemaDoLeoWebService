@@ -5,9 +5,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
+using System.ServiceModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Navigation;
 
 namespace SistemaDoLeoWebService
 {
@@ -117,6 +121,7 @@ namespace SistemaDoLeoWebService
                 TxtMDocumento.Enabled = true;
                 TxtEmail.Enabled = true;
                 TxtMDtNasc.Enabled = true;
+                TxtCEP.Enabled = true;
                 CBoxUF.Enabled = true;
                 TxtCidade.Enabled = true;
                 TxtBairro.Enabled = true;
@@ -128,6 +133,7 @@ namespace SistemaDoLeoWebService
                 RBtnCasa.Enabled = true;
                 RBtnApart.Enabled = true;
 
+                TxtMDtNasc.Focus();
             }
             else if (getSetStatus == 1)
             {
@@ -149,6 +155,7 @@ namespace SistemaDoLeoWebService
                 TxtMDocumento.Enabled = true;
                 TxtEmail.Enabled = true;
                 TxtMDtNasc.Enabled = true;
+                TxtCEP.Enabled = true;
                 CBoxUF.Enabled = true;
                 TxtCidade.Enabled = true;
                 TxtBairro.Enabled = true;
@@ -159,6 +166,8 @@ namespace SistemaDoLeoWebService
                 ChkBoxFornecedor.Enabled = true;
                 RBtnCasa.Enabled = true;
                 RBtnApart.Enabled = true;
+
+                TxtMDtNasc.Focus();
             }
             else if (getSetStatus == 2)
             {
@@ -180,6 +189,7 @@ namespace SistemaDoLeoWebService
                 TxtMDocumento.Enabled = false;
                 TxtEmail.Enabled = false;
                 TxtMDtNasc.Enabled = false;
+                TxtCEP.Enabled = false;
                 CBoxUF.Enabled = false;
                 TxtCidade.Enabled = false;
                 TxtBairro.Enabled = false;
@@ -190,6 +200,8 @@ namespace SistemaDoLeoWebService
                 ChkBoxFornecedor.Enabled = false;
                 RBtnCasa.Enabled = false;
                 RBtnApart.Enabled = false;
+
+                TxtID.Focus();
             }
         }
 
@@ -206,6 +218,7 @@ namespace SistemaDoLeoWebService
                 TxtMDocumento.Text = "CPF";
                 TxtEmail.Text = string.Empty;
                 TxtMDtNasc.Text = string.Empty;
+                TxtCEP.Text = string.Empty;
                 CBoxUF.Text = string.Empty;
                 TxtCidade.Text = string.Empty;
                 TxtBairro.Text = string.Empty;
@@ -240,6 +253,7 @@ namespace SistemaDoLeoWebService
                     TxtMDocumento.Text = cliente.getSetCPF;
                     TxtEmail.Text = cliente.getSetEmail;
                     TxtMDtNasc.Text = cliente.getSetDtNascimento;
+                    TxtCEP.Text = cliente.getSetCEP;
                     CBoxUF.Text = cliente.getSetEstado;
                     TxtCidade.Text = cliente.getSetCidade;
                     TxtBairro.Text = cliente.getSetBairro;
@@ -428,6 +442,7 @@ namespace SistemaDoLeoWebService
                     cliente.getSetCPF = TxtMDocumento.Text;
                     cliente.getSetEmail = TxtEmail.Text;
                     cliente.getSetDtNascimento = TxtMDtNasc.Text;
+                    cliente.getSetCEP = TxtCEP.Text;
                     cliente.getSetEstado = CBoxUF.Text;
                     cliente.getSetCidade = TxtCidade.Text;
                     cliente.getSetBairro = TxtBairro.Text;
@@ -479,7 +494,13 @@ namespace SistemaDoLeoWebService
 
         public bool validarCampos()
         {
-            if (TxtNome.Text == "")
+            if (TxtMDtNasc.Text.Equals("  /  /"))
+            {
+                MessageBox.Show("Necessário informar uma Data de Nascimento", nomeForm);
+                TxtMDtNasc.Focus();
+                return false;
+            }
+            else if (TxtNome.Text == "")
             {
                 MessageBox.Show("Necessário informar um Nome", nomeForm);
                 TxtNome.Focus();
@@ -497,10 +518,10 @@ namespace SistemaDoLeoWebService
                 TxtEmail.Focus();
                 return false;
             }
-            else if (TxtMDtNasc.Text == "")
+            else if (TxtCEP.Text.Equals("  .   -"))
             {
-                MessageBox.Show("Necessário informar uma Data de Nascimento", nomeForm);
-                TxtMDtNasc.Focus();
+                MessageBox.Show("Necessário informar um CEP!", nomeForm);
+                TxtCEP.Focus();
                 return false;
             }
             else if (CBoxUF.Text == "")
@@ -621,10 +642,354 @@ namespace SistemaDoLeoWebService
                 if (getSetStatus == 2)
                 {
                     Close();
+                    e.Handled = true;
                 }
                 else
                 {
                     validarCancelamento();
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void FormCadastroClientes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (getSetStatus != 2)
+            {
+                if (e.KeyValue == (char)Keys.F3)
+                {
+                    BtnSalvar_Click(sender, e);
+                }
+            }
+            else
+            {
+                if (e.KeyValue == (char)Keys.F2)
+                {
+                    BtnNovo_Click(sender, e);
+                }
+            }
+        }
+
+        private async void TxtCEP_Leave(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtMDtNasc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtNome.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void TxtMDtNasc_Leave(object sender, EventArgs e)
+        {
+            if (TxtMDtNasc.Text != "  /  /")
+            {
+                validarData(TxtMDtNasc.Text);
+            }
+        }
+
+        private void validarData(string data)
+        {
+            // DATA INVÁLIDA
+            if (!DateTime.TryParse(data, out DateTime date))
+            {
+                MessageBox.Show("Data Inválida!", nomeForm);
+
+                TxtMDtNasc.Text = string.Empty;
+                TxtMDtNasc.Focus();
+            }
+        }
+
+        private void TxtNome_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                ComboDocumento.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void ComboDocumento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtMDocumento.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void TxtMDocumento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtEmail.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void TxtEmail_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtCEP.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void TxtEmail_Leave(object sender, EventArgs e)
+        {
+            if (!TxtEmail.Text.Equals(""))
+            {
+                if (!validarEmail(TxtEmail.Text))
+                {
+                    MessageBox.Show("Email Inválido!", nomeForm);
+                    TxtEmail.Focus();
+                }
+            }
+        }
+
+        private bool validarEmail(string email)
+        {
+            try
+            {
+                var endEmail = new System.Net.Mail.MailAddress(email);
+                return endEmail.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void TxtCEP_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                try
+                {
+                    if (!TxtCEP.Text.Equals("  .   -"))
+                    {
+                        var consulta = new CorreiosService.AtendeClienteClient();
+                        string CEP = TxtCEP.Text;
+
+                        // RETIRA OS CARACTERES ESPECIAIS
+                        CEP = CEP.Replace(".", "").Replace("-", "");
+
+                        // FAZ A CONSULTA NA API DO CORREIOS
+                        var resultado = consulta.consultaCEPAsync(CEP).Result;
+
+                        // PREENCHE OS CAMPOS
+                        CBoxUF.Text = resultado.@return.uf;
+                        TxtCidade.Text = resultado.@return.cidade;
+                        TxtBairro.Text = resultado.@return.bairro;
+                        TxtEndereco.Text = resultado.@return.end;
+
+                        CBoxUF.Focus();
+                        e.Handled = true;
+                    }
+                    else
+                    {
+                        CBoxUF.Focus();
+                        e.Handled = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, nomeForm);
+                }
+            }
+        }
+
+        private void CBoxUF_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtCidade.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void TxtCidade_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtBairro.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void TxtBairro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtEndereco.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void TxtEndereco_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                TxtNumero.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void TxtNumero_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                RBtnCasa.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void RBtnCasa_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                ChkBoxCliente.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void RBtnApart_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                ChkBoxCliente.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void ChkBoxCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                BtnSalvar.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void ChkBoxFornecedor_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // ENTER
+            {
+                BtnSalvar.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void TxtMDtNasc_Enter(object sender, EventArgs e)
+        {
+            TxtMDtNasc.SelectAll();
+        }
+
+        private void TxtCEP_Enter(object sender, EventArgs e)
+        {
+            TxtCEP.SelectAll();
+        }
+
+        private bool validarCNPJ(string cnpj)
+        {
+            int[] multiplicador1 = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] multiplicador2 = new int[13] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int soma;
+            int resto;
+            string digito;
+            string tempCnpj;
+            cnpj = cnpj.Trim();
+            cnpj = cnpj.Replace(".", "").Replace("-", "").Replace("/", "");
+            if (cnpj.Length != 14)
+                return false;
+            tempCnpj = cnpj.Substring(0, 12);
+            soma = 0;
+            for (int i = 0; i < 12; i++)
+                soma += int.Parse(tempCnpj[i].ToString()) * multiplicador1[i];
+            resto = (soma % 11);
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+            digito = resto.ToString();
+            tempCnpj = tempCnpj + digito;
+            soma = 0;
+            for (int i = 0; i < 13; i++)
+                soma += int.Parse(tempCnpj[i].ToString()) * multiplicador2[i];
+            resto = (soma % 11);
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+            digito = digito + resto.ToString();
+            return cnpj.EndsWith(digito);
+        }
+
+        private bool validarCPF(string cpf)
+        {
+            int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            string tempCpf;
+            string digito;
+            int soma;
+            int resto;
+            cpf = cpf.Trim();
+            cpf = cpf.Replace(".", "").Replace("-", "");
+            if (cpf.Length != 11)
+                return false;
+            tempCpf = cpf.Substring(0, 9);
+            soma = 0;
+
+            for (int i = 0; i < 9; i++)
+                soma += int.Parse(tempCpf[i].ToString()) * multiplicador1[i];
+            resto = soma % 11;
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+            digito = resto.ToString();
+            tempCpf = tempCpf + digito;
+            soma = 0;
+            for (int i = 0; i < 10; i++)
+                soma += int.Parse(tempCpf[i].ToString()) * multiplicador2[i];
+            resto = soma % 11;
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+            digito = digito + resto.ToString();
+            return cpf.EndsWith(digito);
+        }
+
+        private void TxtMDocumento_Leave(object sender, EventArgs e)
+        {
+            if (ComboDocumento.Text.Equals("CPF"))
+            {
+                if (!TxtMDocumento.Text.Equals("   .   .   -"))
+                {
+                    if (!validarCPF(TxtMDocumento.Text))
+                    {
+                        MessageBox.Show("Documento Inválido!", nomeForm);
+                        TxtMDocumento.Text = string.Empty;
+                        TxtMDocumento.Focus();
+                    }
+                }
+            }
+            else if (ComboDocumento.Text.Equals("CNPJ"))
+            {
+                if (!TxtMDocumento.Text.Equals("  .   .   /    -"))
+                {
+                    if (!validarCNPJ(TxtMDocumento.Text))
+                    {
+                        MessageBox.Show("Documento Inválido!", nomeForm);
+                        TxtMDocumento.Text = string.Empty;
+                        TxtMDocumento.Focus();
+                    }
                 }
             }
         }

@@ -62,18 +62,18 @@
             // 
             // BtnID
             // 
-            BtnID.Location = new Point(68, 20);
+            BtnID.Location = new Point(175, 21);
             BtnID.Name = "BtnID";
             BtnID.Size = new Size(41, 23);
-            BtnID.TabIndex = 63;
+            BtnID.TabIndex = 1;
             BtnID.TabStop = false;
-            BtnID.Text = "->";
+            BtnID.Text = "<-";
             BtnID.UseVisualStyleBackColor = true;
             BtnID.Click += BtnID_Click;
             // 
             // TxtID
             // 
-            TxtID.Location = new Point(129, 21);
+            TxtID.Location = new Point(49, 21);
             TxtID.Name = "TxtID";
             TxtID.Size = new Size(100, 23);
             TxtID.TabIndex = 0;
@@ -138,7 +138,7 @@
             BtnCancelar.Location = new Point(574, 403);
             BtnCancelar.Name = "BtnCancelar";
             BtnCancelar.Size = new Size(97, 35);
-            BtnCancelar.TabIndex = 54;
+            BtnCancelar.TabIndex = 5;
             BtnCancelar.Text = "Cancelar";
             BtnCancelar.UseVisualStyleBackColor = true;
             BtnCancelar.Click += BtnCancelar_Click;
@@ -148,7 +148,7 @@
             BtnSalvar.Location = new Point(471, 403);
             BtnSalvar.Name = "BtnSalvar";
             BtnSalvar.Size = new Size(97, 35);
-            BtnSalvar.TabIndex = 53;
+            BtnSalvar.TabIndex = 4;
             BtnSalvar.Text = "Salvar";
             BtnSalvar.UseVisualStyleBackColor = true;
             BtnSalvar.Click += BtnSalvar_Click;
@@ -208,6 +208,7 @@
             ChkVerificarSenha.Name = "ChkVerificarSenha";
             ChkVerificarSenha.Size = new Size(38, 19);
             ChkVerificarSenha.TabIndex = 73;
+            ChkVerificarSenha.TabStop = false;
             ChkVerificarSenha.Text = "👁️";
             ChkVerificarSenha.UseVisualStyleBackColor = true;
             ChkVerificarSenha.Visible = false;
@@ -218,8 +219,9 @@
             TxtSenha.Location = new Point(59, 15);
             TxtSenha.Name = "TxtSenha";
             TxtSenha.Size = new Size(369, 23);
-            TxtSenha.TabIndex = 2;
+            TxtSenha.TabIndex = 3;
             TxtSenha.UseSystemPasswordChar = true;
+            TxtSenha.KeyPress += TxtSenha_KeyPress;
             // 
             // label3
             // 
@@ -328,7 +330,7 @@
             // ChkOperador
             // 
             ChkOperador.AutoSize = true;
-            ChkOperador.Location = new Point(10, 20);
+            ChkOperador.Location = new Point(10, 21);
             ChkOperador.Name = "ChkOperador";
             ChkOperador.Size = new Size(126, 19);
             ChkOperador.TabIndex = 0;
@@ -338,15 +340,16 @@
             // 
             // TxtNome
             // 
-            TxtNome.Location = new Point(328, 26);
+            TxtNome.Location = new Point(312, 20);
             TxtNome.Name = "TxtNome";
             TxtNome.Size = new Size(369, 23);
-            TxtNome.TabIndex = 1;
+            TxtNome.TabIndex = 2;
+            TxtNome.KeyPress += TxtNome_KeyPress;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(282, 29);
+            label2.Location = new Point(265, 23);
             label2.Name = "label2";
             label2.Size = new Size(40, 15);
             label2.TabIndex = 73;
@@ -374,6 +377,7 @@
             Text = "FormCadastroOperador";
             FormClosing += FormCadastroOperador_FormClosing;
             Load += FormCadastroOperador_Load;
+            KeyDown += FormCadastroOperador_KeyDown;
             KeyPress += FormCadastroOperador_KeyPress;
             tabControl1.ResumeLayout(false);
             TabDados.ResumeLayout(false);

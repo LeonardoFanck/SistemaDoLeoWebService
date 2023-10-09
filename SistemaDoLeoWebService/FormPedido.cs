@@ -61,6 +61,9 @@ namespace SistemaDoLeoWebService
             // LIMPA OS CAMPOS DO ESTOQUE
             limpaCamposEstoque();
 
+            getSetStatusItem = 0; // 1-> Novo
+            validarProduto(); // 0 -> Novo | 1 -> Edição
+
             getSetStatus = 2; // 2 -> Visualização
             validarAcoes();  // 0 -> Novo | 1 -> Edição | 2 -> Visualização
             ultimoRegistro();
@@ -292,16 +295,31 @@ namespace SistemaDoLeoWebService
             }
         }
 
+        private void validarProduto()
+        {
+            if (getSetStatusItem == 0) // Novo
+            {
+                TxtProduto.Enabled = true;
+                BtnProduto.Enabled = true;
+                BtnAdicionarItem.Text = "Inserir";
+                BtnRemoverItem.Text = "Remover";
+            }
+            else // EDIÇÃO
+            {
+                TxtProduto.Enabled = false;
+                BtnProduto.Enabled = false;
+                BtnAdicionarItem.Text = "Alterar";
+                BtnRemoverItem.Text = "Cancelar";
+            }
+        }
+
         public void preencheProduto(int ID)
         {
             try
             {
                 var WebService = new ServiceReference1.Service1Client();
 
-                if (getSetStatusItem == 0)
-                {
-                    produto = WebService.GetProdutoAsync(ID).Result;
-                }
+                produto = WebService.GetProdutoAsync(ID).Result;
 
                 if (produto.getSetStatus)
                 {
@@ -310,10 +328,9 @@ namespace SistemaDoLeoWebService
                 }
                 else
                 {
-                    LblEstoqueAtual.Text = WebService.GetEstoqueProdutoAsync(ID).Result.ToString();
-
                     if (getSetStatusItem == 0)
                     {
+                        LblEstoqueAtual.Text = WebService.GetEstoqueProdutoAsync(ID).Result.ToString();
                         TxtProduto.Text = produto.getSetID.ToString();
                         TxtNomeProduto.Text = produto.getSetNome;
                         TxtValorItem.Text = produto.getSetValor.ToString();
@@ -322,12 +339,16 @@ namespace SistemaDoLeoWebService
                     }
                     else
                     {
-                        TxtProduto.Text = GridViewItens.CurrentRow.Cells["getSetProduto"].Value.ToString();
-                        TxtNomeProduto.Text = GridViewItens.CurrentRow.Cells["getSetItemNomeProduto"].Value.ToString();
-                        TxtValorItem.Text = GridViewItens.CurrentRow.Cells["getSetItemValor"].Value.ToString();
-                        TxtQuantidadeItem.Text = GridViewItens.CurrentRow.Cells["getSetQuantidade"].Value.ToString();
-                        TxtDescontoItem.Text = GridViewItens.CurrentRow.Cells["getSetItemDesconto"].Value.ToString();
-                        TxtValorFinalItem.Text = GridViewItens.CurrentRow.Cells["getSetItemValorTotal"].Value.ToString();
+                        string quantidade = GridViewItens.CurrentRow.Cells["Quantidade"].Value.ToString();
+                        int estoque = WebService.GetEstoqueProdutoAsync(ID).Result + Convert.ToInt32(quantidade);
+
+                        LblEstoqueAtual.Text = estoque.ToString();
+                        TxtProduto.Text = GridViewItens.CurrentRow.Cells["IDProduto"].Value.ToString();
+                        TxtNomeProduto.Text = GridViewItens.CurrentRow.Cells["NomeProduto"].Value.ToString();
+                        TxtValorItem.Text = GridViewItens.CurrentRow.Cells["Valor"].Value.ToString();
+                        TxtQuantidadeItem.Text = GridViewItens.CurrentRow.Cells["Quantidade"].Value.ToString();
+                        TxtDescontoItem.Text = GridViewItens.CurrentRow.Cells["Desconto"].Value.ToString();
+                        TxtValorFinalItem.Text = GridViewItens.CurrentRow.Cells["ValorTotal"].Value.ToString();
                     }
 
                     calcularProduto();
@@ -961,7 +982,17 @@ namespace SistemaDoLeoWebService
 
                     adicionarItem(item);
 
-                    MessageBox.Show("Item adicionado com Sucesso!", FormNome);
+                    if (getSetStatusItem == 0)
+                    {
+                        MessageBox.Show("Item adicionado com Sucesso!", FormNome);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Item alterado com Sucesso!", FormNome);
+                    }
+
+                    getSetStatusItem = 0; // 0 -> MODO ADICIONAR PRODUTO
+                    validarProduto();
 
                     // PREENCHE O GRID COM OS ITENS DO PEDIDO
                     PreencherGridPedidos(item.getSetPedidoID);
@@ -1140,20 +1171,30 @@ namespace SistemaDoLeoWebService
 
         private void BtnRemoverItem_Click(object sender, EventArgs e)
         {
-            if (GridViewItens.CurrentRow != null)
+            if (getSetStatusItem == 0)
             {
-                //MessageBox.Show(GridViewItens.CurrentRow.Cells["IDItemPedido"].Value.ToString());
-                excluirItem(Convert.ToInt32(GridViewItens.CurrentRow.Cells["IDItemPedido"].Value));
+                if (GridViewItens.CurrentRow != null)
+                {
+                    excluirItem(Convert.ToInt32(GridViewItens.CurrentRow.Cells["IDItemPedido"].Value));
 
-                // PREENCHE O GRID COM OS ITENS DO PEDIDO
-                PreencherGridPedidos(Convert.ToInt32(TxtID.Text));
+                    // PREENCHE O GRID COM OS ITENS DO PEDIDO
+                    PreencherGridPedidos(Convert.ToInt32(TxtID.Text));
 
-                // FOCO NOVAMENTE PARA O TXT PRODUTO
-                TxtProduto.Focus();
+                    // FOCO NOVAMENTE PARA O TXT PRODUTO
+                    TxtProduto.Focus();
+                }
+                else
+                {
+                    MessageBox.Show("Selecione um item para Excluír!", FormNome);
+                }
             }
             else
             {
-                MessageBox.Show("Selecione um item para Excluír!", FormNome);
+                getSetStatusItem = 0; // 0 -> NOVO ITEM
+                validarProduto();
+
+                limpaCamposItem();
+                limpaCamposEstoque();
             }
         }
 
@@ -1556,10 +1597,15 @@ namespace SistemaDoLeoWebService
             pesquisa.FormClosed += (sender, e) =>
             {
                 formMain.Enabled = true;
-                SendKeys.Send("+{TAB}");
+                retornoPesquisa();
             };
 
             pesquisa.Show();
+        }
+
+        private void retornoPesquisa()
+        {
+            SendKeys.Send("+{TAB}");
         }
 
         private void GridViewItens_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -1654,7 +1700,13 @@ namespace SistemaDoLeoWebService
 
         private void GridViewItens_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            preencheProduto();
+            if (getSetStatus != 2)
+            {
+                getSetStatusItem = 1; // 1 -> MODO EDIÇÃO
+                validarProduto();
+                preencheProduto(Convert.ToInt32(GridViewItens.CurrentRow.Cells["IDProduto"].Value));
+                TxtValorItem.Focus();
+            }
         }
     }
 }

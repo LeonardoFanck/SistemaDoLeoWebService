@@ -110,8 +110,11 @@ namespace SistemaDoLeoWebService
             else if (codigo == 3) // LISTA FORMA PGTO
             {
                 GridViewPesquisa.Columns.Add("getSetCodigo", "Codigo");
+                GridViewPesquisa.Columns["getSetCodigo"].Width = 80;
                 GridViewPesquisa.Columns.Add("getSetNome", "Nome");
+                GridViewPesquisa.Columns["getSetNome"].Width = 300;
                 GridViewPesquisa.Columns.Add("getSetStatus", "Inativo");
+                GridViewPesquisa.Columns["getSetStatus"].Width = 80;
 
                 // PREENCHE O ComboBoxTipo
                 ComboBoxTipo.Items.Add("Codigo");
