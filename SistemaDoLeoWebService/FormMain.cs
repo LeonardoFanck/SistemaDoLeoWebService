@@ -121,11 +121,32 @@ namespace SistemaDoLeoWebService
 
         private void configuraçõesGeraisToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (operador.getSetAdmin)
+            {
+                abrirConfiguracoes();
+            }
+            else
+            {
+                FormValidacaoOperador form = new FormValidacaoOperador(this);
+
+                // FUNÇÃO PARA QUANDO FECHAR O CONFIGURAÇÕES GERAIS, ATIVAR NOVAMENTE O FORMA MAIN
+                form.FormClosed += (sender, e) =>
+                {
+                    this.Enabled = true;
+                };
+
+                // INATIVA O FORM MAIN
+                this.Enabled = false;
+
+                form.Show();
+            }
+            
+        }
+
+        public void abrirConfiguracoes()
+        {
             FormConfiguracoesGerais formConfiguracoesGerais = new FormConfiguracoesGerais();
             //formConfiguracoesGerais.MdiParent = this;
-
-            // INATIVA O FORM MAIN
-            this.Enabled = false;
 
             // FUNÇÃO PARA QUANDO FECHAR O CONFIGURAÇÕES GERAIS, ATIVAR NOVAMENTE O FORMA MAIN
             formConfiguracoesGerais.FormClosed += (sender, e) =>
@@ -133,6 +154,8 @@ namespace SistemaDoLeoWebService
                 this.Enabled = true;
             };
 
+            // INATIVA O FORM MAIN
+            this.Enabled = false;
             formConfiguracoesGerais.Show();
         }
 

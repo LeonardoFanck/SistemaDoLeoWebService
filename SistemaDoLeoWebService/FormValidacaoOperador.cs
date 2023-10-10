@@ -212,6 +212,10 @@ namespace SistemaDoLeoWebService
             {
                 this.Text += " - Entradas";
             }
+            else if (TelaFonte.ToString().Equals("SistemaDoLeoWebService.FormMain, Text: Principal"))
+            {
+                this.Text += " - Principal";
+            } 
         }
 
         private void validarRetorno()
@@ -223,6 +227,14 @@ namespace SistemaDoLeoWebService
                     FormPedido pedido = (FormPedido)TelaFonte;
 
                     pedido.liberarPedido(true);
+
+                    this.Close();
+                }
+                else if (this.Text.Equals(nomeForm + " - Principal"))
+                {
+                    FormMain form = (FormMain)TelaFonte;
+
+                    form.abrirConfiguracoes();
 
                     this.Close();
                 }
