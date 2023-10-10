@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLogin));
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -77,6 +78,7 @@
             TxtID.Size = new Size(92, 43);
             TxtID.TabIndex = 3;
             TxtID.TextChanged += TxtID_TextChanged;
+            TxtID.Enter += TxtID_Enter;
             TxtID.KeyPress += TxtID_KeyPress;
             TxtID.Leave += TxtID_Leave;
             // 
@@ -90,6 +92,7 @@
             TxtSenha.Size = new Size(92, 43);
             TxtSenha.TabIndex = 4;
             TxtSenha.TextChanged += TxtSenha_TextChanged;
+            TxtSenha.Enter += TxtSenha_Enter;
             TxtSenha.KeyPress += TxtSenha_KeyPress;
             // 
             // BtnAcessar
@@ -135,7 +138,8 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.Fixed3D;
+            FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
             MaximizeBox = false;
             Name = "FormLogin";

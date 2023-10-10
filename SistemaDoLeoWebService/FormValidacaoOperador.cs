@@ -1,30 +1,39 @@
-using Microsoft.VisualBasic;
-using ServiceReference1;
+Ôªøusing ServiceReference1;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
-using System.Data.SqlTypes;
-using System.Reflection;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SistemaDoLeoWebService
 {
-    public partial class FormLogin : Form
+    public partial class FormValidacaoOperador : Form
     {
-        private Thread thread;
         private Operador operador;
+        private string nomeForm = "Libera√ß√£o de Acesso";
+        private object TelaFonte;
 
-        public FormLogin()
+        public FormValidacaoOperador(object telaFonte)
         {
             InitializeComponent();
 
-        }
+            this.TelaFonte = telaFonte;
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
+            this.Text = nomeForm;
 
+            validarTelas();
+
+            TxtID.Focus();
         }
 
         private void TxtID_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8) // SOMENTE N⁄MERO E BACKSPACE
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8) // SOMENTE N√öMERO E BACKSPACE
             {
                 e.Handled = true;
             }
@@ -37,7 +46,7 @@ namespace SistemaDoLeoWebService
 
         private void TxtID_Leave(object sender, EventArgs e)
         {
-            // VAI CHAMAR A FUN«√O QUE CONECTA COM O WEB SERVICE
+            // VAI CHAMAR A FUN√á√ÉO QUE CONECTA COM O WEB SERVICE
             // E CHAMAR O VALIDA OPERADOR
 
             int ID;
@@ -65,13 +74,13 @@ namespace SistemaDoLeoWebService
                     }
                     else if (resultado.Equals(1))
                     {
-                        MessageBox.Show("Operador " + ID + " Inativo", nomeForm());
+                        MessageBox.Show("Operador " + ID + " Inativo", nomeForm);
                         TxtID.Text = "";
                         TxtID.Focus();
                     }
                     else if (resultado.Equals(2))
                     {
-                        MessageBox.Show("Operador n„o Cadastrado", nomeForm());
+                        MessageBox.Show("Operador n√£o Cadastrado", nomeForm);
                         TxtID.Text = "";
                         TxtID.Focus();
                     }
@@ -101,33 +110,9 @@ namespace SistemaDoLeoWebService
             operador.getSetEntrada = true;
         }
 
-        private void BtnFinalizar_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void TxtID_TextChanged(object sender, EventArgs e)
         {
             limpaCamposMenosID();
-        }
-
-        private void TxtSenha_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TxtSenha_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8) // SOMENTE N⁄MERO E BACKSPACE
-            {
-                e.Handled = true;
-            }
-
-            if (e.KeyChar == 13) // ENTER
-            {
-                BtnAcessar.Focus();
-                e.Handled = true;
-            }
         }
 
         private void limpaCampos()
@@ -143,22 +128,36 @@ namespace SistemaDoLeoWebService
             LblNomeOperador.Text = string.Empty;
         }
 
+        private void TxtSenha_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8) // SOMENTE N√öMERO E BACKSPACE
+            {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar == 13) // ENTER
+            {
+                BtnAcessar.Focus();
+                e.Handled = true;
+            }
+        }
+
         private void BtnAcessar_Click(object sender, EventArgs e)
         {
-            // DECLARA«’ES
+            // DECLARA√á√ïES
             int ID;
             int Senha;
             var WebReference = new ServiceReference1.Service1Client();
 
-            // VERIFICA SE OS CAMPOS EST√O PREENCHIDOS
+            // VERIFICA SE OS CAMPOS EST√ÉO PREENCHIDOS
             if (TxtID.Text == "")
             {
-                MessageBox.Show("Informe um operador!", nomeForm());
+                MessageBox.Show("Informe um operador!", nomeForm);
                 TxtID.Focus();
             }
             else if (TxtSenha.Text == "")
             {
-                MessageBox.Show("Informe a senha!", nomeForm());
+                MessageBox.Show("Informe a senha!", nomeForm);
                 TxtSenha.Focus();
             }
             else
@@ -167,61 +166,87 @@ namespace SistemaDoLeoWebService
                 ID = int.Parse(TxtID.Text);
                 Senha = int.Parse(TxtSenha.Text);
 
-                // CHAMA A FUN«√O DO WEB SERVICE
+                // CHAMA A FUN√á√ÉO DO WEB SERVICE
                 int resultado = WebReference.VerificaLoginAsync(ID, Senha).Result;
 
                 // VERIFICA OS RESULTADOS
                 if (resultado.Equals(0))
                 {
-                    // CHAMA O FORM MAIN
-                    this.Close();
-                    thread = new Thread(abriNovaJanela); // CRIA UMA NOVA THREAD PASSANDO O METODO QUE CHAMA A NOVA TELA
-                    thread.SetApartmentState(ApartmentState.STA); // DEFINE O ESTADO DA THREAD ANTES DELA SER INICIALIZADA
-                    thread.Start(); // STARTA A THREAD
+                    // DEU TUDO CERTO -> LIBERA AS ALTERA√á√ïES
+                    validarRetorno();
                 }
                 else if (resultado.Equals(1))
                 {
-                    MessageBox.Show("Senha incorreta!", nomeForm());
+                    MessageBox.Show("Senha incorreta!", nomeForm);
                     limpaCampos();
                     TxtID.Focus();
                 }
                 else if (resultado.Equals(2))
                 {
-                    MessageBox.Show("Operador " + ID + " inativo!", nomeForm());
+                    MessageBox.Show("Operador " + ID + " inativo!", nomeForm);
                     limpaCampos();
                     TxtID.Focus();
                 }
                 else if (resultado.Equals(3))
                 {
-                    MessageBox.Show("Operador " + ID + " n„o Cadastrado", nomeForm());
+                    MessageBox.Show("Operador " + ID + " n√£o Cadastrado", nomeForm);
                     limpaCampos();
                     TxtID.Focus();
                 }
                 else if (resultado.Equals(-1))
                 {
-                    MessageBox.Show("Ocorreu um erro ao tentar verificar o Operador", nomeForm());
+                    MessageBox.Show("Ocorreu um erro ao tentar verificar o Operador", nomeForm);
                     limpaCampos();
                     TxtID.Focus();
                 }
             }
         }
 
-        private void abriNovaJanela()
+        private void validarTelas()
         {
-            Application.Run(new FormMain(operador));
+            if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormPedido, Text: Pedidos")
+            {
+                this.Text += " - Pedidos";
+            }
+            else if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormEntrada, Text: Pedido Entrada")
+            {
+                this.Text += " - Entradas";
+            }
         }
 
-        private string nomeForm()
+        private void validarRetorno()
         {
-            return "Login";
+            if (operador.getSetAdmin)
+            {
+                if (this.Text.Equals(nomeForm + " - Pedidos"))
+                {
+                    FormPedido pedido = (FormPedido)TelaFonte;
+
+                    pedido.liberarPedido(true);
+
+                    this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show($"Usu√°rio {operador.getSetID} n√£o autorizado a fazer a libera√ß√£o!", nomeForm);
+                limpaCampos();
+                TxtID.Focus();
+            }
+
         }
 
-        private void FormLogin_KeyDown(object sender, KeyEventArgs e)
+        private void ValidacaoOperador_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
-                Application.Exit();
+                this.Close();
             }
+        }
+
+        private void BtnFinalizar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void TxtID_Enter(object sender, EventArgs e)
@@ -234,5 +259,4 @@ namespace SistemaDoLeoWebService
             TxtSenha.SelectAll();
         }
     }
-
 }

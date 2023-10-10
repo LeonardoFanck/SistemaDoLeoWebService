@@ -20,6 +20,11 @@ namespace SistemaDoLeoWebService
         private int codigo;
         private object TelaFonte;
 
+        public int getSetCodigo
+        {
+            get { return codigo; } set { codigo = value; }
+        }
+
         public FormPesquisa(int codigo, object telaFonte)
         {
             InitializeComponent();

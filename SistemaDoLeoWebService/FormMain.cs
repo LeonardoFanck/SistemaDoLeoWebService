@@ -82,7 +82,7 @@ namespace SistemaDoLeoWebService
 
             if (operador.getSetEntrada)
             {
-                // TELA DE ENTRADA
+                MenuMainEntradas.Visible = true;
                 quantiaTelas--;
             }
 

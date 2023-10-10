@@ -32,6 +32,7 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
+            BtnLiberarPedido = new Button();
             groupBox2 = new GroupBox();
             LblNovoEstoque = new Label();
             LblLinhaSoma = new Label();
@@ -54,7 +55,6 @@
             TxtFormaPGTONome = new TextBox();
             TxtClienteNome = new TextBox();
             GridViewItens = new DataGridView();
-            BtnLiberarPedido = new Button();
             MTxtData = new MaskedTextBox();
             TxtCustoFinal = new TextBox();
             label6 = new Label();
@@ -77,6 +77,7 @@
             BtnNovo = new Button();
             BtnCancelar = new Button();
             BtnSalvar = new Button();
+            BtnRecalcularValores = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)GridViewItens).BeginInit();
@@ -84,6 +85,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(BtnLiberarPedido);
             groupBox1.Controls.Add(groupBox2);
             groupBox1.Controls.Add(TxtNomeProduto);
             groupBox1.Controls.Add(BtnAdicionarItem);
@@ -105,6 +107,17 @@
             groupBox1.TabIndex = 126;
             groupBox1.TabStop = false;
             groupBox1.Text = "Produtos";
+            // 
+            // BtnLiberarPedido
+            // 
+            BtnLiberarPedido.Location = new Point(216, 62);
+            BtnLiberarPedido.Name = "BtnLiberarPedido";
+            BtnLiberarPedido.Size = new Size(28, 23);
+            BtnLiberarPedido.TabIndex = 123;
+            BtnLiberarPedido.TabStop = false;
+            BtnLiberarPedido.Text = "$";
+            BtnLiberarPedido.UseVisualStyleBackColor = true;
+            BtnLiberarPedido.Visible = false;
             // 
             // groupBox2
             // 
@@ -348,18 +361,8 @@
             GridViewItens.Size = new Size(660, 308);
             GridViewItens.TabIndex = 123;
             GridViewItens.TabStop = false;
+            GridViewItens.CellDoubleClick += GridViewItens_CellDoubleClick;
             GridViewItens.RowPostPaint += GridViewItens_RowPostPaint_1;
-            // 
-            // BtnLiberarPedido
-            // 
-            BtnLiberarPedido.Location = new Point(1172, 27);
-            BtnLiberarPedido.Name = "BtnLiberarPedido";
-            BtnLiberarPedido.Size = new Size(28, 23);
-            BtnLiberarPedido.TabIndex = 122;
-            BtnLiberarPedido.TabStop = false;
-            BtnLiberarPedido.Text = "$";
-            BtnLiberarPedido.UseVisualStyleBackColor = true;
-            BtnLiberarPedido.Visible = false;
             // 
             // MTxtData
             // 
@@ -443,6 +446,7 @@
             // TxtFormaPGTO
             // 
             TxtFormaPGTO.Location = new Point(103, 79);
+            TxtFormaPGTO.MaxLength = 9;
             TxtFormaPGTO.Name = "TxtFormaPGTO";
             TxtFormaPGTO.Size = new Size(74, 23);
             TxtFormaPGTO.TabIndex = 103;
@@ -473,6 +477,7 @@
             // TxtCliente
             // 
             TxtCliente.Location = new Point(103, 45);
+            TxtCliente.MaxLength = 9;
             TxtCliente.Name = "TxtCliente";
             TxtCliente.Size = new Size(74, 23);
             TxtCliente.TabIndex = 102;
@@ -503,6 +508,7 @@
             // TxtID
             // 
             TxtID.Location = new Point(103, 12);
+            TxtID.MaxLength = 9;
             TxtID.Name = "TxtID";
             TxtID.Size = new Size(74, 23);
             TxtID.TabIndex = 100;
@@ -582,16 +588,27 @@
             BtnSalvar.UseVisualStyleBackColor = true;
             BtnSalvar.Click += BtnSalvar_Click;
             // 
+            // BtnRecalcularValores
+            // 
+            BtnRecalcularValores.Location = new Point(1045, 2);
+            BtnRecalcularValores.Name = "BtnRecalcularValores";
+            BtnRecalcularValores.Size = new Size(117, 23);
+            BtnRecalcularValores.TabIndex = 127;
+            BtnRecalcularValores.TabStop = false;
+            BtnRecalcularValores.Text = "Recalcular Valores";
+            BtnRecalcularValores.UseVisualStyleBackColor = true;
+            BtnRecalcularValores.Click += BtnRecalcularValores_Click;
+            // 
             // FormEntrada
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1211, 455);
+            Controls.Add(BtnRecalcularValores);
             Controls.Add(groupBox1);
             Controls.Add(TxtFormaPGTONome);
             Controls.Add(TxtClienteNome);
             Controls.Add(GridViewItens);
-            Controls.Add(BtnLiberarPedido);
             Controls.Add(MTxtData);
             Controls.Add(TxtCustoFinal);
             Controls.Add(label6);
@@ -679,5 +696,6 @@
         private Button BtnNovo;
         private Button BtnCancelar;
         private Button BtnSalvar;
+        private Button BtnRecalcularValores;
     }
 }

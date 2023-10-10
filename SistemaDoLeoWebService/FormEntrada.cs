@@ -20,6 +20,7 @@ namespace SistemaDoLeoWebService
         private Produto produto;
         private ConfiguracoesGerais configuracoes;
         private int Status;
+        private int StatusItem;
         private int contadorItemOrigial;
         private List<EntradaItens> ItensOriginais;
         private List<EntradaItens> itensAlterados;
@@ -38,6 +39,14 @@ namespace SistemaDoLeoWebService
             get { return this.Status; }
             set { this.Status = value; }
         }
+
+        public int getSetStatusItem
+        {
+            // 0 -> Novo Item | 1 -> Edição de Item
+            get { return this.StatusItem; }
+            set { this.StatusItem = value; }
+        }
+
         private void FormEntrada_Load(object sender, EventArgs e)
         {
             // PEGA AS CONFIGURAÇÕES GERAIS
@@ -49,6 +58,9 @@ namespace SistemaDoLeoWebService
             limpaCamposEstoque();
 
             definirColunasGrid();
+
+            getSetStatusItem = 0; // 1-> Novo
+            validarProduto(); // 0 -> Novo | 1 -> Edição
 
             getSetStatus = 2; // 2 -> Visualização
             validarAcoes();  // 0 -> Novo | 1 -> Edição | 2 -> Visualização
@@ -97,6 +109,7 @@ namespace SistemaDoLeoWebService
                 BtnRemoverItem.Enabled = true;
                 BtnCancelar.Enabled = true;
                 BtnSalvar.Enabled = true;
+                BtnRecalcularValores.Enabled = true;
 
                 // CAMPOS
                 TxtID.Enabled = false;
@@ -170,6 +183,7 @@ namespace SistemaDoLeoWebService
                 TxtQuantidadeItem.Enabled = true;
                 TxtDescontoItem.Enabled = true;
                 TxtCustoFinalItem.Enabled = true;
+                BtnRecalcularValores.Enabled = true;
 
                 // PERMISSÃO ADMIN
                 if (operadorLogado.getSetAdmin == false)
@@ -213,6 +227,7 @@ namespace SistemaDoLeoWebService
                 TxtQuantidadeItem.Enabled = false;
                 TxtDescontoItem.Enabled = false;
                 TxtCustoFinalItem.Enabled = false;
+                BtnRecalcularValores.Enabled = false;
 
                 // ALTERA O NOME DO BOTÃO CONFIRMAR
                 BtnSalvar.Text = "Imprimir";
@@ -326,12 +341,28 @@ namespace SistemaDoLeoWebService
                 }
                 else
                 {
-                    LblEstoqueAtual.Text = WebService.GetEstoqueProdutoAsync(ID).Result.ToString();
-                    TxtProduto.Text = produto.getSetID.ToString();
-                    TxtNomeProduto.Text = produto.getSetNome;
-                    TxtCustoItem.Text = produto.getSetCusto.ToString();
-                    TxtQuantidadeItem.Text = "1";
-                    TxtDescontoItem.Text = "0,00";
+                    if (getSetStatusItem == 0)
+                    {
+                        LblEstoqueAtual.Text = WebService.GetEstoqueProdutoAsync(ID).Result.ToString();
+                        TxtProduto.Text = produto.getSetID.ToString();
+                        TxtNomeProduto.Text = produto.getSetNome;
+                        TxtCustoItem.Text = produto.getSetCusto.ToString();
+                        TxtQuantidadeItem.Text = "1";
+                        TxtDescontoItem.Text = "0,00";
+                    }
+                    else
+                    {
+                        string quantidade = GridViewItens.CurrentRow.Cells["Quantidade"].Value.ToString();
+                        int estoque = WebService.GetEstoqueProdutoAsync(ID).Result - Convert.ToInt32(quantidade);
+
+                        LblEstoqueAtual.Text = estoque.ToString();
+                        TxtProduto.Text = GridViewItens.CurrentRow.Cells["Produto"].Value.ToString();
+                        TxtNomeProduto.Text = GridViewItens.CurrentRow.Cells["Nome"].Value.ToString();
+                        TxtCustoItem.Text = GridViewItens.CurrentRow.Cells["Custo"].Value.ToString();
+                        TxtQuantidadeItem.Text = GridViewItens.CurrentRow.Cells["Quantidade"].Value.ToString();
+                        TxtDescontoItem.Text = GridViewItens.CurrentRow.Cells["Desconto"].Value.ToString();
+                        TxtCustoFinalItem.Text = GridViewItens.CurrentRow.Cells["Total"].Value.ToString();
+                    }
 
                     calcularProduto();
                     calculaEstoqueProduto();
@@ -516,13 +547,13 @@ namespace SistemaDoLeoWebService
 
                 EntradaComDados entradaComDados = WebService.GetEntradaComDadosAsync(Convert.ToInt32(TxtID.Text)).Result;
 
-                dtEntrada.Columns.Add("IdEntrada");
+                dtEntrada.Columns.Add("CodPedido");
                 dtEntrada.Columns.Add("Data");
                 dtEntrada.Columns.Add("Cliente");
                 dtEntrada.Columns.Add("FormaPGTO");
-                dtEntrada.Columns.Add("Custo");
-                dtEntrada.Columns.Add("Desconto");
-                dtEntrada.Columns.Add("CustoTotal");
+                dtEntrada.Columns.Add("PedidoValor");
+                dtEntrada.Columns.Add("PedidoDesconto");
+                dtEntrada.Columns.Add("PedidoValorTotal");
 
                 dtEntrada.Rows.Add(entradaComDados.getSetID, entradaComDados.getSetData, entradaComDados.getSetCliente, entradaComDados.getSetFormaPGTO, entradaComDados.getSetCusto, entradaComDados.getSetDesconto, entradaComDados.getSetCustoTotal);
 
@@ -530,10 +561,10 @@ namespace SistemaDoLeoWebService
 
                 dtItens.Columns.Add("ID");
                 dtItens.Columns.Add("Nome");
-                dtItens.Columns.Add("Custo");
+                dtItens.Columns.Add("Valor");
                 dtItens.Columns.Add("Quantidade");
                 dtItens.Columns.Add("Desconto");
-                dtItens.Columns.Add("CustoTotal");
+                dtItens.Columns.Add("ValorTotal");
 
                 foreach (var item in itens)
                 {
@@ -541,7 +572,7 @@ namespace SistemaDoLeoWebService
                 }
 
                 // ABRE O FORMULÁRIO DE IMPESSAO
-                using (var formImpressao = new FormImpressoes(dtEntrada, dtItens))
+                using (var formImpressao = new FormImpressoes(dtEntrada, dtItens, this))
                     formImpressao.ShowDialog();
             }
             catch (Exception ex)
@@ -872,6 +903,11 @@ namespace SistemaDoLeoWebService
                         TxtClienteNome.Text = string.Empty;
                         TxtCliente.Focus();
                     }
+                    else
+                    {
+                        TxtCliente.Text = cliente.getSetID.ToString();
+                        TxtClienteNome.Text = cliente.getSetNome;
+                    }
                 }
                 else
                 {
@@ -881,10 +917,18 @@ namespace SistemaDoLeoWebService
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
-                TxtCliente.Text = string.Empty;
-                TxtClienteNome.Text = string.Empty;
-                TxtCliente.Focus();
+                if (getSetStatus != 2)
+                {
+                    MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+                    TxtCliente.Text = string.Empty;
+                    TxtClienteNome.Text = string.Empty;
+                    TxtCliente.Focus();
+                }
+                else
+                {
+                    TxtCliente.Text = "0";
+                    TxtClienteNome.Text = "[NÃO LOCALIZADO]";
+                }
             }
         }
 
@@ -905,6 +949,11 @@ namespace SistemaDoLeoWebService
                         TxtFormaPGTONome.Text = string.Empty;
                         TxtFormaPGTO.Focus();
                     }
+                    else
+                    {
+                        TxtFormaPGTO.Text = formaPGTO.getSetID.ToString();
+                        TxtFormaPGTONome.Text = formaPGTO.getSetNome;
+                    }
                 }
                 else
                 {
@@ -914,10 +963,18 @@ namespace SistemaDoLeoWebService
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
-                TxtFormaPGTO.Text = string.Empty;
-                TxtFormaPGTONome.Text = string.Empty;
-                TxtFormaPGTO.Focus();
+                if (getSetStatus != 2)
+                {
+                    MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+                    TxtFormaPGTO.Text = string.Empty;
+                    TxtFormaPGTONome.Text = string.Empty;
+                    TxtFormaPGTO.Focus();
+                }
+                else
+                {
+                    TxtFormaPGTO.Text = "0";
+                    TxtFormaPGTONome.Text = "[NÃO LOCALIZADO]";
+                }
             }
         }
 
@@ -929,10 +986,30 @@ namespace SistemaDoLeoWebService
             pesquisa.FormClosed += (sender, e) =>
             {
                 formMain.Enabled = true;
-                TxtID.Focus();
+                retornoPesquisa(pesquisa.getSetCodigo);
             };
 
             pesquisa.Show();
+        }
+
+        private void retornoPesquisa(int pesquisa)
+        {
+            if (pesquisa == 0) // PESQUISA CLIENTE
+            {
+                TxtCliente.Focus();
+            }
+            else if (pesquisa == 1) // PESQUISA PRODUTO
+            {
+                TxtProduto.Focus();
+            }
+            else if (pesquisa == 3) // PESQUISA FORMA PGTO
+            {
+                TxtFormaPGTO.Focus();
+            }
+            else if (pesquisa == 6) // PESQUISA ENTRADA
+            {
+                TxtID.Focus();
+            }
         }
 
         private void BtnID_Click(object sender, EventArgs e)
@@ -955,7 +1032,19 @@ namespace SistemaDoLeoWebService
                 }
                 else
                 {
+                    int ID;
+
+                    if (getSetStatusItem == 0)
+                    {
+                        ID = -1;
+                    }
+                    else
+                    {
+                        ID = Convert.ToInt32(GridViewItens.CurrentRow.Cells["ID"].Value);
+                    }
+
                     EntradaItens item = new EntradaItens();
+                    item.getSetItemID = ID;
                     item.getSetEntradaID = Convert.ToInt32(TxtID.Text);
                     item.getSetProduto = Convert.ToInt32(TxtProduto.Text);
                     item.getSetItemCusto = Convert.ToDouble(TxtCustoItem.Text);
@@ -965,7 +1054,17 @@ namespace SistemaDoLeoWebService
 
                     adicionarItem(item);
 
-                    MessageBox.Show("Item adicionado com Sucesso!", FormNome);
+                    if (getSetStatusItem == 0)
+                    {
+                        MessageBox.Show("Item adicionado com Sucesso!", FormNome);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Item alterado com Sucesso!", FormNome);
+                    }
+
+                    getSetStatusItem = 0; // 0 -> MODO ADICIONAR PRODUTO
+                    validarProduto();
 
                     // PREENCHE O GRID COM OS ITENS DO PEDIDO
                     PreencherGridItens(item.getSetEntradaID);
@@ -990,23 +1089,34 @@ namespace SistemaDoLeoWebService
 
         private void BtnRemoverItem_Click(object sender, EventArgs e)
         {
-            if (GridViewItens.CurrentRow != null)
+            if (getSetStatusItem == 0)
             {
-                //MessageBox.Show(GridViewItens.CurrentRow.Cells["IDItemPedido"].Value.ToString());
-                excluirItem(Convert.ToInt32(GridViewItens.CurrentRow.Cells["ID"].Value));
+                if (GridViewItens.CurrentRow != null)
+                {
+                    //MessageBox.Show(GridViewItens.CurrentRow.Cells["IDItemPedido"].Value.ToString());
+                    excluirItem(Convert.ToInt32(GridViewItens.CurrentRow.Cells["ID"].Value));
 
-                // PREENCHE O GRID COM OS ITENS DO PEDIDO
-                PreencherGridItens(Convert.ToInt32(TxtID.Text));
+                    // PREENCHE O GRID COM OS ITENS DO PEDIDO
+                    PreencherGridItens(Convert.ToInt32(TxtID.Text));
 
-                // ATUALIZA O CUSTO DO PEDIDO
-                atualizarCustoExclusaoItem();
+                    // ATUALIZA O CUSTO DO PEDIDO
+                    atualizarCustoExclusaoItem();
 
-                // FOCO NOVAMENTE PARA O TXT PRODUTO
-                TxtProduto.Focus();
+                    // FOCO NOVAMENTE PARA O TXT PRODUTO
+                    TxtProduto.Focus();
+                }
+                else
+                {
+                    MessageBox.Show("Selecione um item para Excluír!", FormNome);
+                }
             }
             else
             {
-                MessageBox.Show("Selecione um item para Excluír!", FormNome);
+                getSetStatusItem = 0; // 0 -> NOVO ITEM
+                validarProduto();
+
+                limpaCamposItem();
+                limpaCamposEstoque();
             }
         }
 
@@ -1025,7 +1135,9 @@ namespace SistemaDoLeoWebService
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{ex.Message} - {ex.Source}", FormNome);
+                // MessageBox.Show($"{ex.Message} - {ex.Source}", FormNome);
+                TxtCusto.Text = "0,00";
+                calcularEntrada();
             }
         }
 
@@ -1590,9 +1702,19 @@ namespace SistemaDoLeoWebService
 
         private void FormEntrada_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F3) // F3
+            if (getSetStatus != 2)
             {
-                TxtCusto.Focus();
+                if (e.KeyCode == Keys.F3) // F3
+                {
+                    TxtCusto.Focus();
+                }
+            }
+            else
+            {
+                if (e.KeyCode == Keys.F2) // F2
+                {
+                    BtnNovo_Click(sender, e);
+                }
             }
         }
 
@@ -1627,6 +1749,53 @@ namespace SistemaDoLeoWebService
         private void TxtCusto_Leave(object sender, EventArgs e)
         {
             calcularEntrada();
+        }
+
+        private void GridViewItens_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (getSetStatus != 2)
+            {
+                getSetStatusItem = 1; // 1 -> MODO EDIÇÃO
+                validarProduto();
+                preencheProduto(Convert.ToInt32(GridViewItens.CurrentRow.Cells["Produto"].Value));
+                TxtCustoItem.Focus();
+            }
+        }
+
+        private void validarProduto()
+        {
+            if (getSetStatusItem == 0) // Novo
+            {
+                TxtProduto.Enabled = true;
+                BtnProduto.Enabled = true;
+                BtnAdicionarItem.Text = "Inserir";
+                BtnRemoverItem.Text = "Remover";
+            }
+            else // EDIÇÃO
+            {
+                TxtProduto.Enabled = false;
+                BtnProduto.Enabled = false;
+                BtnAdicionarItem.Text = "Alterar";
+                BtnRemoverItem.Text = "Cancelar";
+            }
+        }
+
+        private void BtnRecalcularValores_Click(object sender, EventArgs e)
+        {
+            var validar = MessageBox.Show("Gostaria de recalcular os Custos do Pedido?", FormNome, MessageBoxButtons.YesNo);
+
+            if (validar == System.Windows.Forms.DialogResult.Yes)
+            {
+                // FUNÇÃO PARA CALCULAR O VALOR DO PEDIDO
+                getCustoEntrada();
+                calcularEntrada();
+
+                TxtCusto.Focus();
+            }
+            else
+            {
+                TxtCusto.Focus();
+            }
         }
     }
 }

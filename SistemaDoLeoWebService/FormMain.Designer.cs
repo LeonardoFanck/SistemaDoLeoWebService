@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             menuStrip1 = new MenuStrip();
             MenuMainTelasDeAcesso = new ToolStripMenuItem();
             MenuMainPedidos = new ToolStripMenuItem();
@@ -36,13 +37,13 @@
             MenuMainCadastroFormaPGTO = new ToolStripMenuItem();
             MenuMainCadastroCategoria = new ToolStripMenuItem();
             MenuMainCadastroOperador = new ToolStripMenuItem();
+            MenuMainEntradas = new ToolStripMenuItem();
             MenuMainRelatorios = new ToolStripMenuItem();
             relatorioGeralDePedidosToolStripMenuItem = new ToolStripMenuItem();
             MenuMainConfiguraçõesDoSistema = new ToolStripMenuItem();
             configuraçõesGeraisToolStripMenuItem = new ToolStripMenuItem();
             MenuMainSobre = new ToolStripMenuItem();
             MenuMainInfoSistemaDoLeo = new ToolStripMenuItem();
-            MenuMainEntradas = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -110,6 +111,14 @@
             MenuMainCadastroOperador.Visible = false;
             MenuMainCadastroOperador.Click += MenuMainCadastroOperador_Click;
             // 
+            // MenuMainEntradas
+            // 
+            MenuMainEntradas.Name = "MenuMainEntradas";
+            MenuMainEntradas.Size = new Size(226, 22);
+            MenuMainEntradas.Text = "Entradas";
+            MenuMainEntradas.Visible = false;
+            MenuMainEntradas.Click += MenuMainEntradas_Click;
+            // 
             // MenuMainRelatorios
             // 
             MenuMainRelatorios.DropDownItems.AddRange(new ToolStripItem[] { relatorioGeralDePedidosToolStripMenuItem });
@@ -152,13 +161,6 @@
             MenuMainInfoSistemaDoLeo.Text = "Info. Sistema do Leo";
             MenuMainInfoSistemaDoLeo.Click += infoSistemaDoLeoToolStripMenuItem_Click;
             // 
-            // MenuMainEntradas
-            // 
-            MenuMainEntradas.Name = "MenuMainEntradas";
-            MenuMainEntradas.Size = new Size(226, 22);
-            MenuMainEntradas.Text = "Entradas";
-            MenuMainEntradas.Click += MenuMainEntradas_Click;
-            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -166,6 +168,7 @@
             ClientSize = new Size(1160, 626);
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
             Name = "FormMain";

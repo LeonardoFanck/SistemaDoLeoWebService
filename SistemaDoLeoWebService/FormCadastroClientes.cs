@@ -73,6 +73,7 @@ namespace SistemaDoLeoWebService
                 TxtMDocumento.Text = cliente.getSetCPF;
                 TxtEmail.Text = cliente.getSetEmail;
                 TxtMDtNasc.Text = cliente.getSetDtNascimento;
+                TxtCEP.Text = cliente.getSetCEP;
                 CBoxUF.Text = cliente.getSetEstado;
                 TxtCidade.Text = cliente.getSetCidade;
                 TxtBairro.Text = cliente.getSetBairro;

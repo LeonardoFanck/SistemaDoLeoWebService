@@ -7,14 +7,21 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>True</UseWPF>
+    <ApplicationIcon>Imagens\business_cash_coin_dollar_finance_money_payment_icon_123244.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Relatorios\ImpressaoEntrada.rdlc" />
     <None Remove="Relatorios\ImpressaoListaPedidos.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Imagens\business_cash_coin_dollar_finance_money_payment_icon_123244.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Relatorios\ImpressaoListaPedidos.rdlc" />
+    <EmbeddedResource Include="Relatorios\ImpressaoEntrada.rdlc" />
     <EmbeddedResource Include="Relatorios\ImpressaoPedido.rdlc" />
   </ItemGroup>
 

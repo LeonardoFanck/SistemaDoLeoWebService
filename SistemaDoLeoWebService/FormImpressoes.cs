@@ -15,11 +15,18 @@ namespace SistemaDoLeoWebService
     public partial class FormImpressoes : Form
     {
         // UTILIZADO NA IMPRESSÃO DE PEDIDOS
-        public FormImpressoes(DataTable pedido, DataTable itens)
+        public FormImpressoes(DataTable pedido, DataTable itens, object tela)
         {
             InitializeComponent();
 
-            reportViewer1.LocalReport.ReportEmbeddedResource = @"SistemaDoLeoWebService.Relatorios.ImpressaoPedido.rdlc";
+            if (tela.ToString().Equals("SistemaDoLeoWebService.FormPedido, Text: Pedidos"))
+            {
+                reportViewer1.LocalReport.ReportEmbeddedResource = @"SistemaDoLeoWebService.Relatorios.ImpressaoPedido.rdlc";
+            }
+            else if (tela.ToString().Equals("SistemaDoLeoWebService.FormEntrada, Text: Pedido Entrada"))
+            {
+                reportViewer1.LocalReport.ReportEmbeddedResource = @"SistemaDoLeoWebService.Relatorios.ImpressaoEntrada.rdlc";
+            }
 
             reportViewer1.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
             reportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WinForms.ReportDataSource("Pedido", pedido));

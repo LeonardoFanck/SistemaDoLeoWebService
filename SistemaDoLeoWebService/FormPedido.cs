@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -58,6 +59,8 @@ namespace SistemaDoLeoWebService
 
             this.Text = FormNome;
 
+            configToolTipBotoes();
+
             // LIMPA OS CAMPOS DO ESTOQUE
             limpaCamposEstoque();
 
@@ -67,6 +70,14 @@ namespace SistemaDoLeoWebService
             getSetStatus = 2; // 2 -> Visualização
             validarAcoes();  // 0 -> Novo | 1 -> Edição | 2 -> Visualização
             ultimoRegistro();
+        }
+
+        private void configToolTipBotoes()
+        {
+            ToolTip toolTip = new ToolTip();
+
+            // BTN LIBERAÇÃO
+            toolTip.SetToolTip(BtnLiberarPedido, "Liberação para Alterar o Valor dos Produtos");
         }
 
         private void validarAcoes()
@@ -87,6 +98,8 @@ namespace SistemaDoLeoWebService
                 BtnRemoverItem.Enabled = true;
                 BtnCancelar.Enabled = true;
                 BtnSalvar.Enabled = true;
+                BtnLiberarPedido.Enabled = true;
+                BtnRecalcularValores.Enabled = true;
 
                 // CAMPOS
                 TxtID.Enabled = false;
@@ -103,14 +116,8 @@ namespace SistemaDoLeoWebService
                 TxtDescontoItem.Enabled = true;
                 TxtValorFinalItem.Enabled = true;
 
-                // PERMISSÃO ADMIN
-                if (operadorLogado.getSetAdmin == false)
-                {
-                    BtnLiberarPedido.Visible = true;
-                }
-
                 // VALIDAR CONFIGURAÇÕES
-                if (configuracoes.getSetAlterarValorItem == false)
+                if (!configuracoes.getSetAlterarValorItem)
                 {
                     TxtValorItem.ReadOnly = true;
                 }
@@ -145,6 +152,8 @@ namespace SistemaDoLeoWebService
                 BtnRemoverItem.Enabled = true;
                 BtnCancelar.Enabled = true;
                 BtnSalvar.Enabled = true;
+                BtnLiberarPedido.Enabled = true;
+                BtnRecalcularValores.Enabled = true;
 
                 // CAMPOS
                 TxtID.Enabled = false;
@@ -167,6 +176,16 @@ namespace SistemaDoLeoWebService
                     BtnLiberarPedido.Visible = true;
                 }
 
+                // VALIDAR CONFIGURAÇÕES
+                if (!configuracoes.getSetAlterarValorItem)
+                {
+                    TxtValorItem.ReadOnly = true;
+                }
+
+                // ALTERA O PRODUTO PARA DESATIVAR TODOS OS CAMPOS
+                TxtProduto.Text = "1";
+                TxtProduto.Text = string.Empty;
+
                 // ALTERA O NOME DO BOTÃO CONFIRMAR
                 BtnSalvar.Text = "Salvar";
 
@@ -188,6 +207,8 @@ namespace SistemaDoLeoWebService
                 BtnAdicionarItem.Enabled = false;
                 BtnRemoverItem.Enabled = false;
                 BtnCancelar.Enabled = false;
+                BtnLiberarPedido.Enabled = false;
+                BtnRecalcularValores.Enabled = false;
 
                 // CAMPOS
                 TxtID.Enabled = true;
@@ -669,7 +690,7 @@ namespace SistemaDoLeoWebService
                 }
 
                 // ABRE O FORMULÁRIO DE IMPESSAO
-                using (var formImpressao = new FormImpressoes(dtPedido, dtItens))
+                using (var formImpressao = new FormImpressoes(dtPedido, dtItens, this))
                     formImpressao.ShowDialog();
             }
             catch (Exception ex)
@@ -1180,6 +1201,9 @@ namespace SistemaDoLeoWebService
                     // PREENCHE O GRID COM OS ITENS DO PEDIDO
                     PreencherGridPedidos(Convert.ToInt32(TxtID.Text));
 
+                    // ATUALIZA O VALOR DO PEDIDO
+                    atualizarValorExclusaoItem();
+
                     // FOCO NOVAMENTE PARA O TXT PRODUTO
                     TxtProduto.Focus();
                 }
@@ -1195,6 +1219,27 @@ namespace SistemaDoLeoWebService
 
                 limpaCamposItem();
                 limpaCamposEstoque();
+            }
+        }
+
+        private void atualizarValorExclusaoItem()
+        {
+            try
+            {
+                var WebService = new ServiceReference1.Service1Client();
+                DialogResult validar;
+                int ID = Convert.ToInt32(TxtID.Text);
+
+                TxtValor.Text = WebService.VerificarValorPedidoAsync(ID).Result.ToString();
+
+                // ATUALIZA O VALOR TOTAL
+                calcularPedido();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show($"{ex.Message} - {ex.Source}", FormNome);
+                TxtValor.Text = "0,00";
+                calcularPedido();
             }
         }
 
@@ -1495,10 +1540,19 @@ namespace SistemaDoLeoWebService
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
-                TxtCliente.Text = string.Empty;
-                TxtClienteNome.Text = string.Empty;
-                TxtCliente.Focus();
+                if (getSetStatus != 2)
+                {
+                    MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+                    TxtCliente.Text = string.Empty;
+                    TxtClienteNome.Text = string.Empty;
+                    TxtCliente.Focus();
+                }
+                else
+                {
+                    TxtCliente.Text = "0";
+                    TxtClienteNome.Text = "[NÃO LOCALIZADO]";
+                }
+
             }
         }
 
@@ -1541,10 +1595,18 @@ namespace SistemaDoLeoWebService
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
-                TxtFormaPGTO.Text = string.Empty;
-                TxtFormaPGTONome.Text = string.Empty;
-                TxtFormaPGTO.Focus();
+                if (getSetStatus != 2)
+                {
+                    MessageBox.Show(ex.Message + " - " + ex.Source, FormNome);
+                    TxtFormaPGTO.Text = string.Empty;
+                    TxtFormaPGTONome.Text = string.Empty;
+                    TxtFormaPGTO.Focus();
+                }
+                else
+                {
+                    TxtFormaPGTO.Text = "0";
+                    TxtFormaPGTONome.Text = "[NÃO LOCALIZADO]";
+                }
             }
         }
 
@@ -1575,9 +1637,19 @@ namespace SistemaDoLeoWebService
 
         private void FormPedido_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F3) // F3
+            if (getSetStatus != 2)
             {
-                TxtValor.Focus();
+                if (e.KeyCode == Keys.F3) // F3
+                {
+                    TxtValor.Focus();
+                }
+            }
+            else
+            {
+                if (e.KeyCode == Keys.F2) // F2
+                {
+                    BtnNovo_Click(sender, e);
+                }
             }
         }
 
@@ -1597,15 +1669,30 @@ namespace SistemaDoLeoWebService
             pesquisa.FormClosed += (sender, e) =>
             {
                 formMain.Enabled = true;
-                retornoPesquisa();
+                retornoPesquisa(pesquisa.getSetCodigo);
             };
 
             pesquisa.Show();
         }
 
-        private void retornoPesquisa()
+        private void retornoPesquisa(int pesquisa)
         {
-            SendKeys.Send("+{TAB}");
+            if (pesquisa == 0) // PESQUISA CLIENTE
+            {
+                TxtCliente.Focus();
+            }
+            else if (pesquisa == 1) // PESQUISA PRODUTO
+            {
+                TxtProduto.Focus();
+            }
+            else if (pesquisa == 2) // PESQUISA PEDIDO
+            {
+                TxtID.Focus();
+            }
+            else if (pesquisa == 3) // PESQUISA FORMA PGTO
+            {
+                TxtFormaPGTO.Focus();
+            }
         }
 
         private void GridViewItens_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -1616,6 +1703,18 @@ namespace SistemaDoLeoWebService
         private void BtnLiberarPedido_Click(object sender, EventArgs e)
         {
             // CHAMA A TELA DE LIBERAÇÃO
+            FormValidacaoOperador form = new FormValidacaoOperador(this);
+
+            formMain.Enabled = false;
+
+            // FUNÇÃO PARA QUANDO FECHAR O CONFIGURAÇÕES GERAIS, ATIVAR NOVAMENTE O FORMA MAIN
+            form.FormClosed += (sender, e) =>
+            {
+                formMain.Enabled = true;
+                TxtValorItem.Focus();
+            };
+
+            form.Show();
         }
 
         private void BtnCliente_Click(object sender, EventArgs e)
@@ -1706,6 +1805,32 @@ namespace SistemaDoLeoWebService
                 validarProduto();
                 preencheProduto(Convert.ToInt32(GridViewItens.CurrentRow.Cells["IDProduto"].Value));
                 TxtValorItem.Focus();
+            }
+        }
+
+        public void liberarPedido(bool validar)
+        {
+            if (validar)
+            {
+                TxtValorItem.ReadOnly = false;
+            }
+        }
+
+        private void BtnRecalcularValores_Click(object sender, EventArgs e)
+        {
+            var validar = MessageBox.Show("Gostaria de recalcular os Valores do Pedido?", FormNome, MessageBoxButtons.YesNo);
+
+            if (validar == System.Windows.Forms.DialogResult.Yes)
+            {
+                // FUNÇÃO PARA CALCULAR O VALOR DO PEDIDO
+                getValorPedido();
+                calcularPedido();
+
+                TxtValor.Focus();
+            }
+            else
+            {
+                TxtValor.Focus();
             }
         }
     }
