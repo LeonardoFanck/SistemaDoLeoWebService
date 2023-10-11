@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.ServiceModel.Security.Tokens;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -130,12 +131,6 @@ namespace SistemaDoLeoWebService
                 if (operadorLogado.getSetAdmin == false)
                 {
                     BtnLiberarPedido.Visible = true;
-                }
-
-                // VALIDAR CONFIGURAÇÕES
-                if (configuracoes.getSetAlterarValorItem == false)
-                {
-                    TxtCustoItem.ReadOnly = true;
                 }
 
                 // ALTERA O NOME DO BOTÃO CONFIRMAR
@@ -1026,9 +1021,10 @@ namespace SistemaDoLeoWebService
             {
                 int estoque = Convert.ToInt32(LblNovoEstoque.Text);
 
-                if (configuracoes.getSetVendaItemNegativo == false && estoque < 0)
+                if (Convert.ToInt32(TxtQuantidadeItem.Text) == 0)
                 {
-                    MessageBox.Show("Estoque insuficiente!", FormNome);
+                    MessageBox.Show("Quantidade do Produto não pode ser 0!", FormNome);
+                    TxtQuantidadeItem.Focus();
                 }
                 else
                 {
@@ -1683,20 +1679,13 @@ namespace SistemaDoLeoWebService
 
         private void TxtDescontoItem_TextChanged(object sender, EventArgs e)
         {
-            if (configuracoes.getSetMaxDescontoItensPedido == -1)
+            if (TxtDescontoItem.Text == "")
             {
-                if (TxtDescontoItem.Text == "")
-                {
 
-                }
-                else if (Convert.ToDouble(TxtDescontoItem.Text) > 100)
-                {
-                    TxtDescontoItem.Text = "100,00";
-                }
             }
-            else if (Convert.ToDouble(TxtDescontoItem.Text) > configuracoes.getSetMaxDescontoItensPedido)
+            else if (Convert.ToDouble(TxtDescontoItem.Text) > 100)
             {
-                TxtDescontoItem.Text = configuracoes.getSetMaxDescontoItensPedido.ToString();
+                TxtDescontoItem.Text = "100,00";
             }
         }
 
@@ -1743,6 +1732,14 @@ namespace SistemaDoLeoWebService
 
         private void TxtDesconto_Leave(object sender, EventArgs e)
         {
+            if (TxtDesconto.Text != string.Empty)
+            {
+                if (Convert.ToInt32(TxtDesconto.Text) > 100)
+                {
+                    TxtDesconto.Text = "100,00";
+                }
+            }
+
             calcularEntrada();
         }
 

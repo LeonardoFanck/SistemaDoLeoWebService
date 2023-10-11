@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             BtnAvancar = new Button();
             BtnVoltar = new Button();
             BtnAlterar = new Button();
@@ -255,6 +255,7 @@
             TxtValor.Name = "TxtValor";
             TxtValor.Size = new Size(100, 23);
             TxtValor.TabIndex = 15;
+            TxtValor.TextChanged += TxtValor_TextChanged;
             TxtValor.KeyPress += TxtValor_KeyPress;
             TxtValor.Leave += TxtValor_Leave;
             // 
@@ -320,31 +321,31 @@
             // 
             GridViewItens.AllowUserToAddRows = false;
             GridViewItens.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
-            GridViewItens.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(224, 224, 224);
+            GridViewItens.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             GridViewItens.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             GridViewItens.Columns.AddRange(new DataGridViewColumn[] { IDItemPedido, PedidoID, IDProduto, NomeProduto, Valor, Quantidade, Desconto, ValorTotal });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.ScrollBar;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.MenuHighlight;
-            dataGridViewCellStyle2.SelectionForeColor = Color.White;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            GridViewItens.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.ScrollBar;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.MenuHighlight;
+            dataGridViewCellStyle5.SelectionForeColor = Color.White;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            GridViewItens.DefaultCellStyle = dataGridViewCellStyle5;
             GridViewItens.GridColor = SystemColors.Window;
             GridViewItens.Location = new Point(14, 129);
             GridViewItens.MultiSelect = false;
             GridViewItens.Name = "GridViewItens";
             GridViewItens.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = Color.White;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            GridViewItens.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = Color.White;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            GridViewItens.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             GridViewItens.RowTemplate.Height = 25;
             GridViewItens.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             GridViewItens.Size = new Size(660, 308);
@@ -470,6 +471,7 @@
             BtnLiberarPedido.TabStop = false;
             BtnLiberarPedido.Text = "$";
             BtnLiberarPedido.UseVisualStyleBackColor = true;
+            BtnLiberarPedido.Click += BtnLiberarPedido_Click;
             // 
             // groupBox2
             // 
@@ -599,6 +601,7 @@
             TxtDescontoItem.Size = new Size(100, 23);
             TxtDescontoItem.TabIndex = 12;
             TxtDescontoItem.TextChanged += TxtDescontoItem_TextChanged;
+            TxtDescontoItem.Enter += TxtDescontoItem_Enter;
             TxtDescontoItem.KeyPress += TxtDescontoItem_KeyPress;
             TxtDescontoItem.Leave += TxtDescontoItem_Leave;
             // 

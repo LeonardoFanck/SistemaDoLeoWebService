@@ -274,6 +274,13 @@ namespace SistemaDoLeoWebService
                 }
                 else if (codigo == 3) // LISTA FORMA PGTO
                 {
+                    // VALIDA SE VAI BUSCAR OS REGISTROS INATIVOS OU NÃO
+                    // SOMENTE A TELA DE CADASTRO DE FORMA PGTO BUSCA INATIVO
+                    if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormCadastroFormaPGTO, Text: Cadastro Forma de Pagamentos")
+                    {
+                        buscaInativo = true;
+                    }
+
                     List<FormaPGTO> listaFormaPGTO = new List<FormaPGTO>(WebService.GetListaFormaPGTOAsync(ComboBoxTipo.SelectedItem.ToString(), pesquisa, buscaInativo).Result);
 
                     foreach (var item in listaFormaPGTO)
@@ -317,6 +324,13 @@ namespace SistemaDoLeoWebService
                 }
                 else if (codigo == 5) // LISTA OPERADOR
                 {
+                    // VALIDA SE VAI BUSCAR OS REGISTROS INATIVOS OU NÃO
+                    // SOMENTE A TELA DE CADASTRO DE OPERADR BUSCA INATIVO
+                    if (TelaFonte.ToString() == "SistemaDoLeoWebService.FormCadastroOperador, Text: Cadastro Operador")
+                    {
+                        buscaInativo = true;
+                    }
+
                     List<Operador> listaOperador = new List<Operador>(WebService.GetListaOperadorAsync(ComboBoxTipo.SelectedItem.ToString(), pesquisa, buscaInativo).Result);
 
                     foreach (var item in listaOperador)

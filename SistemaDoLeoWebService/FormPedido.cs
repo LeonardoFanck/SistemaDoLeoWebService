@@ -847,7 +847,6 @@ namespace SistemaDoLeoWebService
                 limpaCamposItem();
                 limpaCamposEstoque();
             }
-
         }
 
         private void TxtValorItem_KeyPress(object sender, KeyPressEventArgs e)
@@ -921,6 +920,22 @@ namespace SistemaDoLeoWebService
         {
             if (TxtProduto.Text != string.Empty)
             {
+                if (configuracoes.getSetMaxDescontoItensPedido == -1)
+                {
+                    if (Convert.ToDouble(TxtDescontoItem.Text) > 100)
+                    {
+                        TxtDescontoItem.Text = "100,00";
+                    }
+                }
+                else
+                {
+                    if (Convert.ToDouble(TxtDescontoItem.Text) > configuracoes.getSetMaxDescontoItensPedido)
+                    {
+                        TxtDescontoItem.Text = configuracoes.getSetMaxDescontoItensPedido.ToString();
+                    }
+
+                }
+
                 TxtDescontoItem.Text = Convert.ToDecimal(TxtDescontoItem.Text).ToString("N2");
 
                 calcularProduto();
@@ -979,6 +994,11 @@ namespace SistemaDoLeoWebService
                 {
                     MessageBox.Show("Estoque insuficiente!", FormNome);
                 }
+                else if (Convert.ToInt32(TxtQuantidadeItem.Text) == 0)
+                {
+                    MessageBox.Show("Quantidade do Produto não pode ser 0!", FormNome);
+                    TxtQuantidadeItem.Focus();
+                }
                 else
                 {
                     int ID;
@@ -1025,6 +1045,9 @@ namespace SistemaDoLeoWebService
                     // FUNÇÃO PARA CALCULAR O VALOR DO PEDIDO
                     getValorPedido();
                     calcularPedido();
+
+                    // SEMPRE BLOQUEIA NOVAMENTE O CAMPO DE ALTERAÇÃO DE PREÇOS
+                    TxtValorItem.ReadOnly = true;
 
                     // FOCO NOVAMENTE PARA O TXT PRODUTO
                     TxtProduto.Focus();
@@ -1120,21 +1143,7 @@ namespace SistemaDoLeoWebService
 
         private void TxtDescontoItem_TextChanged(object sender, EventArgs e)
         {
-            if (configuracoes.getSetMaxDescontoItensPedido == -1)
-            {
-                if (TxtDescontoItem.Text == "")
-                {
 
-                }
-                else if (Convert.ToDouble(TxtDescontoItem.Text) > 100)
-                {
-                    TxtDescontoItem.Text = "100,00";
-                }
-            }
-            else if (Convert.ToDouble(TxtDescontoItem.Text) > configuracoes.getSetMaxDescontoItensPedido)
-            {
-                TxtDescontoItem.Text = configuracoes.getSetMaxDescontoItensPedido.ToString();
-            }
         }
 
         private void TxtQuantidadeItem_TextChanged(object sender, EventArgs e)
@@ -1617,6 +1626,22 @@ namespace SistemaDoLeoWebService
 
         private void TxtDesconto_Leave(object sender, EventArgs e)
         {
+            if (configuracoes.getSetMaxDescontoPedido == -1)
+            {
+                if (Convert.ToDouble(TxtDesconto.Text) > 100)
+                {
+                    TxtDesconto.Text = "100,00";
+                }
+            }
+            else
+            {
+                if (Convert.ToDouble(TxtDesconto.Text) > configuracoes.getSetMaxDescontoPedido)
+                {
+                    TxtDesconto.Text = configuracoes.getSetMaxDescontoPedido.ToString();
+                }
+
+            }
+
             calcularPedido();
         }
 
@@ -1832,6 +1857,16 @@ namespace SistemaDoLeoWebService
             {
                 TxtValor.Focus();
             }
+        }
+
+        private void TxtValor_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtDescontoItem_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

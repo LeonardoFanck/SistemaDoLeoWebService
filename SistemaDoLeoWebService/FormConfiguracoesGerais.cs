@@ -234,7 +234,9 @@ namespace SistemaDoLeoWebService
 
         private void FormConfiguracoesGerais_KeyPress(object sender, KeyPressEventArgs e)
         {
-            this.Close();
+            if (e.KeyChar == (char)Keys.Escape) {
+                this.Close();
+            }
         }
     }
 }
