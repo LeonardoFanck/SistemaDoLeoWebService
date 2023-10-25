@@ -585,7 +585,7 @@ namespace SistemaDoLeoWebService
 
                 double valor = WebService.VerificarValorPedidoAsync(ID).Result;
 
-                if (valor == pedido.getSetValorTotal)
+                if (valor == pedido.getSetValor)
                 {
                     finalizarPedido(pedido);
                 }
